@@ -5,6 +5,6 @@ public class Casilla {
 	private Estado estado;
 	
 	public Casilla(Coordenada pCoordenada){
-		
+		this.coordenada = pCoordenada;
 	}
 }
