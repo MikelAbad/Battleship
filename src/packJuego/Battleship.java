@@ -5,6 +5,7 @@ public class Battleship {
 	
 	public static void main(String[] args) throws Exception {
 		
+		jugar();
 	}
 
 	private Battleship(){}
@@ -14,5 +15,9 @@ public class Battleship {
 			theBattleship = new Battleship();
 		}
 		return theBattleship;
+	}
+	
+	private static void jugar() {
+	
 	}
 }

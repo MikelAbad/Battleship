@@ -33,7 +33,7 @@ public class inicio extends JFrame {
 	private JPanel panel_2;
 	private JLabel lblColoqueTodosLos;
 	private JToggleButton tglbtnNewToggleButton;
-	private JLabel lblHorientacion;
+	private JLabel lblOrientacion;
 
 	/**
 	 * Launch the application.
@@ -77,7 +77,7 @@ public class inicio extends JFrame {
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
 				JButton btn = new JButton();
-				btn.setName(i + " " + j);
+				btn.setName(i + "," + j);
 				tablero[i][j] = btn;
 
 				panel.add(btn);
@@ -92,7 +92,7 @@ public class inicio extends JFrame {
 				lblFragata = new JLabel("Fragata");
 			}
 			{
-				btnBtnfragata = new JButton("btnFragata");
+				btnBtnfragata = new JButton("Fragata");
 			}
 			lblDestructor = new JLabel("Destructor");
 			GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -109,7 +109,7 @@ public class inicio extends JFrame {
 									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 											.addComponent(btnBtnfragata).addComponent(getBtnBtndestructor())))
 							.addGroup(gl_panel_1.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(getLblHorientacion()).addGap(24).addComponent(
+									.addComponent(getLblOrientacion()).addGap(24).addComponent(
 											getTglbtnNewToggleButton(), GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panel_1.createSequentialGroup().addComponent(getLblPortaviones())
 									.addPreferredGap(ComponentPlacement.RELATED).addComponent(getBtnBtnportaviones())))
@@ -129,7 +129,7 @@ public class inicio extends JFrame {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(getLblPortaviones())
 							.addComponent(getBtnBtnportaviones()))
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup().addGap(49).addComponent(getLblHorientacion()))
+							.addGroup(gl_panel_1.createSequentialGroup().addGap(49).addComponent(getLblOrientacion()))
 							.addGroup(gl_panel_1.createSequentialGroup().addGap(32).addComponent(
 									getTglbtnNewToggleButton(), GroupLayout.PREFERRED_SIZE, 47,
 									GroupLayout.PREFERRED_SIZE)))
@@ -141,7 +141,7 @@ public class inicio extends JFrame {
 
 	private JButton getBtnBtndestructor() {
 		if (btnBtndestructor == null) {
-			btnBtndestructor = new JButton("btnDestructor");
+			btnBtndestructor = new JButton("Destructor");
 		}
 		return btnBtndestructor;
 	}
@@ -155,7 +155,7 @@ public class inicio extends JFrame {
 
 	private JButton getBtnBtnsubmarino() {
 		if (btnBtnsubmarino == null) {
-			btnBtnsubmarino = new JButton("btnSubmarino");
+			btnBtnsubmarino = new JButton("Submarino");
 		}
 		return btnBtnsubmarino;
 	}
@@ -169,7 +169,7 @@ public class inicio extends JFrame {
 
 	private JButton getBtnBtnportaviones() {
 		if (btnBtnportaviones == null) {
-			btnBtnportaviones = new JButton("btnPortaviones");
+			btnBtnportaviones = new JButton("Portaviones");
 		}
 		return btnBtnportaviones;
 	}
@@ -200,10 +200,10 @@ public class inicio extends JFrame {
 		return tglbtnNewToggleButton;
 	}
 
-	private JLabel getLblHorientacion() {
-		if (lblHorientacion == null) {
-			lblHorientacion = new JLabel("Horientacion:");
+	private JLabel getLblOrientacion() {
+		if (lblOrientacion == null) {
+			lblOrientacion = new JLabel("Orientacion:");
 		}
-		return lblHorientacion;
+		return lblOrientacion;
 	}
 }

@@ -1,4 +1,4 @@
-package packTablero;
+package packCoordenadas;
 
 public class Coordenada {
 	private int x;
