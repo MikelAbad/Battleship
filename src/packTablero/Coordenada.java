@@ -1,4 +1,4 @@
-package packCasillas;
+package packTablero;
 
 public class Coordenada {
 	private int x;
