@@ -1,41 +1,36 @@
 package packModelo.packCoordenada;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListaCoordenadas {
+	private List<Coordenada> listaCoordenadas;
 
-	private ArrayList<Coordenada> listaCoordenadas;
-
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
+	public ListaCoordenadas() {
+		listaCoordenadas = new ArrayList<Coordenada>();
+	}
+	
 	public void addCoordenada(Coordenada pCoordenada) {
-		// TODO - implement ListaCoordenadas.addCoordenada
-		throw new UnsupportedOperationException();
+		if (!listaCoordenadas.contains(pCoordenada)) {
+			listaCoordenadas.add(pCoordenada);
+		}
 	}
 
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
 	public void delCoordenada(Coordenada pCoordenada) {
-		// TODO - implement ListaCoordenadas.delCoordenada
-		throw new UnsupportedOperationException();
+		if (listaCoordenadas.contains(pCoordenada)) {
+			listaCoordenadas.remove(pCoordenada);
+		}
 	}
 
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
 	public boolean contains(Coordenada pCoordenada) {
-		// TODO - implement ListaCoordenadas.contains
-		throw new UnsupportedOperationException();
+		return listaCoordenadas.contains(pCoordenada);
 	}
 
 	public int numCoordenadas() {
-		// TODO - implement ListaCoordenadas.numCoordenadas
-		throw new UnsupportedOperationException();
+		return listaCoordenadas.size();
 	}
-
+	
+	public void vaciar() {
+		listaCoordenadas = new ArrayList<Coordenada>();
+	}
 }

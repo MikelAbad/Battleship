@@ -1,52 +1,54 @@
 package packModelo.packBarcos;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import packModelo.packCoordenada.Coordenada;
 
 public class ListaBarcos {
+	private List<Barco> listaBarcos;
 
-	private ArrayList<Barco> listaBarcos;
-
-	/**
-	 * 
-	 * @param pBarco
-	 */
+	public ListaBarcos() {
+		listaBarcos = new ArrayList<Barco>();
+	}
+	
 	public void addBarco(Barco pBarco) {
-		// TODO - implement ListaBarcos.addBarco
-		throw new UnsupportedOperationException();
+		if (!listaBarcos.contains(pBarco)) {
+			listaBarcos.add(pBarco);
+		}
 	}
 
-	/**
-	 * 
-	 * @param pBarco
-	 */
 	public void delBarco(Barco pBarco) {
-		// TODO - implement ListaBarcos.delBarco
-		throw new UnsupportedOperationException();
+		if (listaBarcos.contains(pBarco)) {
+			listaBarcos.remove(pBarco);
+		}
 	}
 
-	/**
-	 * 
-	 * @param pBarco
-	 */
 	public boolean contains(Barco pBarco) {
-		// TODO - implement ListaBarcos.contains
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
-	public Barco buscarBarco(Coordenada pCoordenada) {
-		// TODO - implement ListaBarcos.buscarBarco
-		throw new UnsupportedOperationException();
+		return listaBarcos.contains(pBarco);
 	}
 
 	public int numBarcos() {
-		// TODO - implement ListaBarcos.numBarcos
-		throw new UnsupportedOperationException();
+		return listaBarcos.size();
 	}
-
+	
+	public Barco buscarBarco(Coordenada pCoordenada) {
+		Iterator<Barco> itr = getIterator();
+		boolean encontrado = false;
+		Barco barco = null;
+		Barco b;
+		while (itr.hasNext() && !encontrado) {
+			b = itr.next();
+			if (b.estaEnPos(pCoordenada)) {
+				barco = b;
+				encontrado = true;
+			}
+		}
+		return barco;
+	}
+	
+	private Iterator<Barco> getIterator() {
+		return listaBarcos.iterator();
+	}
 }

@@ -4,61 +4,53 @@ import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
 
 public class Barco {
-
 	private ListaCoordenadas posicion;
 	private ListaCoordenadas tocadas;
-	private int escudo;
+	private int escudo = 0;
 
-	/**
-	 * 
-	 * @param pC
-	 * @param pLong
-	 * @param pVertical
-	 */
 	public Barco(Coordenada pC, int pLong, boolean pVertical) {
-
+		tocadas = new ListaCoordenadas();
+		posicion = new ListaCoordenadas();
+		posicion.addCoordenada(pC);
+		if (pVertical = true) {
+			while (posicion.numCoordenadas() < pLong) {
+				posicion.addCoordenada(new Coordenada(pC.getX(),pC.getY()+1));
+			}
+		} else {
+			while (posicion.numCoordenadas() < pLong) {
+				posicion.addCoordenada(new Coordenada(pC.getX()+1,pC.getY()));
+			}
+		}
 	}
 
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
 	public void tocar(Coordenada pCoordenada) {
-		// TODO - implement Barco.tocar
-		throw new UnsupportedOperationException();
+		if (posicion.contains(pCoordenada) && !tocadas.contains(pCoordenada)) {
+			tocadas.addCoordenada(pCoordenada);
+		}
 	}
 
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
 	public void reparar(Coordenada pCoordenada) {
-		// TODO - implement Barco.reparar
-		throw new UnsupportedOperationException();
+		tocadas.vaciar();
 	}
 
 	public boolean estaDestruido() {
-		// TODO - implement Barco.estaDestruido
-		throw new UnsupportedOperationException();
+		return posicion.numCoordenadas() == tocadas.numCoordenadas();
 	}
 
-	public void ponerEscudo() {
-		// TODO - implement Barco.ponerEscudo
-		throw new UnsupportedOperationException();
+	public boolean ponerEscudo() {
+		if (escudo == 0) {
+			escudo = 2;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void destruir() {
-		// TODO - implement Barco.destruir
-		throw new UnsupportedOperationException();
+		tocadas = posicion;
 	}
 
-	/**
-	 * 
-	 * @param pCoordenada
-	 */
-	public void addPosicion(Coordenada pCoordenada) {
-		// TODO - implement Barco.addPosicion
-		throw new UnsupportedOperationException();
+	public boolean estaEnPos(Coordenada pCoordenada) {
+		return this.posicion.contains(pCoordenada);
 	}
-
 }

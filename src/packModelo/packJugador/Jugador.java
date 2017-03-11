@@ -15,8 +15,11 @@ public abstract class Jugador {
 	private ListaCoordenadas listaTocadasEnem;
 
 	public Jugador() {
-		// TODO - implement Jugador.Jugador
-		throw new UnsupportedOperationException();
+		listNoDisparable = new ListaCoordenadas();
+		listaBarcos = new ListaBarcos();
+		dinero = 10000; //TODO decidir cantidad
+		barcosEneDest = new ListaBarcos();
+		listaTocadasEnem = new ListaCoordenadas();
 	}
 
 	/**
@@ -42,8 +45,7 @@ public abstract class Jugador {
 	 * @param pCoordenada
 	 */
 	public boolean ponerEscudo(Coordenada pCoordenada) {
-		// TODO - implement Jugador.ponerEscudo
-		throw new UnsupportedOperationException();
+		return listaBarcos.buscarBarco(pCoordenada).ponerEscudo();
 	}
 
 	/**
