@@ -1,5 +1,6 @@
 package packModelo.packJugador;
 
+import packModelo.Almacen;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.ListaBarcos;
 import packModelo.packCoordenada.Coordenada;
@@ -17,10 +18,11 @@ public abstract class Jugador {
 	public Jugador() {
 		listNoDisparable = new ListaCoordenadas();
 		listaBarcos = new ListaBarcos();
-		dinero = 10000; //TODO decidir cantidad
+		dinero = 100; //TODO decidir cantidad
 		barcosEneDest = new ListaBarcos();
 		listaTocadasEnem = new ListaCoordenadas();
 	}
+	public int getDinero(){return dinero;}
 
 	/**
 	 * 
@@ -45,7 +47,10 @@ public abstract class Jugador {
 	 * @param pCoordenada
 	 */
 	public boolean ponerEscudo(Coordenada pCoordenada) {
-		return listaBarcos.buscarBarco(pCoordenada).ponerEscudo();
+		boolean exito = false;
+		//exito = Almacen.getAlmacen().venderEscudo();
+		if (exito) exito = listaBarcos.buscarBarco(pCoordenada).ponerEscudo();
+		return exito;
 	}
 
 	/**
@@ -128,5 +133,7 @@ public abstract class Jugador {
 		// TODO - implement Jugador.usarEscudo
 				throw new UnsupportedOperationException();
 	}
-
+	public void pagarArma(int pPrecio){
+		dinero = dinero-pPrecio;
+	}
 }
