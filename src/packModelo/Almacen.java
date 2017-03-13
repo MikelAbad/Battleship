@@ -57,22 +57,27 @@ public class Almacen {
 
 	public void VenderMisilNS(Jugador pJugador) {
 		pJugador.pagarArma(precioMisilNS);
+		misilNS--;
 	}
 
 	public void venderMisil(Jugador pJugador) {
 		pJugador.pagarArma(precioMisil);
+		misil--;
 	}
 
 	public void venderMisilBOOM(Jugador pJugador) {
 		pJugador.pagarArma(precioMisilBOOM);
+		misilBOOM--;
 	}
 
 	public void venderEscudo(Jugador pJugador) {
 		pJugador.pagarArma(PrecioEscudo);
+		escudo--;
 	}
 
 	public void venderMisilEO(Jugador pJugador) {
 		pJugador.pagarArma(precioMisilEO);
+		misilEO--;
 	}
 
 }
