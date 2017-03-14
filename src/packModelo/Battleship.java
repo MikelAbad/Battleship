@@ -28,12 +28,6 @@ public class Battleship {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param pC
-	 * @param pLong
-	 * @param pVertical
-	 */
 	public boolean colocarBarcoUs(Coordenada pC, int pLong, boolean pVertical) {
 		// TODO - implement Battleship.colocarBarcoUs
 		throw new UnsupportedOperationException();
@@ -59,11 +53,6 @@ public class Battleship {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param pArma
-	 * @param pCoordenada
-	 */
 	public boolean usarArmamento(int pArma, Coordenada pCoordenada) {
 		Jugador elJugador;
 		if (turno)elJugador=usuario;
@@ -100,5 +89,4 @@ public class Battleship {
 			}
 		return exito;
 	}
-
 }

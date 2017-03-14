@@ -1,5 +1,7 @@
 package packModelo.packBarcos;
 
+import java.util.ArrayList;
+
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
 
@@ -52,5 +54,10 @@ public class Barco {
 
 	public boolean estaEnPos(Coordenada pCoordenada) {
 		return this.posicion.contains(pCoordenada);
+	}
+	
+	
+	public ArrayList<Coordenada> calcularAdyacentes() {
+		return posicion.calcularAdyacentes();
 	}
 }

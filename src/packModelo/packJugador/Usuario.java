@@ -9,22 +9,8 @@ public class Usuario extends Jugador {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param pBarco
-	 */
 	public boolean colocarBarco(Barco pBarco) {
 		// TODO - implement Usuario.colocarBarco
 		throw new UnsupportedOperationException();
 	}
-
-	/**
-	 * 
-	 * @param pBarco
-	 */
-	private boolean puedePoner(Barco pBarco) {
-		// TODO - implement Usuario.puedePoner
-		throw new UnsupportedOperationException();
-	}
-
 }

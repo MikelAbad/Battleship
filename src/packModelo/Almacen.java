@@ -25,32 +25,44 @@ public class Almacen {
 	}
 
 	public static Almacen getAlmacen() {
-		if (miAlmacen==null) miAlmacen = new Almacen();
+		if (miAlmacen == null)
+			miAlmacen = new Almacen();
 		return miAlmacen;
 	}
-	public boolean puedeVender(int pArma, Jugador pJugador){
-		boolean puede=false;
-		switch(pArma){
-			case 0://escudo
-				if (escudo>0)
-					if (pJugador.getDinero()>PrecioEscudo) puede = true;
-				break;
-			case 1://misil
-				if (misil>0)
-					if (pJugador.getDinero()>precioMisil) puede = true;
-				break;
-			case 2://misilNS
-				if (misilNS>0)
-					if (pJugador.getDinero()>precioMisilNS) puede = true;
-				break;
-			case 3://misilEO
-				if (misilEO>0)
-					if (pJugador.getDinero()>precioMisilEO) puede = true;
-				break;
-			case 4://misilBOOM
-				if (misilBOOM>0)
-					if (pJugador.getDinero()>precioMisilBOOM) puede = true;
-				break;
+
+	public boolean puedeVender(int pArma, Jugador pJugador) {
+		boolean puede = false;
+		switch (pArma) {
+		case 0: // escudo
+			if (escudo > 0)
+				if (pJugador.getDinero() > PrecioEscudo) {
+					puede = true;
+				}
+			break;
+		case 1: // misil
+			if (misil > 0)
+				if (pJugador.getDinero() > precioMisil) {
+					puede = true;
+				}
+			break;
+		case 2: // misilNS
+			if (misilNS > 0)
+				if (pJugador.getDinero() > precioMisilNS) {
+					puede = true;
+				}
+			break;
+		case 3: // misilEO
+			if (misilEO > 0)
+				if (pJugador.getDinero() > precioMisilEO) {
+					puede = true;
+				}
+			break;
+		case 4: // misilBOOM
+			if (misilBOOM > 0)
+				if (pJugador.getDinero() > precioMisilBOOM) {
+					puede = true;
+				}
+			break;
 		}
 		return puede;
 	}
@@ -79,5 +91,4 @@ public class Almacen {
 		pJugador.pagarArma(precioMisilEO);
 		misilEO--;
 	}
-
 }
