@@ -7,9 +7,7 @@ import packModelo.packCoordenada.Coordenada;
 
 public class Ordenador extends Jugador {
 
-	public Ordenador() {
-		
-	}
+	public Ordenador() {}
 
 	public void Jugar() {
 		// TODO - implement Ordenador.Jugar
