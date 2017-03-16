@@ -1,6 +1,7 @@
 package packVista;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 
@@ -8,6 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import packControlador.CBtnDest;
+import packControlador.CBtnFrag;
+import packControlador.CBtnOrient;
+import packControlador.CBtnPort;
+import packControlador.CBtnSub;
+import packControlador.CBtnsColocar;
+
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
@@ -16,7 +25,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 
-public class inicio extends JFrame {
+public class Inicio extends JFrame {
 
 	private JPanel contentPane, panel;
 	private final int filas = 10, columnas = 10;
@@ -34,6 +43,30 @@ public class inicio extends JFrame {
 	private JLabel lblColoqueTodosLos;
 	private JToggleButton tglbtnNewToggleButton;
 	private JLabel lblOrientacion;
+	private int longitud;
+	private boolean vertical;
+	public boolean isVertical() {
+		return vertical;
+	}
+
+	public void setVertical() {
+		this.vertical = !vertical;
+	}
+
+	private static Inicio miInicio;
+
+	public static Inicio getInicio() {
+		if (miInicio==null)miInicio=new Inicio();
+		return miInicio;
+	}
+
+	public int getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(int longitud) {
+		this.longitud = longitud;
+	}
 
 	/**
 	 * Launch the application.
@@ -42,7 +75,7 @@ public class inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					inicio frame = new inicio();
+					Inicio frame = new Inicio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +87,7 @@ public class inicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public inicio() {
+	private Inicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 540, 370);
 		contentPane = new JPanel();
@@ -79,7 +112,7 @@ public class inicio extends JFrame {
 				JButton btn = new JButton();
 				btn.setName(i + "," + j);
 				tablero[i][j] = btn;
-
+				btn.addMouseListener(new CBtnsColocar());
 				panel.add(btn);
 			}
 		}
@@ -93,6 +126,7 @@ public class inicio extends JFrame {
 			}
 			{
 				btnBtnfragata = new JButton("Fragata");
+				btnBtnfragata.addMouseListener(new CBtnFrag());
 			}
 			lblDestructor = new JLabel("Destructor");
 			GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -142,6 +176,7 @@ public class inicio extends JFrame {
 	private JButton getBtnBtndestructor() {
 		if (btnBtndestructor == null) {
 			btnBtndestructor = new JButton("Destructor");
+			btnBtndestructor.addMouseListener(new CBtnDest());
 		}
 		return btnBtndestructor;
 	}
@@ -156,6 +191,7 @@ public class inicio extends JFrame {
 	private JButton getBtnBtnsubmarino() {
 		if (btnBtnsubmarino == null) {
 			btnBtnsubmarino = new JButton("Submarino");
+			btnBtnsubmarino.addMouseListener(new CBtnSub());
 		}
 		return btnBtnsubmarino;
 	}
@@ -170,6 +206,7 @@ public class inicio extends JFrame {
 	private JButton getBtnBtnportaviones() {
 		if (btnBtnportaviones == null) {
 			btnBtnportaviones = new JButton("Portaviones");
+			btnBtnportaviones.addMouseListener(new CBtnPort());
 		}
 		return btnBtnportaviones;
 	}
@@ -193,9 +230,11 @@ public class inicio extends JFrame {
 	private JToggleButton getTglbtnNewToggleButton() {
 		if (tglbtnNewToggleButton == null) {
 			tglbtnNewToggleButton = new JToggleButton("");
-			tglbtnNewToggleButton.setSelectedIcon(new ImageIcon(inicio.class.getResource("/packVista/vertical.png")));
-			tglbtnNewToggleButton.setIcon(new ImageIcon(inicio.class.getResource("/packVista/horizontal.png")));
+			tglbtnNewToggleButton.setSelectedIcon(new ImageIcon(Inicio.class.getResource("/packVista/vertical.png")));
+			tglbtnNewToggleButton.setIcon(new ImageIcon(Inicio.class.getResource("/packVista/horizontal.png")));
 			tglbtnNewToggleButton.setToolTipText("");
+			vertical=false;
+			tglbtnNewToggleButton.addMouseListener(new CBtnOrient());
 		}
 		return tglbtnNewToggleButton;
 	}
@@ -206,4 +245,46 @@ public class inicio extends JFrame {
 		}
 		return lblOrientacion;
 	}
+
+	public void pintarBarco(JButton pBtn) {
+		tablero[3][3].setBackground(Color.PINK);
+		String coor[] = pBtn.getName().split(",");
+		int i = Integer.parseInt(coor[0]);
+		int j =	Integer.parseInt(coor[1]);
+		if (vertical){
+			for (int k=0;k<longitud;k++){
+				tablero[i][j].setBackground(Color.PINK);
+				System.out.println("jwehfn");
+				if (i<9)i++;
+			}
+		}
+		else{
+			for (int k=0;k<longitud;k++){
+
+				tablero[i][j].setBackground(Color.pink);
+				if (j<9)j++;
+			}
+		}
+		
+	}
+
+	public void despintarBarco(JButton pBtn) {
+		String coor[] = pBtn.getName().split(",");
+		int i = Integer.parseInt(coor[0]);
+		int j =	Integer.parseInt(coor[1]);
+		if (vertical){
+			for (int k=0;k<longitud;k++){
+				tablero[i][j].setBackground(null);
+				if (i<9)i++;
+			}
+		}
+		else{
+			for (int k=0;k<longitud;k++){
+				tablero[i][j].setBackground(null);
+				if (j<9)j++;
+			}
+		}
+		
+	}
+
 }
