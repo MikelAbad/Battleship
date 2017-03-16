@@ -24,7 +24,7 @@ public class Battleship {
 	}
 
 	public void jugar() {
-		// TODO
+		// TODO SegundoSprint
 	}
 
 	public void inicializar() {
@@ -36,8 +36,13 @@ public class Battleship {
 	}
 	
 	public boolean colocarBarcoUs(Coordenada pC, int pLong, boolean pVertical) {
-		//TODO
-		return true;
+		Barco unBarco = new Barco(pC, pLong, pVertical);
+		if (usuario.puedePonerUs(unBarco) && usuario.puedePoner(unBarco)) {
+			usuario.colocarBarco(unBarco);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private void colocarBarcosOrd() {
@@ -49,7 +54,7 @@ public class Battleship {
 	}
 
 	public boolean hasGanado() {
-		// TODO - implement Battleship.hasGanado
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
@@ -66,23 +71,23 @@ public class Battleship {
 				exito = Almacen.getAlmacen().puedeVender(pArma, elJugador);
 				if (exito){
 					switch(pArma){
-					case 0://escudo
+					case 0: //escudo
 						exito = elJugador.ponerEscudo(pCoordenada);
 						break;
-					case 1://misil
+					case 1: //misil
 						exito = elJugador.usarMisil(pCoordenada);
 						break;
-					case 2://misilNS
+					case 2: //misilNS
 						exito = elJugador.usarMisilNS(pCoordenada);
 						break;
-					case 3://misilEO
+					case 3: //misilEO
 						exito = elJugador.usarMisilEO(pCoordenada);
 						break;
-					case 4://misilBOOM
+					case 4: //misilBOOM
 						exito = elJugador.usarMisilBOOM(pCoordenada);
 						break;
 					default:
-						exito=false;
+						exito = false;
 						break;
 					}
 				}	

@@ -1,10 +1,9 @@
 package packModelo.packCoordenada;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListaCoordenadas {
-	private List<Coordenada> listaCoordenadas;
+	private ArrayList<Coordenada> listaCoordenadas;
 
 	public ListaCoordenadas() {
 		listaCoordenadas = new ArrayList<Coordenada>();
@@ -44,5 +43,15 @@ public class ListaCoordenadas {
 			}
 		}
 		return adyacentes;
+	}
+
+	public boolean comprobarLimites() {
+		boolean fueraDeLimites = false;
+		for (Coordenada co : listaCoordenadas) {
+			if (co.getX() > 9 || co.getY() > 9) {
+				fueraDeLimites = true;
+			}
+		}
+		return fueraDeLimites;
 	}
 }

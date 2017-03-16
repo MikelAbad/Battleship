@@ -24,7 +24,7 @@ public class Barco {
 			}
 		}
 	}
-
+	
 	public void tocar(Coordenada pCoordenada) {
 		if (posicion.contains(pCoordenada) && !tocadas.contains(pCoordenada)) {
 			tocadas.addCoordenada(pCoordenada);
@@ -56,8 +56,15 @@ public class Barco {
 		return this.posicion.contains(pCoordenada);
 	}
 	
+	public boolean comprobarLimites() {
+		return posicion.comprobarLimites();
+	}
 	
 	public ArrayList<Coordenada> calcularAdyacentes() {
 		return posicion.calcularAdyacentes();
+	}
+
+	public int getLongitud() {
+		return posicion.numCoordenadas();
 	}
 }

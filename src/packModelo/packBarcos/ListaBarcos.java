@@ -33,6 +33,16 @@ public class ListaBarcos {
 		return listaBarcos.size();
 	}
 	
+	public int getNumBarcosLong(int pLong) {
+		int cuantos = 0;
+		for (Barco b : listaBarcos) {
+			if (b.getLongitud() == pLong) {
+				cuantos++;
+			}
+		}
+		return cuantos;
+	}
+	
 	public Barco buscarBarco(Coordenada pCoordenada) {
 		Iterator<Barco> itr = getIterator();
 		boolean encontrado = false;

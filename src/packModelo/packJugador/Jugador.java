@@ -30,66 +30,69 @@ public abstract class Jugador {
 	}
 
 	public boolean tocarBarco(Coordenada pCoordenada) {
-		// TODO - implement Jugador.tocarBarco
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public void destruirBarco(Coordenada pCoordenada) {
-		// TODO - implement Jugador.destruirBarco
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean ponerEscudo(Coordenada pCoordenada) {
 		boolean exito = false;
-		// exito = Almacen.getAlmacen().venderEscudo();
+		Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
+		if (unBarco!=null) {
+			exito = listaBarcos.buscarBarco(pCoordenada).ponerEscudo();	
+		}
 		if (exito) {
-			exito = listaBarcos.buscarBarco(pCoordenada).ponerEscudo();
+			Almacen.getAlmacen().venderEscudo(this);
 		}
 		return exito;
 	}
 
 	public void addDispARival(Coordenada pCoodenada) {
-		// TODO - implement Jugador.addDispARival
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public void delDispARival(Coordenada pCoodenada) {
-		// TODO - implement Jugador.delDispARival
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public void anadirBarcDest(Barco pBarco) {
-		// TODO - implement Jugador.anadirBarcDest
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public void usarBomba(Coordenada pCoordenada) {
-		// TODO - implement Jugador.usarBomba
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean usarMisil(Coordenada pCoordenada) {
-		// TODO - implement Jugador.usarMisil
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean usarMisilNS(Coordenada pCoordenada) {
-		// TODO - implement Jugador.usarMisilNS
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean usarMisilEO(Coordenada pCoordenada) {
-		// TODO - implement Jugador.usarMisilEO
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean usarMisilBOOM(Coordenada pCoordenada) {
-		// TODO - implement Jugador.usarMisilBOOM
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean usarEscudo(Coordenada pCoordenada) {
-		// TODO - implement Jugador.usarEscudo
+		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
 
@@ -100,12 +103,18 @@ public abstract class Jugador {
 	public void anadirBarcoProp(Barco pBarco) {
 		listaBarcos.addBarco(pBarco);
 	}
+	
+	protected ListaBarcos getListaBarcos() {
+		return this.listaBarcos;
+	}
 
-	protected boolean puedePoner(Barco pBarco) {
+	public boolean puedePoner(Barco pBarco) {
 		boolean puede = true;
-		for (Coordenada co : pBarco.calcularAdyacentes()) {
-			if (listaBarcos.buscarBarco(co) != null) {
-				puede = false;
+		if (pBarco.comprobarLimites()) {
+			for (Coordenada co : pBarco.calcularAdyacentes()) {
+				if (listaBarcos.buscarBarco(co) != null) {
+					puede = false;
+				}
 			}
 		}
 		return puede;
