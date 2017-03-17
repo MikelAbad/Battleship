@@ -75,7 +75,7 @@ public class Inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Inicio frame = new Inicio();
+					Inicio frame = getInicio();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -247,21 +247,19 @@ public class Inicio extends JFrame {
 	}
 
 	public void pintarBarco(JButton pBtn) {
-		tablero[3][3].setBackground(Color.PINK);
 		String coor[] = pBtn.getName().split(",");
 		int i = Integer.parseInt(coor[0]);
 		int j =	Integer.parseInt(coor[1]);
 		if (vertical){
 			for (int k=0;k<longitud;k++){
-				tablero[i][j].setBackground(Color.PINK);
-				System.out.println("jwehfn");
+				tablero[i][j].setBackground(Color.BLUE);
 				if (i<9)i++;
 			}
 		}
 		else{
 			for (int k=0;k<longitud;k++){
 
-				tablero[i][j].setBackground(Color.pink);
+				tablero[i][j].setBackground(Color.BLUE);
 				if (j<9)j++;
 			}
 		}
