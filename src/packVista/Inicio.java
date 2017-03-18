@@ -16,6 +16,7 @@ import packControlador.CBtnOrient;
 import packControlador.CBtnPort;
 import packControlador.CBtnSub;
 import packControlador.CBtnsColocar;
+import packModelo.Battleship;
 
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -45,29 +46,8 @@ public class Inicio extends JFrame {
 	private JLabel lblOrientacion;
 	private int longitud;
 	private boolean vertical;
-	public boolean isVertical() {
-		return vertical;
-	}
-
-	public void setVertical() {
-		this.vertical = !vertical;
-	}
-
 	private static Inicio miInicio;
-
-	public static Inicio getInicio() {
-		if (miInicio==null)miInicio=new Inicio();
-		return miInicio;
-	}
-
-	public int getLongitud() {
-		return longitud;
-	}
-
-	public void setLongitud(int longitud) {
-		this.longitud = longitud;
-	}
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -77,6 +57,7 @@ public class Inicio extends JFrame {
 				try {
 					Inicio frame = getInicio();
 					frame.setVisible(true);
+					Battleship.getBattleship().inicializar();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -95,6 +76,29 @@ public class Inicio extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		crearTablero();
+		vertical=false;
+		longitud=0;
+	}
+	
+	public boolean isVertical() {
+		return vertical;
+	}
+
+	public void setVertical() {
+		this.vertical = !vertical;
+	}
+
+	public static Inicio getInicio() {
+		if (miInicio==null)miInicio=new Inicio();
+		return miInicio;
+	}
+
+	public int getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(int longitud) {
+		this.longitud = longitud;
 	}
 
 	private void crearTablero() {
@@ -122,13 +126,13 @@ public class Inicio extends JFrame {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
 			{
-				lblFragata = new JLabel("Fragata");
+				lblFragata = new JLabel("4");
 			}
 			{
 				btnBtnfragata = new JButton("Fragata");
 				btnBtnfragata.addMouseListener(new CBtnFrag());
 			}
-			lblDestructor = new JLabel("Destructor");
+			lblDestructor = new JLabel("3");
 			GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 			gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
 					.createSequentialGroup().addGap(5)
@@ -183,7 +187,7 @@ public class Inicio extends JFrame {
 
 	private JLabel getLblSubmarino() {
 		if (lblSubmarino == null) {
-			lblSubmarino = new JLabel("Submarino");
+			lblSubmarino = new JLabel("2");
 		}
 		return lblSubmarino;
 	}
@@ -198,7 +202,7 @@ public class Inicio extends JFrame {
 
 	private JLabel getLblPortaviones() {
 		if (lblPortaviones == null) {
-			lblPortaviones = new JLabel("Portaviones");
+			lblPortaviones = new JLabel("1");
 		}
 		return lblPortaviones;
 	}
@@ -250,36 +254,92 @@ public class Inicio extends JFrame {
 		String coor[] = pBtn.getName().split(",");
 		int i = Integer.parseInt(coor[0]);
 		int j =	Integer.parseInt(coor[1]);
+		int k=0;
 		if (vertical){
-			for (int k=0;k<longitud;k++){
+			while (k<longitud && i<10){
 				tablero[i][j].setBackground(Color.BLUE);
-				if (i<9)i++;
+				i++;
+				k++;
 			}
 		}
 		else{
-			for (int k=0;k<longitud;k++){
+			while (k<longitud && j<10){
 
 				tablero[i][j].setBackground(Color.BLUE);
-				if (j<9)j++;
+				j++;
+				k++;
 			}
-		}
-		
+		}	
 	}
 
 	public void despintarBarco(JButton pBtn) {
 		String coor[] = pBtn.getName().split(",");
 		int i = Integer.parseInt(coor[0]);
 		int j =	Integer.parseInt(coor[1]);
+		int k=0;
 		if (vertical){
-			for (int k=0;k<longitud;k++){
-				tablero[i][j].setBackground(null);
-				if (i<9)i++;
+			while (k<longitud && i<10){
+				if (tablero[i][j].isEnabled()) tablero[i][j].setBackground(null);
+				i++;
+				k++;
 			}
 		}
 		else{
-			for (int k=0;k<longitud;k++){
-				tablero[i][j].setBackground(null);
-				if (j<9)j++;
+			while (k<longitud && j<10){
+				if (tablero[i][j].isEnabled()) tablero[i][j].setBackground(null);
+				j++;
+				k++;
+			}
+		}
+	}
+	public void decrementarCont(int i){
+		switch (longitud){
+		case 1:
+			lblFragata.setText(i+"");
+			if (i<1) {
+				btnBtnfragata.setEnabled(false);
+				longitud=0;
+			}
+			break;
+		case 2:
+			lblDestructor.setText(i+"");
+			if (i<1) {
+				btnBtndestructor.setEnabled(false);
+				longitud=0;
+			}
+			break;
+		case 3:
+			lblSubmarino.setText(i+"");
+			if (i<1){
+				btnBtnsubmarino.setEnabled(false);
+				longitud=0;
+			}
+			break;
+		case 4:
+			lblPortaviones.setText(i+"");
+			btnBtnportaviones.setEnabled(false);
+			longitud=0;
+			break;
+		}
+	}
+
+	public void deshabilitarBotones(JButton pBtn) {
+		String coor[] = pBtn.getName().split(",");
+		int i = Integer.parseInt(coor[0]);
+		int j =	Integer.parseInt(coor[1]);
+		int k=0;
+		if (vertical){
+			while (k<longitud && i<10){
+				tablero[i][j].setEnabled(false);;
+				i++;
+				k++;
+			}
+		}
+		else{
+			while (k<longitud && j<10){
+				tablero[i][j].setEnabled(false);
+				j++;
+				k++;
 			}
 		}
 		

@@ -104,7 +104,7 @@ public abstract class Jugador {
 		listaBarcos.addBarco(pBarco);
 	}
 	
-	protected ListaBarcos getListaBarcos() {
+	public ListaBarcos getListaBarcos() {
 		return this.listaBarcos;
 	}
 

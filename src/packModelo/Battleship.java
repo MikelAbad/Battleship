@@ -44,7 +44,24 @@ public class Battleship {
 			return false;
 		}
 	}
-
+	public int barcosXPonRestantes(int pLong){
+		int i=0;
+		switch(pLong) {
+			case 1:
+				i=4-usuario.getListaBarcos().getNumBarcosLong(pLong);
+				break;
+			case 2:
+				i=3-usuario.getListaBarcos().getNumBarcosLong(pLong);
+				break;
+			case 3:
+				i=2-usuario.getListaBarcos().getNumBarcosLong(pLong);
+				break;
+			case 4:
+				i=1-usuario.getListaBarcos().getNumBarcosLong(pLong);
+			break;
+		}
+		return i;
+	}
 	private void colocarBarcosOrd() {
 		ordenador.colocarBarcosOrd();
 	}
