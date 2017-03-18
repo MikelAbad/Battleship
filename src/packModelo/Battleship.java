@@ -31,10 +31,10 @@ public class Battleship {
 		usuario = new Usuario();
 		ordenador = new Ordenador();
 		colocarBarcosOrd();
-		
-		//TODO mas cosas, supongo
+
+		// TODO mas cosas, supongo
 	}
-	
+
 	public boolean colocarBarcoUs(Coordenada pC, int pLong, boolean pVertical) {
 		Barco unBarco = new Barco(pC, pLong, pVertical);
 		if (usuario.puedePonerUs(unBarco) && usuario.puedePoner(unBarco)) {
@@ -44,24 +44,26 @@ public class Battleship {
 			return false;
 		}
 	}
-	public int barcosXPonRestantes(int pLong){
-		int i=0;
-		switch(pLong) {
-			case 1:
-				i=4-usuario.getListaBarcos().getNumBarcosLong(pLong);
-				break;
-			case 2:
-				i=3-usuario.getListaBarcos().getNumBarcosLong(pLong);
-				break;
-			case 3:
-				i=2-usuario.getListaBarcos().getNumBarcosLong(pLong);
-				break;
-			case 4:
-				i=1-usuario.getListaBarcos().getNumBarcosLong(pLong);
+
+	public int barcosXPonRestantes(int pLong) {
+		int i = 0;
+		switch (pLong) {
+		case 1:
+			i = 4 - usuario.getListaBarcos().getNumBarcosLong(pLong);
+			break;
+		case 2:
+			i = 3 - usuario.getListaBarcos().getNumBarcosLong(pLong);
+			break;
+		case 3:
+			i = 2 - usuario.getListaBarcos().getNumBarcosLong(pLong);
+			break;
+		case 4:
+			i = 1 - usuario.getListaBarcos().getNumBarcosLong(pLong);
 			break;
 		}
 		return i;
 	}
+
 	private void colocarBarcosOrd() {
 		ordenador.colocarBarcosOrd();
 	}
@@ -77,38 +79,39 @@ public class Battleship {
 
 	public boolean usarArmamento(int pArma, Coordenada pCoordenada) {
 		Jugador elJugador;
-		if (turno)elJugador=usuario;
-		else elJugador=ordenador;
+		if (turno)
+			elJugador = usuario;
+		else
+			elJugador = ordenador;
 		boolean exito;
-			if(pArma==-1){
-				elJugador.usarBomba(pCoordenada);
-				exito=true;
+		if (pArma == -1) {
+			elJugador.usarBomba(pCoordenada);
+			exito = true;
+		} else {
+			exito = Almacen.getAlmacen().puedeVender(pArma, elJugador);
+			if (exito) {
+				switch (pArma) {
+				case 0: // escudo
+					exito = elJugador.ponerEscudo(pCoordenada);
+					break;
+				case 1: // misil
+					exito = elJugador.usarMisil(pCoordenada);
+					break;
+				case 2: // misilNS
+					exito = elJugador.usarMisilNS(pCoordenada);
+					break;
+				case 3: // misilEO
+					exito = elJugador.usarMisilEO(pCoordenada);
+					break;
+				case 4: // misilBOOM
+					exito = elJugador.usarMisilBOOM(pCoordenada);
+					break;
+				default:
+					exito = false;
+					break;
+				}
 			}
-			else{
-				exito = Almacen.getAlmacen().puedeVender(pArma, elJugador);
-				if (exito){
-					switch(pArma){
-					case 0: //escudo
-						exito = elJugador.ponerEscudo(pCoordenada);
-						break;
-					case 1: //misil
-						exito = elJugador.usarMisil(pCoordenada);
-						break;
-					case 2: //misilNS
-						exito = elJugador.usarMisilNS(pCoordenada);
-						break;
-					case 3: //misilEO
-						exito = elJugador.usarMisilEO(pCoordenada);
-						break;
-					case 4: //misilBOOM
-						exito = elJugador.usarMisilBOOM(pCoordenada);
-						break;
-					default:
-						exito = false;
-						break;
-					}
-				}	
-			}
+		}
 		return exito;
 	}
 }

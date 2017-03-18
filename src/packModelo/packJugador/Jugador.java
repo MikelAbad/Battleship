@@ -1,7 +1,5 @@
 package packModelo.packJugador;
 
-import java.util.ArrayList;
-
 import packModelo.Almacen;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.ListaBarcos;
@@ -42,8 +40,8 @@ public abstract class Jugador {
 	public boolean ponerEscudo(Coordenada pCoordenada) {
 		boolean exito = false;
 		Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
-		if (unBarco!=null) {
-			exito = listaBarcos.buscarBarco(pCoordenada).ponerEscudo();	
+		if (unBarco != null) {
+			exito = listaBarcos.buscarBarco(pCoordenada).ponerEscudo();
 		}
 		if (exito) {
 			Almacen.getAlmacen().venderEscudo(this);
@@ -103,7 +101,7 @@ public abstract class Jugador {
 	public void anadirBarcoProp(Barco pBarco) {
 		listaBarcos.addBarco(pBarco);
 	}
-	
+
 	public ListaBarcos getListaBarcos() {
 		return this.listaBarcos;
 	}

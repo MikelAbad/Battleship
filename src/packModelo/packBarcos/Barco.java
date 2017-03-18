@@ -16,15 +16,15 @@ public class Barco {
 		posicion.addCoordenada(pC);
 		if (pVertical = true) {
 			while (posicion.numCoordenadas() < pLong) {
-				posicion.addCoordenada(new Coordenada(pC.getX(),pC.getY()+1));
+				posicion.addCoordenada(new Coordenada(pC.getX(), pC.getY() + 1));
 			}
 		} else {
 			while (posicion.numCoordenadas() < pLong) {
-				posicion.addCoordenada(new Coordenada(pC.getX()+1,pC.getY()));
+				posicion.addCoordenada(new Coordenada(pC.getX() + 1, pC.getY()));
 			}
 		}
 	}
-	
+
 	public void tocar(Coordenada pCoordenada) {
 		if (posicion.contains(pCoordenada) && !tocadas.contains(pCoordenada)) {
 			tocadas.addCoordenada(pCoordenada);
@@ -55,11 +55,11 @@ public class Barco {
 	public boolean estaEnPos(Coordenada pCoordenada) {
 		return this.posicion.contains(pCoordenada);
 	}
-	
+
 	public boolean comprobarLimites() {
 		return posicion.comprobarLimites();
 	}
-	
+
 	public ArrayList<Coordenada> calcularAdyacentes() {
 		return posicion.calcularAdyacentes();
 	}

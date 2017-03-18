@@ -102,8 +102,9 @@ public class Inicio extends JFrame {
 	}
 
 	private void crearTablero() {
-		if (panel != null)
+		if (panel != null) {
 			contentPane.remove(panel);
+		}
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -125,9 +126,7 @@ public class Inicio extends JFrame {
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
-			{
-				lblFragata = new JLabel("4");
-			}
+			{lblFragata = new JLabel("4");}
 			{
 				btnBtnfragata = new JButton("Fragata");
 				btnBtnfragata.addMouseListener(new CBtnFrag());
@@ -250,75 +249,101 @@ public class Inicio extends JFrame {
 		return lblOrientacion;
 	}
 
-	public void pintarBarco(JButton pBtn) {
+	public void pintarBarcoMoviendo(JButton pBtn) {
 		String coor[] = pBtn.getName().split(",");
 		int i = Integer.parseInt(coor[0]);
-		int j =	Integer.parseInt(coor[1]);
-		int k=0;
-		if (vertical){
-			while (k<longitud && i<10){
-				tablero[i][j].setBackground(Color.BLUE);
+		int j = Integer.parseInt(coor[1]);
+		int k = 0;
+		if (vertical) {
+			while (k < longitud && i < 10) {
+				if (tablero[i][j].isEnabled()) {
+				tablero[i][j].setBackground(Color.GREEN);
+				}
 				i++;
 				k++;
 			}
-		}
-		else{
-			while (k<longitud && j<10){
-
-				tablero[i][j].setBackground(Color.BLUE);
+		} else {
+			while (k < longitud && j < 10) {
+				if (tablero[i][j].isEnabled()) {
+				tablero[i][j].setBackground(Color.GREEN);
+				}
 				j++;
 				k++;
 			}
-		}	
+		}
+	}
+	
+	public void pintarBarcoPuesto(JButton pBtn) {
+		String coor[] = pBtn.getName().split(",");
+		int i = Integer.parseInt(coor[0]);
+		int j = Integer.parseInt(coor[1]);
+		int k = 0;
+		if (vertical) {
+			while (k < longitud && i < 10) {
+				tablero[i][j].setBackground(Color.PINK);
+				i++;
+				k++;
+			}
+		} else {
+			while (k < longitud && j < 10) {
+				tablero[i][j].setBackground(Color.PINK);
+				j++;
+				k++;
+			}
+		}
 	}
 
 	public void despintarBarco(JButton pBtn) {
 		String coor[] = pBtn.getName().split(",");
 		int i = Integer.parseInt(coor[0]);
-		int j =	Integer.parseInt(coor[1]);
-		int k=0;
-		if (vertical){
-			while (k<longitud && i<10){
-				if (tablero[i][j].isEnabled()) tablero[i][j].setBackground(null);
+		int j = Integer.parseInt(coor[1]);
+		int k = 0;
+		if (vertical) {
+			while (k < longitud && i < 10) {
+				if (tablero[i][j].isEnabled()) {
+					tablero[i][j].setBackground(null);
+				}
 				i++;
 				k++;
 			}
-		}
-		else{
-			while (k<longitud && j<10){
-				if (tablero[i][j].isEnabled()) tablero[i][j].setBackground(null);
+		} else {
+			while (k < longitud && j < 10) {
+				if (tablero[i][j].isEnabled()) {
+					tablero[i][j].setBackground(null);
+				}
 				j++;
 				k++;
 			}
 		}
 	}
-	public void decrementarCont(int i){
-		switch (longitud){
+
+	public void decrementarCont(int i) {
+		switch (longitud) {
 		case 1:
-			lblFragata.setText(i+"");
-			if (i<1) {
+			lblFragata.setText(i + "");
+			if (i < 1) {
 				btnBtnfragata.setEnabled(false);
-				longitud=0;
+				longitud = 0;
 			}
 			break;
 		case 2:
-			lblDestructor.setText(i+"");
-			if (i<1) {
+			lblDestructor.setText(i + "");
+			if (i < 1) {
 				btnBtndestructor.setEnabled(false);
-				longitud=0;
+				longitud = 0;
 			}
 			break;
 		case 3:
-			lblSubmarino.setText(i+"");
-			if (i<1){
+			lblSubmarino.setText(i + "");
+			if (i < 1) {
 				btnBtnsubmarino.setEnabled(false);
-				longitud=0;
+				longitud = 0;
 			}
 			break;
 		case 4:
-			lblPortaviones.setText(i+"");
+			lblPortaviones.setText(i + "");
 			btnBtnportaviones.setEnabled(false);
-			longitud=0;
+			longitud = 0;
 			break;
 		}
 	}
@@ -326,23 +351,20 @@ public class Inicio extends JFrame {
 	public void deshabilitarBotones(JButton pBtn) {
 		String coor[] = pBtn.getName().split(",");
 		int i = Integer.parseInt(coor[0]);
-		int j =	Integer.parseInt(coor[1]);
-		int k=0;
-		if (vertical){
-			while (k<longitud && i<10){
-				tablero[i][j].setEnabled(false);;
+		int j = Integer.parseInt(coor[1]);
+		int k = 0;
+		if (vertical) {
+			while (k < longitud && i < 10) {
+				tablero[i][j].setEnabled(false);
 				i++;
 				k++;
 			}
-		}
-		else{
-			while (k<longitud && j<10){
+		} else {
+			while (k < longitud && j < 10) {
 				tablero[i][j].setEnabled(false);
 				j++;
 				k++;
 			}
 		}
-		
 	}
-
 }
