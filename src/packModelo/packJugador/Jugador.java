@@ -14,6 +14,7 @@ public abstract class Jugador {
 	private int dinero;
 	private ListaBarcos barcosEneDest;
 	private ListaCoordenadas listaTocadasEnem;
+	private ListaCoordenadas listaNoPonerB;
 
 	public Jugador() {
 		listNoDisparable = new ListaCoordenadas();
@@ -21,6 +22,7 @@ public abstract class Jugador {
 		dinero = 100;
 		barcosEneDest = new ListaBarcos();
 		listaTocadasEnem = new ListaCoordenadas();
+		listaNoPonerB = new ListaCoordenadas();
 	}
 
 	public int getDinero() {
@@ -107,12 +109,12 @@ public abstract class Jugador {
 	}
 
 	public boolean puedePoner(Barco pBarco) {
-		boolean puede = true;
-		if (pBarco.comprobarLimites()) {
-			for (Coordenada co : pBarco.calcularAdyacentes()) {
-				if (listaBarcos.buscarBarco(co) != null) {
-					puede = false;
-				}
+		boolean puede = false;
+		if (!pBarco.comprobarLimites()) { // false = Fuera de los limites
+			if (!pBarco.getPosicion().comprobarListas(listaNoPonerB)) {
+				puede = true;
+				listaNoPonerB.addCoordenadas(pBarco.getPosicion().getCoordenadas());
+				listaNoPonerB.addCoordenadas(pBarco.calcularAdyacentes());
 			}
 		}
 		return puede;

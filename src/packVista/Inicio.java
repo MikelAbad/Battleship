@@ -48,8 +48,8 @@ public class Inicio extends JFrame {
 	private int longitud;
 	private boolean vertical;
 	private static Inicio miInicio;
-	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packVista/horizontal.png"));
-	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packVista/vertical.png"));
+	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packImages/horizontal.png"));
+	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packImages/vertical.png"));
 	
 	/**
 	 * Launch the application.
@@ -241,7 +241,7 @@ public class Inicio extends JFrame {
 	private JButton getbtnBtnOrientacion() {
 		if (btnBtnOrientacion == null) {
 			btnBtnOrientacion = new JButton("");
-			btnBtnOrientacion.setIcon(new ImageIcon(Inicio.class.getResource("/packVista/horizontal.png")));
+			btnBtnOrientacion.setIcon(new ImageIcon(Inicio.class.getResource("/packImages/horizontal.png")));
 			vertical = false;
 			btnBtnOrientacion.addMouseListener(new CBtnOrient());
 		}

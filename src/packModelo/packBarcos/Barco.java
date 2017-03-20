@@ -14,13 +14,16 @@ public class Barco {
 		tocadas = new ListaCoordenadas();
 		posicion = new ListaCoordenadas();
 		posicion.addCoordenada(pC);
-		if (pVertical = true) {
+		int i = 0;
+		if (pVertical == true) {
+			i = pC.getY() + 1;
 			while (posicion.numCoordenadas() < pLong) {
-				posicion.addCoordenada(new Coordenada(pC.getX(), pC.getY() + 1));
+				posicion.addCoordenada(new Coordenada(pC.getX(), i++));
 			}
 		} else {
+			i = pC.getX() + 1;
 			while (posicion.numCoordenadas() < pLong) {
-				posicion.addCoordenada(new Coordenada(pC.getX() + 1, pC.getY()));
+				posicion.addCoordenada(new Coordenada(i++, pC.getY()));
 			}
 		}
 	}
@@ -66,5 +69,9 @@ public class Barco {
 
 	public int getLongitud() {
 		return posicion.numCoordenadas();
+	}
+
+	public ListaCoordenadas getPosicion() {
+		return posicion;
 	}
 }
