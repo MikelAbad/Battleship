@@ -21,6 +21,7 @@ import packModelo.Battleship;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JToggleButton;
@@ -42,11 +43,13 @@ public class Inicio extends JFrame {
 	private JButton btnBtnportaviones;
 	private JPanel panel_2;
 	private JLabel lblColoqueTodosLos;
-	private JToggleButton tglbtnNewToggleButton;
+	private JButton btnBtnOrientacion;
 	private JLabel lblOrientacion;
 	private int longitud;
 	private boolean vertical;
 	private static Inicio miInicio;
+	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packVista/horizontal.png"));
+	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packVista/vertical.png"));
 	
 	/**
 	 * Launch the application.
@@ -86,6 +89,11 @@ public class Inicio extends JFrame {
 
 	public void setVertical() {
 		this.vertical = !vertical;
+		if (vertical) {
+			btnBtnOrientacion.setIcon(iVertical);
+		} else {
+			btnBtnOrientacion.setIcon(iHorizontal);
+		}
 	}
 
 	public static Inicio getInicio() {
@@ -147,7 +155,7 @@ public class Inicio extends JFrame {
 											.addComponent(btnBtnfragata).addComponent(getBtnBtndestructor())))
 							.addGroup(gl_panel_1.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(getLblOrientacion()).addGap(24).addComponent(
-											getTglbtnNewToggleButton(), GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+											getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
 							.addGroup(gl_panel_1.createSequentialGroup().addComponent(getLblPortaviones())
 									.addPreferredGap(ComponentPlacement.RELATED).addComponent(getBtnBtnportaviones())))
 					.addContainerGap(37, Short.MAX_VALUE)));
@@ -168,7 +176,7 @@ public class Inicio extends JFrame {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_panel_1.createSequentialGroup().addGap(49).addComponent(getLblOrientacion()))
 							.addGroup(gl_panel_1.createSequentialGroup().addGap(32).addComponent(
-									getTglbtnNewToggleButton(), GroupLayout.PREFERRED_SIZE, 47,
+									getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 47,
 									GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(88, Short.MAX_VALUE)));
 			panel_1.setLayout(gl_panel_1);
@@ -230,16 +238,14 @@ public class Inicio extends JFrame {
 		return lblColoqueTodosLos;
 	}
 
-	private JToggleButton getTglbtnNewToggleButton() {
-		if (tglbtnNewToggleButton == null) {
-			tglbtnNewToggleButton = new JToggleButton("");
-			tglbtnNewToggleButton.setSelectedIcon(new ImageIcon(Inicio.class.getResource("/packVista/vertical.png")));
-			tglbtnNewToggleButton.setIcon(new ImageIcon(Inicio.class.getResource("/packVista/horizontal.png")));
-			tglbtnNewToggleButton.setToolTipText("");
-			vertical=false;
-			tglbtnNewToggleButton.addMouseListener(new CBtnOrient());
+	private JButton getbtnBtnOrientacion() {
+		if (btnBtnOrientacion == null) {
+			btnBtnOrientacion = new JButton("");
+			btnBtnOrientacion.setIcon(new ImageIcon(Inicio.class.getResource("/packVista/horizontal.png")));
+			vertical = false;
+			btnBtnOrientacion.addMouseListener(new CBtnOrient());
 		}
-		return tglbtnNewToggleButton;
+		return btnBtnOrientacion;
 	}
 
 	private JLabel getLblOrientacion() {

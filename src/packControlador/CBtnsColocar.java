@@ -22,9 +22,9 @@ public class CBtnsColocar implements MouseListener {
 				JOptionPane.showMessageDialog(null, "¡Seleccione una posición correcta, por favor!", "Alerta",
 						JOptionPane.WARNING_MESSAGE);
 			} else {
-				Inicio.getInicio().decrementarCont(Battleship.getBattleship().barcosXPonRestantes(Inicio.getInicio().getLongitud()));
 				Inicio.getInicio().deshabilitarBotones(btn);
 				Inicio.getInicio().pintarBarcoPuesto(btn);
+				Inicio.getInicio().decrementarCont(Battleship.getBattleship().barcosXPonRestantes(Inicio.getInicio().getLongitud()));
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "¡Seleccione algún barco para comenzar la colocación, por favor!",
