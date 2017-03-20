@@ -47,14 +47,16 @@ public class ListaCoordenadas {
 	}
 
 	// Devuelve false si está fuera de los limites
-	public boolean comprobarLimites() {
+	public boolean fueraDeLimites() {
 		boolean fueraDeLimites = false;
 		for (Coordenada co : listaCoordenadas) {
-			if (co.getX() > 9 || co.getY() > 9) {
-				fueraDeLimites = true;
+			if (co.getX() < 0 || co.getX() > 9 ) {
+				if (co.getY() < 0 || co.getY() > 9) {
+					fueraDeLimites = true;
+				}
 			}
 		}
-		return !fueraDeLimites;
+		return fueraDeLimites;
 	}
 	
 	private boolean esta(ArrayList<Coordenada> pLista, Coordenada pC) {

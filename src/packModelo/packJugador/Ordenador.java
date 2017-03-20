@@ -7,7 +7,9 @@ import packModelo.packCoordenada.Coordenada;
 
 public class Ordenador extends Jugador {
 
-	public Ordenador() {}
+	public Ordenador() {
+		super();
+	}
 
 	public void Jugar() {
 		// TODO SegundoSprint

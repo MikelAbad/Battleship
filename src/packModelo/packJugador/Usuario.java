@@ -4,7 +4,9 @@ import packModelo.packBarcos.Barco;
 
 public class Usuario extends Jugador {
 
-	public Usuario() {}
+	public Usuario() {
+		super();
+	}
 
 	public void colocarBarco(Barco pBarco) {
 		getListaBarcos().addBarco(pBarco);

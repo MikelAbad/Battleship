@@ -60,9 +60,9 @@ public class BarcoTest {
 	@Test
 	public void testComprobarLimites() {
 		Barco b = new Barco(new Coordenada(0,0), 4, true);
-		assertTrue(b.comprobarLimites());
+		assertTrue(b.fueraDeLimites());
 		Barco b2 = new Barco(new Coordenada(7,0), 4, false);
-		assertFalse(b2.comprobarLimites());
+		assertFalse(b2.fueraDeLimites());
 	}
 
 	@Test

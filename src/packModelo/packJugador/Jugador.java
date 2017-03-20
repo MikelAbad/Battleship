@@ -110,10 +110,9 @@ public abstract class Jugador {
 
 	public boolean puedePoner(Barco pBarco) {
 		boolean puede = false;
-		if (!pBarco.comprobarLimites()) { // false = Fuera de los limites
+		if (!pBarco.fueraDeLimites()) { // false = Fuera de los limites
 			if (!pBarco.getPosicion().comprobarListas(listaNoPonerB)) {
 				puede = true;
-				listaNoPonerB.addCoordenadas(pBarco.getPosicion().getCoordenadas());
 				listaNoPonerB.addCoordenadas(pBarco.calcularAdyacentes());
 			}
 		}

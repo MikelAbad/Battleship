@@ -59,8 +59,8 @@ public class Barco {
 		return this.posicion.contains(pCoordenada);
 	}
 
-	public boolean comprobarLimites() {
-		return posicion.comprobarLimites();
+	public boolean fueraDeLimites() {
+		return posicion.fueraDeLimites();
 	}
 
 	public ArrayList<Coordenada> calcularAdyacentes() {

@@ -30,7 +30,7 @@ public class Battleship {
 	public void inicializar() {
 		usuario = new Usuario();
 		ordenador = new Ordenador();
-		colocarBarcosOrd();
+		//colocarBarcosOrd();
 
 		// TODO mas cosas, supongo
 	}
