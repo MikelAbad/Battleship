@@ -31,7 +31,7 @@ public class Battleship {
 		usuario = new Usuario();
 		ordenador = new Ordenador();
 		colocarBarcosOrd();
-
+		ordenador.imprimirTablero();
 		// TODO mas cosas, supongo
 	}
 
@@ -79,10 +79,11 @@ public class Battleship {
 
 	public boolean usarArmamento(int pArma, Coordenada pCoordenada) {
 		Jugador elJugador;
-		if (turno)
+		if (turno) {
 			elJugador = usuario;
-		else
+		} else {
 			elJugador = ordenador;
+		}
 		boolean exito;
 		if (pArma == -1) {
 			elJugador.usarBomba(pCoordenada);

@@ -9,7 +9,7 @@ import packModelo.packCoordenada.ListaCoordenadas;
 public abstract class Jugador {
 
 	private ListaCoordenadas listNoDisparable;
-	// private Radar radar;
+	//private Radar radar;
 	private ListaBarcos listaBarcos;
 	private int dinero;
 	private ListaBarcos barcosEneDest;
@@ -117,5 +117,9 @@ public abstract class Jugador {
 			}
 		}
 		return puede;
+	}
+	
+	public void imprimirTablero() {
+		this.listaBarcos.imprimirTablero();
 	}
 }

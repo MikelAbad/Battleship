@@ -46,7 +46,6 @@ public class ListaCoordenadas {
 		return adyacentes;
 	}
 
-	// Devuelve false si está fuera de los limites
 	public boolean fueraDeLimites() {
 		boolean fueraDeLimites = false;
 		for (Coordenada co : listaCoordenadas) {
@@ -97,11 +96,5 @@ public class ListaCoordenadas {
 	
 	private Iterator<Coordenada> getIterator() {
 		return listaCoordenadas.iterator();
-	}
-
-	public void imprimir() {
-		for (Coordenada co : listaCoordenadas) {
-			System.out.println("("+co.getX()+","+co.getY()+")");
-		}
 	}
 }

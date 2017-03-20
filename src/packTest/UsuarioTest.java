@@ -2,13 +2,10 @@ package packTest;
 
 import static org.junit.Assert.*;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import packModelo.packBarcos.Barco;
 import packModelo.packCoordenada.Coordenada;
-import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Usuario;
 
 public class UsuarioTest {

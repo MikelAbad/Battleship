@@ -12,7 +12,7 @@ public class ListaBarcos {
 	public ListaBarcos() {
 		listaBarcos = new ArrayList<Barco>();
 	}
-	
+
 	public void addBarco(Barco pBarco) {
 		if (!listaBarcos.contains(pBarco)) {
 			listaBarcos.add(pBarco);
@@ -32,7 +32,7 @@ public class ListaBarcos {
 	public int numBarcos() {
 		return listaBarcos.size();
 	}
-	
+
 	public int getNumBarcosLong(int pLong) {
 		int cuantos = 0;
 		for (Barco b : listaBarcos) {
@@ -42,7 +42,7 @@ public class ListaBarcos {
 		}
 		return cuantos;
 	}
-	
+
 	public Barco buscarBarco(Coordenada pCoordenada) {
 		Iterator<Barco> itr = getIterator();
 		boolean encontrado = false;
@@ -57,8 +57,23 @@ public class ListaBarcos {
 		}
 		return barco;
 	}
-	
+
 	private Iterator<Barco> getIterator() {
 		return listaBarcos.iterator();
+	}
+
+	public void imprimirTablero() {
+		System.out.println("Barcos del ordenador:");
+		System.out.println("");
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				if (buscarBarco(new Coordenada(i, j)) != null) {
+					System.out.print("X ");
+				} else {
+					System.out.print("O ");
+				}
+			}
+			System.out.println("");
+		}
 	}
 }

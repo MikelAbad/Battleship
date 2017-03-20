@@ -24,11 +24,11 @@ import javax.swing.GroupLayout;
 import javax.swing.Icon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 
 public class Inicio extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, panel;
 	private final int filas = 10, columnas = 10;
 	private JButton[][] tablero;
@@ -51,9 +51,6 @@ public class Inicio extends JFrame {
 	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packImages/horizontal.png"));
 	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packImages/vertical.png"));
 	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,9 +65,6 @@ public class Inicio extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	private Inicio() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 540, 370);
@@ -263,7 +257,7 @@ public class Inicio extends JFrame {
 		if (vertical) {
 			while (k < longitud && i < 10) {
 				if (tablero[i][j].isEnabled()) {
-				tablero[i][j].setBackground(Color.GREEN);
+					tablero[i][j].setBackground(Color.GREEN);
 				}
 				i++;
 				k++;
@@ -271,7 +265,7 @@ public class Inicio extends JFrame {
 		} else {
 			while (k < longitud && j < 10) {
 				if (tablero[i][j].isEnabled()) {
-				tablero[i][j].setBackground(Color.GREEN);
+					tablero[i][j].setBackground(Color.GREEN);
 				}
 				j++;
 				k++;
