@@ -122,7 +122,7 @@ public class Inicio extends JFrame {
 
 		for (int i = 0; i < filas; i++) {
 			for (int j = 0; j < columnas; j++) {
-				JButton btn = new JButton();
+				JButton btn = new JButton("("+i+","+j+")");
 				btn.setName(i + "," + j);
 				tablero[i][j] = btn;
 				btn.addMouseListener(new CBtnsColocar());

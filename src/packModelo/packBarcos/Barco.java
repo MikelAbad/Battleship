@@ -15,7 +15,7 @@ public class Barco {
 		posicion = new ListaCoordenadas();
 		posicion.addCoordenada(pC);
 		int i = 0;
-		if (pVertical == true) {
+		if (!pVertical) {
 			i = pC.getY() + 1;
 			while (posicion.numCoordenadas() < pLong) {
 				posicion.addCoordenada(new Coordenada(pC.getX(), i++));
@@ -29,7 +29,7 @@ public class Barco {
 	}
 
 	public void tocar(Coordenada pCoordenada) {
-		if (posicion.contains(pCoordenada) && !tocadas.contains(pCoordenada)) {
+		if (posicion.estaEnLista(pCoordenada) && !tocadas.estaEnLista(pCoordenada)) {
 			tocadas.addCoordenada(pCoordenada);
 		}
 	}
@@ -56,7 +56,7 @@ public class Barco {
 	}
 
 	public boolean estaEnPos(Coordenada pCoordenada) {
-		return this.posicion.contains(pCoordenada);
+		return this.posicion.estaEnLista(pCoordenada);
 	}
 
 	public boolean fueraDeLimites() {

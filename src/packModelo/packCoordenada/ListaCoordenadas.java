@@ -22,7 +22,7 @@ public class ListaCoordenadas {
 		}
 	}
 
-	public boolean contains(Coordenada pCoordenada) {
+	public boolean estaEnLista(Coordenada pCoordenada) {
 		return esta(listaCoordenadas, pCoordenada);
 	}
 
@@ -83,7 +83,6 @@ public class ListaCoordenadas {
 		return listaCoordenadas;
 	}
 
-	// Devuelve true si hay alguna coincidencia
 	public boolean comprobarListas(ListaCoordenadas listaNoPonerB) {
 		boolean coincide = false;
 		Iterator<Coordenada> itr = getIterator();
@@ -95,11 +94,16 @@ public class ListaCoordenadas {
 				coincide = true;
 			}
 		}
-		
 		return coincide;
 	}
 	
 	private Iterator<Coordenada> getIterator() {
 		return listaCoordenadas.iterator();
+	}
+
+	public void imprimir() {
+		for (Coordenada co : listaCoordenadas) {
+			System.out.println("("+co.getX()+","+co.getY()+")");
+		}
 	}
 }
