@@ -110,7 +110,6 @@ public abstract class Jugador {
 
 	public boolean puedePoner(Barco pBarco) {
 		boolean puede = false;
-		System.out.println(pBarco.fueraDeLimites());
 		if (!pBarco.fueraDeLimites()) {
 			if (!pBarco.getPosicion().comprobarListas(listaNoPonerB)) {
 				puede = true;
