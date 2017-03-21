@@ -10,18 +10,13 @@ public class Almacen {
 	private int misil;
 	private int misilBOOM;
 	private int escudo;
-	private final int precioMisilNS = 45;
-	private final int precioMisilEO = 45;
-	private final int precioMisil = 10;
-	private final int precioMisilBOOM = 90;
-	private final int PrecioEscudo = 25;
 
 	private Almacen() {
-		misilNS = 1;
-		misilEO = 1;
-		misilBOOM = 1;
-		misil = 10;
-		escudo = 5;
+		misilNS = DatosJuego.CANT_MISIL_NS;
+		misilEO = DatosJuego.CANT_MISIL_EO;
+		misilBOOM = DatosJuego.CANT_MISIL_BOOM;
+		misil = DatosJuego.CANT_MISIL;
+		escudo = DatosJuego.CANT_ESCUDO;
 	}
 
 	public static Almacen getAlmacen() {
@@ -35,31 +30,31 @@ public class Almacen {
 		switch (pArma) {
 		case 0: // escudo
 			if (escudo > 0)
-				if (pJugador.getDinero() > PrecioEscudo) {
+				if (pJugador.getDinero() > DatosJuego.PRECIO_ESCUDO) {
 					puede = true;
 				}
 			break;
 		case 1: // misil
 			if (misil > 0)
-				if (pJugador.getDinero() > precioMisil) {
+				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL) {
 					puede = true;
 				}
 			break;
 		case 2: // misilNS
 			if (misilNS > 0)
-				if (pJugador.getDinero() > precioMisilNS) {
+				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL_NS) {
 					puede = true;
 				}
 			break;
 		case 3: // misilEO
 			if (misilEO > 0)
-				if (pJugador.getDinero() > precioMisilEO) {
+				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL_EO) {
 					puede = true;
 				}
 			break;
 		case 4: // misilBOOM
 			if (misilBOOM > 0)
-				if (pJugador.getDinero() > precioMisilBOOM) {
+				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL_BOOM) {
 					puede = true;
 				}
 			break;
@@ -67,28 +62,30 @@ public class Almacen {
 		return puede;
 	}
 
-	public void VenderMisilNS(Jugador pJugador) {
-		pJugador.pagarArma(precioMisilNS);
-		misilNS--;
+	
+	public void venderEscudo(Jugador pJugador) {
+		pJugador.pagarArma(DatosJuego.PRECIO_ESCUDO);
+		escudo--;
 	}
-
+	
 	public void venderMisil(Jugador pJugador) {
-		pJugador.pagarArma(precioMisil);
+		pJugador.pagarArma(DatosJuego.PRECIO_MISIL);
 		misil--;
 	}
 
-	public void venderMisilBOOM(Jugador pJugador) {
-		pJugador.pagarArma(precioMisilBOOM);
-		misilBOOM--;
-	}
 
-	public void venderEscudo(Jugador pJugador) {
-		pJugador.pagarArma(PrecioEscudo);
-		escudo--;
+	public void VenderMisilNS(Jugador pJugador) {
+		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_NS);
+		misilNS--;
 	}
 
 	public void venderMisilEO(Jugador pJugador) {
-		pJugador.pagarArma(precioMisilEO);
+		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_EO);
 		misilEO--;
+	}
+	
+	public void venderMisilBOOM(Jugador pJugador) {
+		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_BOOM);
+		misilBOOM--;
 	}
 }

@@ -2,7 +2,12 @@ package packModelo.packJugador;
 
 import java.util.Random;
 
+import packModelo.DatosJuego;
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.Destructor;
+import packModelo.packBarcos.Fragata;
+import packModelo.packBarcos.Portaaviones;
+import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 
 public class Ordenador extends Jugador {
@@ -17,41 +22,52 @@ public class Ordenador extends Jugador {
 
 	public void colocarBarcosOrd() {
 		Random rdn = new Random();
-		
+		int barcosPuestos;
+		Barco unBarco;
+
 		// Portaaviones (1)
-		Barco unBarco = new Barco(new Coordenada(rdn.nextInt(9), rdn.nextInt(9)), 4, rdn.nextBoolean());
+		unBarco = new Portaaviones(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+				rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
 		if (puedePoner(unBarco)) {
 			anadirBarcoProp(unBarco);
 		}
 
 		// Submarinos (2)
-		int puestos = 0;
-		while (puestos < 2) {
-			unBarco = new Barco(new Coordenada(rdn.nextInt(9), rdn.nextInt(9)), 3, rdn.nextBoolean());
+		barcosPuestos = 0;
+		while (barcosPuestos < DatosJuego.NUM_SUBMARINO) {
+			unBarco = new Submarino(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
 			if (puedePoner(unBarco)) {
 				anadirBarcoProp(unBarco);
-				puestos++;
+				barcosPuestos++;
 			}
 		}
 
 		// Destructores (3)
-		puestos = 0;
-		while (puestos < 3) {
-			unBarco = new Barco(new Coordenada(rdn.nextInt(9), rdn.nextInt(9)), 2, rdn.nextBoolean());
+		barcosPuestos = 0;
+		while (barcosPuestos < DatosJuego.NUM_DESTRUCTOR) {
+			unBarco = new Destructor(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
 			if (puedePoner(unBarco)) {
 				anadirBarcoProp(unBarco);
-				puestos++;
+				barcosPuestos++;
 			}
 		}
 
-		// Fragata (1)
-		puestos = 0;
-		while (puestos < 4) {
-			unBarco = new Barco(new Coordenada(rdn.nextInt(9), rdn.nextInt(9)), 1, rdn.nextBoolean());
+		// Fragata (4)
+		barcosPuestos = 0;
+		while (barcosPuestos < DatosJuego.NUM_FRAGATA) {
+			unBarco = new Fragata(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)));
 			if (puedePoner(unBarco)) {
 				anadirBarcoProp(unBarco);
-				puestos++;
+				barcosPuestos++;
 			}
 		}
+	}
+	
+	public void imprimirTablero() {
+		System.out.println("Barcos del ordenador:");
+		getListaBarcos().imprimirTablero();
 	}
 }

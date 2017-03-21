@@ -9,7 +9,7 @@ public class CBtnSub implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Inicio.getInicio().setLongitud(3);
+		Inicio.getInicio().setTipo("Submarino");
 	}
 	
 	@Override

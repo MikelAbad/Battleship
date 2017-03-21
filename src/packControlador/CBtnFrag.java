@@ -9,7 +9,7 @@ public class CBtnFrag implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Inicio.getInicio().setLongitud(1);
+		Inicio.getInicio().setTipo("Fragata");
 	}
 	
 	@Override

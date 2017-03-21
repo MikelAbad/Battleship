@@ -7,6 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.Portaaviones;
+import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Usuario;
 
@@ -68,9 +70,9 @@ public class TestJugador {
 	@Test
 	public void testPuedePoner() {
 		Usuario u = new Usuario();
-		Barco b = new Barco(new Coordenada(0,0), 4, false);
+		Barco b = new Portaaviones(new Coordenada(0,0), false);
 		u.colocarBarco(b);
-		Barco b2 = new Barco(new Coordenada(0,0), 3, true);
+		Barco b2 = new Submarino(new Coordenada(0,0), true);
 		assertFalse(u.puedePoner(b2));
 	}
 

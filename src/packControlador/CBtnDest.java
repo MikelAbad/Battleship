@@ -9,7 +9,7 @@ public class CBtnDest implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Inicio.getInicio().setLongitud(2);
+		Inicio.getInicio().setTipo("Destructor");
 	}
 	
 	@Override

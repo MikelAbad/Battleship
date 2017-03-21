@@ -9,7 +9,7 @@ public class CBtnPort implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Inicio.getInicio().setLongitud(4);
+		Inicio.getInicio().setTipo("Portaaviones");
 	}
 	
 	@Override

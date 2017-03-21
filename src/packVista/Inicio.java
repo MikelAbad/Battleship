@@ -17,6 +17,7 @@ import packControlador.CBtnPort;
 import packControlador.CBtnSub;
 import packControlador.CBtnsColocar;
 import packModelo.Battleship;
+import packModelo.DatosJuego;
 
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
@@ -30,7 +31,6 @@ public class Inicio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, panel;
-	private final int filas = 10, columnas = 10;
 	private JButton[][] tablero;
 	private JPanel panel_1;
 	private JLabel lblFragata;
@@ -45,13 +45,13 @@ public class Inicio extends JFrame {
 	private JLabel lblColoqueTodosLos;
 	private JButton btnBtnOrientacion;
 	private JLabel lblOrientacion;
-	private int longitud;
+	private String tipo;
 	private boolean vertical;
 	private static Inicio miInicio;
 	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packImages/horizontal.png"));
 	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packImages/vertical.png"));
 	
-	public static void main(String[] args) {
+	public void empezar() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -73,8 +73,8 @@ public class Inicio extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		crearTablero();
-		vertical=false;
-		longitud=0;
+		vertical = false;
+		tipo = null;
 	}
 	
 	public boolean isVertical() {
@@ -91,16 +91,18 @@ public class Inicio extends JFrame {
 	}
 
 	public static Inicio getInicio() {
-		if (miInicio==null)miInicio=new Inicio();
+		if (miInicio == null) {
+			miInicio = new Inicio();
+		}
 		return miInicio;
 	}
 
-	public int getLongitud() {
-		return longitud;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setLongitud(int longitud) {
-		this.longitud = longitud;
+	public void setTipo(String pTipo) {
+		tipo = pTipo;
 	}
 
 	private void crearTablero() {
@@ -108,14 +110,14 @@ public class Inicio extends JFrame {
 			contentPane.remove(panel);
 		}
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(filas, columnas, 0, 0));
+		panel.setLayout(new GridLayout(DatosJuego.FILAS_TABLERO, DatosJuego.COLUMNAS_TABLERO, 0, 0));
 		contentPane.add(panel, BorderLayout.CENTER);
 		contentPane.add(getPanel_1(), BorderLayout.EAST);
 		contentPane.add(getPanel_2(), BorderLayout.NORTH);
-		tablero = new JButton[filas][columnas];
+		tablero = new JButton[DatosJuego.FILAS_TABLERO][DatosJuego.COLUMNAS_TABLERO];
 
-		for (int i = 0; i < filas; i++) {
-			for (int j = 0; j < columnas; j++) {
+		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
+			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				JButton btn = new JButton();
 				btn.setName(i + "," + j);
 				tablero[i][j] = btn;
@@ -135,44 +137,65 @@ public class Inicio extends JFrame {
 			}
 			lblDestructor = new JLabel("3");
 			GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-			gl_panel_1.setHorizontalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
-					.createSequentialGroup().addGap(5)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup().addComponent(getLblSubmarino())
-									.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBtnBtnsubmarino()))
-							.addGroup(gl_panel_1
-									.createSequentialGroup()
-									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addComponent(lblFragata)
-											.addComponent(lblDestructor))
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-											.addComponent(btnBtnfragata).addComponent(getBtnBtndestructor())))
-							.addGroup(gl_panel_1.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(getLblOrientacion()).addGap(24).addComponent(
-											getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_panel_1.createSequentialGroup().addComponent(getLblPortaviones())
-									.addPreferredGap(ComponentPlacement.RELATED).addComponent(getBtnBtnportaviones())))
-					.addContainerGap(37, Short.MAX_VALUE)));
-			gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
-					.createSequentialGroup()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup().addGap(9).addComponent(lblFragata))
-							.addGroup(gl_panel_1.createSequentialGroup().addGap(5).addComponent(btnBtnfragata)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(lblDestructor)
+			gl_panel_1.setHorizontalGroup(
+				gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_1.createSequentialGroup()
+						.addGap(5)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addComponent(getLblSubmarino())
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(getBtnBtnsubmarino()))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblFragata)
+									.addComponent(lblDestructor))
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+									.addComponent(btnBtnfragata)
+									.addComponent(getBtnBtndestructor())))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(getLblOrientacion())
+								.addGap(24)
+								.addComponent(getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addComponent(getLblPortaviones())
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(getBtnBtnportaviones())))
+						.addContainerGap(37, Short.MAX_VALUE))
+			);
+			gl_panel_1.setVerticalGroup(
+				gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_1.createSequentialGroup()
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(9)
+								.addComponent(lblFragata))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(5)
+								.addComponent(btnBtnfragata)))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblDestructor)
 							.addComponent(getBtnBtndestructor()))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(getLblSubmarino())
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblSubmarino())
 							.addComponent(getBtnBtnsubmarino()))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(getLblPortaviones())
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblPortaviones())
 							.addComponent(getBtnBtnportaviones()))
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup().addGap(49).addComponent(getLblOrientacion()))
-							.addGroup(gl_panel_1.createSequentialGroup().addGap(32).addComponent(
-									getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 47,
-									GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(88, Short.MAX_VALUE)));
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(49)
+								.addComponent(getLblOrientacion()))
+							.addGroup(gl_panel_1.createSequentialGroup()
+								.addGap(32)
+								.addComponent(getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(88, Short.MAX_VALUE))
+			);
 			panel_1.setLayout(gl_panel_1);
 		}
 		return panel_1;
@@ -255,7 +278,7 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (vertical) {
-			while (k < longitud && i < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(Color.GREEN);
 				}
@@ -263,7 +286,7 @@ public class Inicio extends JFrame {
 				k++;
 			}
 		} else {
-			while (k < longitud && j < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(Color.GREEN);
 				}
@@ -279,13 +302,13 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (vertical) {
-			while (k < longitud && i < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				tablero[i][j].setBackground(Color.PINK);
 				i++;
 				k++;
 			}
 		} else {
-			while (k < longitud && j < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
 				tablero[i][j].setBackground(Color.PINK);
 				j++;
 				k++;
@@ -299,7 +322,7 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (vertical) {
-			while (k < longitud && i < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(null);
 				}
@@ -307,7 +330,7 @@ public class Inicio extends JFrame {
 				k++;
 			}
 		} else {
-			while (k < longitud && j < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(null);
 				}
@@ -318,32 +341,32 @@ public class Inicio extends JFrame {
 	}
 
 	public void decrementarCont(int i) {
-		switch (longitud) {
-		case 1:
+		switch (tipo) {
+		case "Fragata":
 			lblFragata.setText(i + "");
 			if (i < 1) {
 				btnBtnfragata.setEnabled(false);
-				longitud = 0;
+				tipo = null;
 			}
 			break;
-		case 2:
+		case "Destructor":
 			lblDestructor.setText(i + "");
 			if (i < 1) {
 				btnBtndestructor.setEnabled(false);
-				longitud = 0;
+				tipo = null;
 			}
 			break;
-		case 3:
+		case "Submarino":
 			lblSubmarino.setText(i + "");
 			if (i < 1) {
 				btnBtnsubmarino.setEnabled(false);
-				longitud = 0;
+				tipo = null;
 			}
 			break;
-		case 4:
+		case "Portaaviones":
 			lblPortaviones.setText(i + "");
 			btnBtnportaviones.setEnabled(false);
-			longitud = 0;
+			tipo = null;
 			break;
 		}
 	}
@@ -354,13 +377,13 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (vertical) {
-			while (k < longitud && i < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				tablero[i][j].setEnabled(false);
 				i++;
 				k++;
 			}
 		} else {
-			while (k < longitud && j < 10) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
 				tablero[i][j].setEnabled(false);
 				j++;
 				k++;

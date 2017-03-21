@@ -1,6 +1,7 @@
 package packModelo;
 
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.BarcosFactory;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Ordenador;
@@ -35,8 +36,8 @@ public class Battleship {
 		// TODO mas cosas, supongo
 	}
 
-	public boolean colocarBarcoUs(Coordenada pC, int pLong, boolean pVertical) {
-		Barco unBarco = new Barco(pC, pLong, pVertical);
+	public boolean colocarBarcoUs(String pTipo, Coordenada pC, boolean pVertical) {
+		Barco unBarco = BarcosFactory.getBarcoFactory().crearBarco(pTipo, pC, pVertical);
 		if (usuario.puedePonerUs(unBarco) && usuario.puedePoner(unBarco)) {
 			usuario.colocarBarco(unBarco);
 			return true;
@@ -45,27 +46,26 @@ public class Battleship {
 		}
 	}
 
-	public int barcosXPonRestantes(int pLong) {
+	public int barcosXPonRestantes(String pTipo) {
 		int i = 0;
-		switch (pLong) {
-		case 1:
-			i = 4 - usuario.getListaBarcos().getNumBarcosLong(pLong);
-			break;
-		case 2:
-			i = 3 - usuario.getListaBarcos().getNumBarcosLong(pLong);
-			break;
-		case 3:
-			i = 2 - usuario.getListaBarcos().getNumBarcosLong(pLong);
-			break;
-		case 4:
-			i = 1 - usuario.getListaBarcos().getNumBarcosLong(pLong);
-			break;
+		if (pTipo.equals("Fragata")) {
+			i = DatosJuego.NUM_FRAGATA - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
+		} else if (pTipo.equals("Destructor")) {
+			i = DatosJuego.NUM_DESTRUCTOR - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
+		} else if (pTipo.equals("Submarino")) {
+			i = DatosJuego.NUM_SUBMARINO - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
+		} else if (pTipo.equals("Portaaviones")) {
+			i = DatosJuego.NUM_PORTAAVIONES - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
 		}
 		return i;
 	}
 
 	private void colocarBarcosOrd() {
 		ordenador.colocarBarcosOrd();
+	}
+
+	public void imprimirTableroUsuario() {
+		usuario.imprimirTablero();
 	}
 
 	public void juegoAcabado() {

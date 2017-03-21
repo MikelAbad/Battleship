@@ -9,6 +9,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.Destructor;
+import packModelo.packBarcos.Portaaviones;
 import packModelo.packCoordenada.Coordenada;
 
 public class BarcoTest {
@@ -48,7 +50,7 @@ public class BarcoTest {
 
 	@Test
 	public void testEstaEnPos() {
-		Barco b = new Barco(new Coordenada(0,0), 4, true);
+		Barco b = new Portaaviones(new Coordenada(0,0), true);
 		assertTrue(b.estaEnPos(new Coordenada(0,0)));
 		assertTrue(b.estaEnPos(new Coordenada(0,1)));
 		assertTrue(b.estaEnPos(new Coordenada(0,2)));
@@ -59,15 +61,15 @@ public class BarcoTest {
 
 	@Test
 	public void testComprobarLimites() {
-		Barco b = new Barco(new Coordenada(0,0), 4, true);
+		Barco b = new Portaaviones(new Coordenada(0,0), true);
 		assertTrue(b.fueraDeLimites());
-		Barco b2 = new Barco(new Coordenada(7,0), 4, false);
+		Barco b2 = new Portaaviones(new Coordenada(7,0), true);
 		assertFalse(b2.fueraDeLimites());
 	}
 
 	@Test
 	public void testCalcularAdyacentes() {
-		Barco b = new Barco(new Coordenada(0,0), 2, true);
+		Barco b = new Destructor(new Coordenada(0,0), true);
 		ArrayList<Coordenada> adyacentes = b.calcularAdyacentes();
 		
 		ArrayList<Coordenada> misAdyacentes = new ArrayList<Coordenada>();

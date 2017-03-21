@@ -3,13 +3,15 @@ package packModelo.packCoordenada;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import packModelo.DatosJuego;
+
 public class ListaCoordenadas {
 	private ArrayList<Coordenada> listaCoordenadas;
 
 	public ListaCoordenadas() {
 		listaCoordenadas = new ArrayList<Coordenada>();
 	}
-	
+
 	public void addCoordenada(Coordenada pCoordenada) {
 		if (!listaCoordenadas.contains(pCoordenada)) {
 			listaCoordenadas.add(pCoordenada);
@@ -29,11 +31,11 @@ public class ListaCoordenadas {
 	public int numCoordenadas() {
 		return listaCoordenadas.size();
 	}
-	
+
 	public void vaciar() {
 		listaCoordenadas = new ArrayList<Coordenada>();
 	}
-	
+
 	public ArrayList<Coordenada> calcularAdyacentes() {
 		ArrayList<Coordenada> adyacentes = new ArrayList<Coordenada>();
 		for (Coordenada co : listaCoordenadas) {
@@ -49,18 +51,19 @@ public class ListaCoordenadas {
 	public boolean fueraDeLimites() {
 		boolean fueraDeLimites = false;
 		for (Coordenada co : listaCoordenadas) {
-			if (co.getX() < 0 || co.getX() > 9 || co.getY() < 0 || co.getY() > 9) {
+			if (co.getX() < 0 || co.getX() > DatosJuego.COLUMNAS_TABLERO - 1 || co.getY() < 0
+					|| co.getY() > DatosJuego.FILAS_TABLERO - 1) {
 				fueraDeLimites = true;
 			}
 		}
 		return fueraDeLimites;
 	}
-	
+
 	private boolean esta(ArrayList<Coordenada> pLista, Coordenada pC) {
 		Iterator<Coordenada> itr = pLista.iterator();
 		Coordenada co;
 		boolean esta = false;
-		while(itr.hasNext() && !esta) {
+		while (itr.hasNext() && !esta) {
 			co = itr.next();
 			if (co.getX() == pC.getX() && co.getY() == pC.getY()) {
 				esta = true;
@@ -68,14 +71,14 @@ public class ListaCoordenadas {
 		}
 		return esta;
 	}
-	
+
 	public void addCoordenadas(ArrayList<Coordenada> pLista) {
 		for (Coordenada co : pLista) {
 			if (!esta(listaCoordenadas, co))
 				listaCoordenadas.add(co);
 		}
 	}
-	
+
 	public ArrayList<Coordenada> getCoordenadas() {
 		return listaCoordenadas;
 	}
@@ -93,7 +96,7 @@ public class ListaCoordenadas {
 		}
 		return coincide;
 	}
-	
+
 	private Iterator<Coordenada> getIterator() {
 		return listaCoordenadas.iterator();
 	}

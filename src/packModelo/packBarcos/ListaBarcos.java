@@ -33,10 +33,10 @@ public class ListaBarcos {
 		return listaBarcos.size();
 	}
 
-	public int getNumBarcosLong(int pLong) {
+	public int getNumBarcosRestantes(String pTipo) {
 		int cuantos = 0;
 		for (Barco b : listaBarcos) {
-			if (b.getLongitud() == pLong) {
+			if (b.getTipo() == pTipo) {
 				cuantos++;
 			}
 		}
@@ -63,7 +63,6 @@ public class ListaBarcos {
 	}
 
 	public void imprimirTablero() {
-		System.out.println("Barcos del ordenador:");
 		System.out.println("");
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {

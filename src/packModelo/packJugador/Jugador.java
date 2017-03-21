@@ -1,6 +1,7 @@
 package packModelo.packJugador;
 
 import packModelo.Almacen;
+import packModelo.DatosJuego;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.ListaBarcos;
 import packModelo.packCoordenada.Coordenada;
@@ -19,7 +20,7 @@ public abstract class Jugador {
 	public Jugador() {
 		listNoDisparable = new ListaCoordenadas();
 		listaBarcos = new ListaBarcos();
-		dinero = 100;
+		dinero = DatosJuego.DINERO_INICIAL;
 		barcosEneDest = new ListaBarcos();
 		listaTocadasEnem = new ListaCoordenadas();
 		listaNoPonerB = new ListaCoordenadas();
@@ -117,9 +118,5 @@ public abstract class Jugador {
 			}
 		}
 		return puede;
-	}
-	
-	public void imprimirTablero() {
-		this.listaBarcos.imprimirTablero();
 	}
 }

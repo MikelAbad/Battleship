@@ -2,30 +2,20 @@ package packModelo.packBarcos;
 
 import java.util.ArrayList;
 
+import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
 
-public class Barco {
+public abstract class Barco {
 	private ListaCoordenadas posicion;
 	private ListaCoordenadas tocadas;
+	private String tipo;
+	private int longitud = 0;
 	private int escudo = 0;
 
-	public Barco(Coordenada pC, int pLong, boolean pVertical) {
-		tocadas = new ListaCoordenadas();
+	public Barco() {
 		posicion = new ListaCoordenadas();
-		posicion.addCoordenada(pC);
-		int i = 0;
-		if (!pVertical) {
-			i = pC.getY() + 1;
-			while (posicion.numCoordenadas() < pLong) {
-				posicion.addCoordenada(new Coordenada(pC.getX(), i++));
-			}
-		} else {
-			i = pC.getX() + 1;
-			while (posicion.numCoordenadas() < pLong) {
-				posicion.addCoordenada(new Coordenada(i++, pC.getY()));
-			}
-		}
+		tocadas = new ListaCoordenadas();
 	}
 
 	public void tocar(Coordenada pCoordenada) {
@@ -44,7 +34,7 @@ public class Barco {
 
 	public boolean ponerEscudo() {
 		if (escudo == 0) {
-			escudo = 2;
+			escudo = DatosJuego.VALOR_ESCUDO;
 			return true;
 		} else {
 			return false;
@@ -67,11 +57,15 @@ public class Barco {
 		return posicion.calcularAdyacentes();
 	}
 
-	public int getLongitud() {
-		return posicion.numCoordenadas();
-	}
-
 	public ListaCoordenadas getPosicion() {
 		return posicion;
+	}
+
+	public String getTipo() {
+		return this.tipo;
+	}
+
+	public void setTipo(String pTipo) {
+		this.tipo = pTipo;
 	}
 }
