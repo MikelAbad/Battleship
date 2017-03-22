@@ -101,7 +101,7 @@ public class Battleship {
 			exito = Almacen.getAlmacen().puedeVender(pArma, elJugador);
 			if (exito) {
 				switch (pArma) {
-				case 0: // escudo
+				case DatosJuego.NUM_ESCUDO: // escudo
 					exito = elJugador.ponerEscudo(pCoordenada);
 					break;
 				case 1: // misil
@@ -123,5 +123,8 @@ public class Battleship {
 			}
 		}
 		return exito;
+	}
+	public boolean hayBarcoUsu(Coordenada pC){
+		return usuario.hayBarco(pC);
 	}
 }
