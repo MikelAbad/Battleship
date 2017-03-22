@@ -119,4 +119,14 @@ public abstract class Jugador {
 		}
 		return puede;
 	}
+	
+	public boolean puedeColocar(Barco pBarco) {
+		boolean puede = false;
+		if (!pBarco.fueraDeLimites()) {
+			if (!pBarco.getPosicion().comprobarListas(listaNoPonerB)) {
+				puede = true;
+			}
+		}
+		return puede;
+	}
 }

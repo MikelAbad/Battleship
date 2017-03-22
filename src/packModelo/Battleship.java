@@ -45,6 +45,15 @@ public class Battleship {
 			return false;
 		}
 	}
+	
+	public boolean puedeColocar(String pTipo, Coordenada pC, boolean pVertical) {
+		Barco unBarco = BarcosFactory.getBarcoFactory().crearBarco(pTipo, pC, pVertical);
+		if (usuario.puedePonerUs(unBarco) && usuario.puedeColocar(unBarco)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public int barcosXPonRestantes(String pTipo) {
 		int i = 0;
