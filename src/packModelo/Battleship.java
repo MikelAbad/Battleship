@@ -104,16 +104,16 @@ public class Battleship {
 				case DatosJuego.NUM_ESCUDO: // escudo
 					exito = elJugador.ponerEscudo(pCoordenada);
 					break;
-				case 1: // misil
+				case DatosJuego.NUM_MISIL:
 					exito = elJugador.usarMisil(pCoordenada);
 					break;
-				case 2: // misilNS
+				case DatosJuego.NUM_MISIL_NS:
 					exito = elJugador.usarMisilNS(pCoordenada);
 					break;
-				case 3: // misilEO
+				case DatosJuego.NUM_MISIL_EO:
 					exito = elJugador.usarMisilEO(pCoordenada);
 					break;
-				case 4: // misilBOOM
+				case DatosJuego.NUM_MISIL_BOOM:
 					exito = elJugador.usarMisilBOOM(pCoordenada);
 					break;
 				default:

@@ -7,13 +7,13 @@ public class DatosJuego {
 	public static final int DINERO_INICIAL = 100;
 	public static final int VALOR_ESCUDO = 2;
 	
-	// Numero Id arma
-		public static final int NUM_MISIL = 1;
-		public static final int NUM_MISIL_NS = 2;
-		public static final int NUM_MISIL_EO = 3;
-		public static final int NUM_MISIL_BOOM = 4;
-		public static final int NUM_ESCUDO = 0;
-		public static final int NUM_BOMBA = -1;
+	// Numero id arma
+	public static final int NUM_MISIL = 1;
+	public static final int NUM_MISIL_NS = 2;
+	public static final int NUM_MISIL_EO = 3;
+	public static final int NUM_MISIL_BOOM = 4;
+	public static final int NUM_ESCUDO = 0;
+	public static final int NUM_BOMBA = -1;
 	
 	// Cantidades inciales stock Almacen
 	public static final int CANT_MISIL = 10;

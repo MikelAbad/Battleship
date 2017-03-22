@@ -28,33 +28,33 @@ public class Almacen {
 	public boolean puedeVender(int pArma, Jugador pJugador) {
 		boolean puede = false;
 		switch (pArma) {
-		case 0: // escudo
+		case DatosJuego.NUM_ESCUDO:
 			if (escudo > 0)
-				if (pJugador.getDinero() > DatosJuego.PRECIO_ESCUDO) {
+				if (pJugador.getDinero() >= DatosJuego.PRECIO_ESCUDO) {
 					puede = true;
 				}
 			break;
-		case 1: // misil
+		case DatosJuego.NUM_MISIL:
 			if (misil > 0)
-				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL) {
+				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL) {
 					puede = true;
 				}
 			break;
-		case 2: // misilNS
+		case DatosJuego.NUM_MISIL_NS:
 			if (misilNS > 0)
-				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL_NS) {
+				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL_NS) {
 					puede = true;
 				}
 			break;
-		case 3: // misilEO
+		case DatosJuego.NUM_MISIL_EO:
 			if (misilEO > 0)
-				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL_EO) {
+				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL_EO) {
 					puede = true;
 				}
 			break;
-		case 4: // misilBOOM
+		case DatosJuego.NUM_MISIL_BOOM:
 			if (misilBOOM > 0)
-				if (pJugador.getDinero() > DatosJuego.PRECIO_MISIL_BOOM) {
+				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL_BOOM) {
 					puede = true;
 				}
 			break;
@@ -74,7 +74,7 @@ public class Almacen {
 	}
 
 
-	public void VenderMisilNS(Jugador pJugador) {
+	public void venderMisilNS(Jugador pJugador) {
 		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_NS);
 		misilNS--;
 	}

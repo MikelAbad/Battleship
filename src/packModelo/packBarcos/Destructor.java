@@ -22,6 +22,4 @@ public class Destructor extends Barco {
 			}
 		}
 	}
-	
-	
 }

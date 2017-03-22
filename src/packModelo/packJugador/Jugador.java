@@ -20,10 +20,10 @@ public abstract class Jugador {
 	public Jugador() {
 		listNoDisparable = new ListaCoordenadas();
 		listaBarcos = new ListaBarcos();
-		dinero = DatosJuego.DINERO_INICIAL;
 		barcosEneDest = new ListaBarcos();
 		listaTocadasEnem = new ListaCoordenadas();
 		listaNoPonerB = new ListaCoordenadas();
+		dinero = DatosJuego.DINERO_INICIAL;
 	}
 
 	public int getDinero() {
