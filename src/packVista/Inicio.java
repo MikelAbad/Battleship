@@ -58,7 +58,6 @@ public class Inicio extends JFrame {
 				try {
 					Inicio frame = getInicio();
 					frame.setVisible(true);
-					Battleship.getBattleship().inicializar();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

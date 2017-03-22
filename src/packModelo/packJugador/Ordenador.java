@@ -26,10 +26,14 @@ public class Ordenador extends Jugador {
 		Barco unBarco;
 
 		// Portaaviones (1)
-		unBarco = new Portaaviones(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
-				rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-		if (puedePoner(unBarco)) {
-			anadirBarcoProp(unBarco);
+		boolean puesto = false;
+		while (!puesto) {
+			unBarco = new Portaaviones(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
+			if (puedePoner(unBarco)) {
+				anadirBarcoProp(unBarco);
+				puesto = true;
+			}	
 		}
 
 		// Submarinos (2)
