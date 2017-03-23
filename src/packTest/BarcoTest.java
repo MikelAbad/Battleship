@@ -10,7 +10,9 @@ import org.junit.Test;
 
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.Destructor;
+import packModelo.packBarcos.Fragata;
 import packModelo.packBarcos.Portaaviones;
+import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 
 public class BarcoTest {
@@ -52,19 +54,25 @@ public class BarcoTest {
 	public void testEstaEnPos() {
 		Barco b = new Portaaviones(new Coordenada(0,0), true);
 		assertTrue(b.estaEnPos(new Coordenada(0,0)));
-		assertTrue(b.estaEnPos(new Coordenada(0,1)));
-		assertTrue(b.estaEnPos(new Coordenada(0,2)));
-		assertTrue(b.estaEnPos(new Coordenada(0,3)));
+		assertTrue(b.estaEnPos(new Coordenada(1,0)));
+		assertTrue(b.estaEnPos(new Coordenada(2,0)));
+		assertTrue(b.estaEnPos(new Coordenada(3,0)));
 		assertFalse(b.estaEnPos(new Coordenada(0,4)));
-		assertFalse(b.estaEnPos(new Coordenada(1,0)));
+		assertFalse(b.estaEnPos(new Coordenada(0,1)));
 	}
 
 	@Test
-	public void testComprobarLimites() {
+	public void testFueraDeLimites() {
 		Barco b = new Portaaviones(new Coordenada(0,0), true);
-		assertTrue(b.fueraDeLimites());
+		assertFalse(b.fueraDeLimites());
 		Barco b2 = new Portaaviones(new Coordenada(7,0), true);
-		assertFalse(b2.fueraDeLimites());
+		assertTrue(b2.fueraDeLimites());
+		Barco b3 =  new Fragata(new Coordenada(10,0));
+		assertTrue(b3.fueraDeLimites());
+		Barco b4 =  new Submarino(new Coordenada(5,9),false);
+		assertTrue(b4.fueraDeLimites());
+		Barco b5 =  new Submarino(new Coordenada(5,5),false);
+		assertFalse(b.fueraDeLimites());
 	}
 
 	@Test
@@ -91,6 +99,7 @@ public class BarcoTest {
 		misAdyacentes.add(new Coordenada(-1,2));
 
 		assertEquals(misAdyacentes.size(),adyacentes.size());
+		
 	}
 
 }

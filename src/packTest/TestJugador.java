@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.Fragata;
 import packModelo.packBarcos.Portaaviones;
 import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
@@ -70,10 +71,27 @@ public class TestJugador {
 	@Test
 	public void testPuedePoner() {
 		Usuario u = new Usuario();
-		Barco b = new Portaaviones(new Coordenada(0,0), false);
+		Barco b = new Portaaviones(new Coordenada(0,0), false);		
+		u.puedePoner(b);
 		u.colocarBarco(b);
 		Barco b2 = new Submarino(new Coordenada(0,0), true);
 		assertFalse(u.puedePoner(b2));
+		b2=new Submarino (new Coordenada(1,1),true);
+		assertFalse(u.puedePoner(b2));
+		b2=new Fragata(new Coordenada(9,9));
+		assertTrue(u.puedePoner(b2));
+		b2=new Submarino (new Coordenada(8,8),true);
+		assertFalse(u.puedePoner(b2));
+		
+		Barco b4=new Submarino (new Coordenada(5,5),false);
+		assertTrue(u.puedePoner(b4));
+		u.puedePoner(b4);
+		u.colocarBarco(b4);
+		
+		Barco b3 = new Submarino(new Coordenada(3,6), true);
+		assertFalse(u.puedePoner(b3));
+		
+		
 	}
 
 }
