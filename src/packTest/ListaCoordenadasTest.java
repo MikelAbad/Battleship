@@ -33,7 +33,77 @@ public class ListaCoordenadasTest {
 		
 	@Test
 	public void testCalcularAdyacentes() {
-		//esta probado en barcoTest
+		ListaCoordenadas l=new ListaCoordenadas();
+		ArrayList<Coordenada> adyacentes=new ArrayList<Coordenada>();
+		ArrayList<Coordenada> misAdyacentes=new ArrayList<Coordenada>();
+		adyacentes=l.calcularAdyacentes();
+		assertEquals(adyacentes.size(),0);
+		
+		Coordenada c=new Coordenada(5,5);
+		l.addCoordenada(c);
+		adyacentes=l.calcularAdyacentes();
+		
+		misAdyacentes.add(c);
+		misAdyacentes.add(new Coordenada(5,4));
+		misAdyacentes.add(new Coordenada(5,6));
+		misAdyacentes.add(new Coordenada(4,5));
+		misAdyacentes.add(new Coordenada(6,5));
+		misAdyacentes.add(new Coordenada(4,4));
+		misAdyacentes.add(new Coordenada(4,6));
+		misAdyacentes.add(new Coordenada(6,4));
+		misAdyacentes.add(new Coordenada(6,6));		
+		
+		int cont = 0;
+		// Miramos que ambos arraylist contienen las mismas coordenadas
+		for (int i = 0; i < adyacentes.size(); i++) {
+			for (int j = 0; j < adyacentes.size(); j++) {
+				if ((adyacentes.get(i).getX() == misAdyacentes.get(j).getX())
+						&& adyacentes.get(i).getY() == misAdyacentes.get(j).getY()) {
+					cont++;
+				}
+			}
+		}
+		assertEquals(cont, adyacentes.size());
+
+		Coordenada c2=new Coordenada(5,7);
+		l.addCoordenada(c2);
+		adyacentes=l.calcularAdyacentes();
+		misAdyacentes.add(c2);
+		misAdyacentes.add(new Coordenada (5,7));
+		misAdyacentes.add(new Coordenada (4,7));
+		misAdyacentes.add(new Coordenada (6,7));
+		misAdyacentes.add(new Coordenada (4,8));
+		misAdyacentes.add(new Coordenada (5,8));
+		misAdyacentes.add(new Coordenada (6,8));
+		
+		cont = 0;
+		// Miramos que ambos arraylist contienen las mismas coordenadas
+		for (int i = 0; i < adyacentes.size(); i++) {
+			for (int j = 0; j < adyacentes.size(); j++) {
+				if ((adyacentes.get(i).getX() == misAdyacentes.get(j).getX())
+						&& adyacentes.get(i).getY() == misAdyacentes.get(j).getY()) {
+					cont++;
+				}
+			}
+		}
+		assertEquals(cont, adyacentes.size());
+		
+		Coordenada c3=new Coordenada(5,6);
+		l.addCoordenada(c3);
+		adyacentes=l.calcularAdyacentes();
+		
+		cont = 0;
+		// Miramos que ambos arraylist contienen las mismas coordenadas
+		for (int i = 0; i < adyacentes.size(); i++) {
+			for (int j = 0; j < adyacentes.size(); j++) {
+				if ((adyacentes.get(i).getX() == misAdyacentes.get(j).getX())
+						&& adyacentes.get(i).getY() == misAdyacentes.get(j).getY()) {
+					cont++;
+				}
+			}
+		}
+		assertEquals(cont, adyacentes.size());
+		
 	}
 
 	@Test
@@ -51,9 +121,7 @@ public class ListaCoordenadasTest {
 		assertTrue(l.fueraDeLimites());
 		Coordenada c4=new Coordenada(-1,-13);
 		l.addCoordenada(c4);
-		assertTrue(l.fueraDeLimites());
-	
-		
+		assertTrue(l.fueraDeLimites());		
 	}
 
 	

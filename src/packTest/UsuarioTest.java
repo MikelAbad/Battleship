@@ -2,8 +2,10 @@ package packTest;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import packModelo.Battleship;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.Destructor;
 import packModelo.packBarcos.Fragata;
@@ -13,6 +15,12 @@ import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Usuario;
 
 public class UsuarioTest {
+	
+	@Before
+	public void setUp() throws Exception {
+		Battleship.getBattleship().inicializar();
+	}
+
 
 	@Test
 	public void testPuedePonerUs() {

@@ -19,8 +19,6 @@ public class Usuario extends Jugador {
 
 	public void colocarBarco(Barco pBarco) {
 		getListaBarcos().addBarco(pBarco);
-		
-		//TODO Provoca error en alguna JUnit, comentar esta linea al ejecutarlas
 		Battleship.getBattleship().imprimirTableroUsuario();
 	}
 

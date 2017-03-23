@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import packModelo.Battleship;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.Fragata;
 import packModelo.packBarcos.Portaaviones;
@@ -17,6 +18,7 @@ public class TestJugador {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Battleship.getBattleship().inicializar();
 	}
 
 	@AfterClass
@@ -83,12 +85,12 @@ public class TestJugador {
 		b2=new Submarino (new Coordenada(8,8),true);
 		assertFalse(u.puedePoner(b2));
 		
-		Barco b4=new Submarino (new Coordenada(5,5),false);
+		Barco b4=new Submarino (new Coordenada(5,5), true);
 		assertTrue(u.puedePoner(b4));
 		u.puedePoner(b4);
 		u.colocarBarco(b4);
 		
-		Barco b3 = new Submarino(new Coordenada(3,6), true);
+		Barco b3 = new Submarino(new Coordenada(3,6), false);
 		assertFalse(u.puedePoner(b3));
 		
 		
