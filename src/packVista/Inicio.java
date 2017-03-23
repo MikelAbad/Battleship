@@ -51,6 +51,7 @@ public class Inicio extends JFrame {
 	private static Inicio miInicio;
 	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packImages/horizontal.png"));
 	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packImages/vertical.png"));
+	
 
 	public void empezar() {
 		EventQueue.invokeLater(new Runnable() {
@@ -343,9 +344,12 @@ public class Inicio extends JFrame {
 		}
 	}
 
-	public void decrementarCont(int i) {
+	public void decrementarCont() {
+		int i;
 		switch (tipo) {
-		case "Fragata":
+		case "Fragata":	
+			i = Integer.parseInt(lblFragata.getText());
+			i--;
 			lblFragata.setText(i + "");
 			if (i < 1) {
 				btnBtnfragata.setEnabled(false);
@@ -353,6 +357,8 @@ public class Inicio extends JFrame {
 			}
 			break;
 		case "Destructor":
+			i = Integer.parseInt(lblDestructor.getText());
+			i--;
 			lblDestructor.setText(i + "");
 			if (i < 1) {
 				btnBtndestructor.setEnabled(false);
@@ -360,6 +366,8 @@ public class Inicio extends JFrame {
 			}
 			break;
 		case "Submarino":
+			i = Integer.parseInt(lblSubmarino.getText());
+			i--;
 			lblSubmarino.setText(i + "");
 			if (i < 1) {
 				btnBtnsubmarino.setEnabled(false);
@@ -367,6 +375,8 @@ public class Inicio extends JFrame {
 			}
 			break;
 		case "Portaaviones":
+			i = Integer.parseInt(lblPortaviones.getText());
+			i--;
 			lblPortaviones.setText(i + "");
 			btnBtnportaviones.setEnabled(false);
 			tipo = null;
