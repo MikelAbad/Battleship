@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import packControlador.CBtnEscudo;
 import packControlador.CBtnsUsuario;
+import packModelo.Almacen;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
@@ -19,12 +21,14 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
 
-public class TableroJuego extends JFrame {
+public class TableroJuego extends JFrame implements Observer{
 
 	private static TableroJuego miTableroJuego;
 	private JPanel contentPane;
@@ -95,7 +99,8 @@ public class TableroJuego extends JFrame {
 			}
 		}
 	}
-private void crearTableroOrd() {
+	
+	private void crearTableroOrd() {
 		
 		tableroOrd = new JButton[DatosJuego.COLUMNAS_TABLERO][DatosJuego.FILAS_TABLERO];
 
@@ -210,10 +215,7 @@ private void crearTableroOrd() {
 	private JButton getBtnEscudo() {
 		if (btnEscudo == null) {
 			btnEscudo = new JButton("Escudo: "+DatosJuego.PRECIO_ESCUDO+"$");
-			btnEscudo.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-				}
-			});
+			btnEscudo.addMouseListener(new CBtnEscudo());
 		}
 		return btnEscudo;
 	}
@@ -285,5 +287,33 @@ private void crearTableroOrd() {
 			lblBomba = new JLabel("Ilimitado");
 		}
 		return lblBomba;
+	}
+	
+	@Override
+	public void update(Observable o, Object parametro) {
+		System.out.println("Hemos llegado al update");
+		if (o instanceof Battleship) {
+			
+		} else if (o instanceof Almacen) {
+			int[] stock = (int[]) parametro;
+			switch(stock[0]) {
+			case DatosJuego.NUM_ESCUDO:
+				System.out.println("Entramos al case: " + stock[1]);
+				lblEscudo.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL:
+				lblMisil.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL_NS:
+				lblMisilNS.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL_EO:
+				lblMisilEO.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL_BOOM:
+				lblMisilBOOM.setText("Stock: " + stock[1]);
+				break;
+			}
+		}
 	}
 }

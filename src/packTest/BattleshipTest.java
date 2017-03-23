@@ -72,25 +72,6 @@ public class BattleshipTest {
 	}
 
 	@Test
-	public void testBarcosXPonRestantes() {
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Portaaviones"),1);
-		Battleship.getBattleship().colocarBarcoUs("Portaaviones", new Coordenada(0,0), true);
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Portaaviones"),0);
-		
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Submarino"),2);
-		Battleship.getBattleship().colocarBarcoUs("Submarino", new Coordenada(4,4), false);
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Submarino"),1);
-		
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Destructor"),3);
-		Battleship.getBattleship().colocarBarcoUs("Destructor", new Coordenada(6,6), false);
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Destructor"),2);
-		
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Fragata"),4);
-		Battleship.getBattleship().colocarBarcoUs("Fragata", new Coordenada(9,9), true);
-		assertEquals(Battleship.getBattleship().barcosXPonRestantes("Fragata"),3);
-	}
-
-	@Test
 	public void testJuegoAcabado() {
 		fail("Not yet implemented");
 	}

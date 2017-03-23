@@ -1,5 +1,7 @@
 package packModelo;
 
+import java.util.Observable;
+
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.BarcosFactory;
 import packModelo.packCoordenada.Coordenada;
@@ -7,7 +9,7 @@ import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Ordenador;
 import packModelo.packJugador.Usuario;
 
-public class Battleship {
+public class Battleship extends Observable{
 
 	private static Battleship theBattleship;
 	private Usuario usuario;
@@ -56,20 +58,6 @@ public class Battleship {
 		}
 	}
 
-	public int barcosXPonRestantes(String pTipo) {
-		int i = 0;
-		if (pTipo.equals("Fragata")) {
-			i = DatosJuego.NUM_FRAGATA - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
-		} else if (pTipo.equals("Destructor")) {
-			i = DatosJuego.NUM_DESTRUCTOR - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
-		} else if (pTipo.equals("Submarino")) {
-			i = DatosJuego.NUM_SUBMARINO - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
-		} else if (pTipo.equals("Portaaviones")) {
-			i = DatosJuego.NUM_PORTAAVIONES - usuario.getListaBarcos().getNumBarcosRestantes(pTipo);
-		}
-		return i;
-	}
-
 	private void colocarBarcosOrd() {
 		ordenador.colocarBarcosOrd();
 	}
@@ -102,7 +90,7 @@ public class Battleship {
 			exito = Almacen.getAlmacen().puedeVender(pArma, elJugador);
 			if (exito) {
 				switch (pArma) {
-				case DatosJuego.NUM_ESCUDO: // escudo
+				case DatosJuego.NUM_ESCUDO:
 					exito = elJugador.ponerEscudo(pCoordenada);
 					break;
 				case DatosJuego.NUM_MISIL:
@@ -123,6 +111,8 @@ public class Battleship {
 				}
 			}
 		}
+		setChanged();
+		notifyObservers();
 		return exito;
 	}
 	

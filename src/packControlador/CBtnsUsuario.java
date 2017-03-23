@@ -18,14 +18,15 @@ public class CBtnsUsuario implements MouseListener{
 		if (btn.isEnabled()){
 			String coor[] = btn.getName().split(",");
 			Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
-			if(TableroJuego.getTableroJuego().getArma()==DatosJuego.NUM_ESCUDO){
+			if(TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_ESCUDO){
 				if(!Battleship.getBattleship().usarArmamento(TableroJuego.getTableroJuego().getArma(), c)){
 					JOptionPane.showMessageDialog(null, "¡no es posible utilizar!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				}
-			}
+			} else {
 			JOptionPane.showMessageDialog(null, "¡seleccione armamento correcto!", "Alerta",
 					JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 	

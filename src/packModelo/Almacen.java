@@ -1,8 +1,11 @@
 package packModelo;
 
-import packModelo.packJugador.Jugador;
+import java.util.Observable;
 
-public class Almacen {
+import packModelo.packJugador.Jugador;
+import packVista.TableroJuego;
+
+public class Almacen extends Observable{
 
 	private static Almacen miAlmacen;
 	private int misilNS;
@@ -10,6 +13,7 @@ public class Almacen {
 	private int misil;
 	private int misilBOOM;
 	private int escudo;
+	private int[] stock;
 
 	private Almacen() {
 		misilNS = DatosJuego.CANT_MISIL_NS;
@@ -17,6 +21,8 @@ public class Almacen {
 		misilBOOM = DatosJuego.CANT_MISIL_BOOM;
 		misil = DatosJuego.CANT_MISIL;
 		escudo = DatosJuego.CANT_ESCUDO;
+		stock = new int[2]; // Para la vista
+		addObserver(TableroJuego.getTableroJuego());
 	}
 
 	public static Almacen getAlmacen() {
@@ -66,26 +72,46 @@ public class Almacen {
 	public void venderEscudo(Jugador pJugador) {
 		pJugador.pagarArma(DatosJuego.PRECIO_ESCUDO);
 		escudo--;
+		stock[0] = DatosJuego.NUM_ESCUDO;
+		stock[1] = escudo;
+		notificar();
 	}
 	
 	public void venderMisil(Jugador pJugador) {
 		pJugador.pagarArma(DatosJuego.PRECIO_MISIL);
 		misil--;
+		stock[0] = DatosJuego.NUM_MISIL;
+		stock[1] = misil;
+		notificar();
 	}
 
 
 	public void venderMisilNS(Jugador pJugador) {
 		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_NS);
 		misilNS--;
+		stock[0] = DatosJuego.NUM_MISIL_NS;
+		stock[1] = misilNS;
+		notificar();
 	}
 
 	public void venderMisilEO(Jugador pJugador) {
 		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_EO);
 		misilEO--;
+		stock[0] = DatosJuego.NUM_MISIL_EO;
+		stock[1] = misilEO;
+		notificar();
 	}
 	
 	public void venderMisilBOOM(Jugador pJugador) {
 		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_BOOM);
 		misilBOOM--;
+		stock[0] = DatosJuego.NUM_MISIL_BOOM;
+		stock[1] = misilBOOM;
+		notificar();
+	}
+	
+	private void notificar() {
+		setChanged();
+		notifyObservers(stock);
 	}
 }
