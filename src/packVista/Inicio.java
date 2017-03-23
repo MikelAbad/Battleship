@@ -119,8 +119,8 @@ public class Inicio extends JFrame {
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				JButton btn = new JButton();
-				btn.setName(i + "," + j);
-				tablero[i][j] = btn;
+				btn.setName(j + "," + i);
+				tablero[j][i] = btn;
 				btn.addMouseListener(new CBtnsColocar());
 				panel.add(btn);
 			}
@@ -260,7 +260,7 @@ public class Inicio extends JFrame {
 		int k = 0;
 
 		if (Battleship.getBattleship().puedeColocar(tipo, new Coordenada(i, j), vertical)) {
-			if (vertical) {
+			if (!vertical) {
 				while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 					if (tablero[i][j].isEnabled()) {
 						tablero[i][j].setBackground(Color.GREEN);
@@ -278,7 +278,7 @@ public class Inicio extends JFrame {
 				}
 			}
 		} else {
-			if (vertical) {
+			if (!vertical) {
 				while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 					if (tablero[i][j].isEnabled()) {
 						tablero[i][j].setBackground(Color.RED);
@@ -304,7 +304,7 @@ public class Inicio extends JFrame {
 		int i = Integer.parseInt(coor[0]);
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
-		if (vertical) {
+		if (!vertical) {
 			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				tablero[i][j].setBackground(Color.PINK);
 				i++;
@@ -324,7 +324,7 @@ public class Inicio extends JFrame {
 		int i = Integer.parseInt(coor[0]);
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
-		if (vertical) {
+		if (!vertical) {
 			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(null);
@@ -379,7 +379,7 @@ public class Inicio extends JFrame {
 		int i = Integer.parseInt(coor[0]);
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
-		if (vertical) {
+		if (!vertical) {
 			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
 				tablero[i][j].setEnabled(false);
 				i++;
