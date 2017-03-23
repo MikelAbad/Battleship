@@ -10,7 +10,7 @@ public class Portaaviones extends Barco {
 		setTipo("Portaaviones");
 		getPosicion().addCoordenada(pC);
 		int i = 0;
-		if (!pVertical) {
+		if (pVertical) {
 			i = pC.getY() + 1;
 			while (getPosicion().numCoordenadas() < DatosJuego.LONG_PORTAAVIONES) {
 				getPosicion().addCoordenada(new Coordenada(pC.getX(), i++));

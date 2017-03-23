@@ -66,7 +66,7 @@ public class ListaBarcos {
 		System.out.println("");
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
-				if (buscarBarco(new Coordenada(i, j)) != null) {
+				if (buscarBarco(new Coordenada(j, i)) != null) {
 					System.out.print("X ");
 				} else {
 					System.out.print("O ");

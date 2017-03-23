@@ -10,7 +10,7 @@ public class Destructor extends Barco {
 		setTipo("Destructor");
 		getPosicion().addCoordenada(pC);
 		int i = 0;
-		if (!pVertical) {
+		if (pVertical) {
 			i = pC.getY() + 1;
 			while (getPosicion().numCoordenadas() < DatosJuego.LONG_DESTRUCTOR) {
 				getPosicion().addCoordenada(new Coordenada(pC.getX(), i++));
