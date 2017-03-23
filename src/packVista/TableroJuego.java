@@ -9,9 +9,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.omg.PortableServer.ServantLocatorPackage.CookieHolder;
-
-import packControlador.CBtnsColocar;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
@@ -45,23 +42,13 @@ public class TableroJuego extends JFrame {
 	private JButton[][] tableroUs;
 	private JButton[][] tableroOrd;
 	private int arma;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Battleship.getBattleship().inicializar();
-					TableroJuego frame = getTableroJuego();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JLabel lblNummisileo;
+	private JButton btnMisilEO;
+	private JLabel lblNummisilns;
+	private JButton btnMisilns;
+	private JLabel lblNummisilboom;
+	private JButton btnMisilboom;
+	private JLabel lblBomba;
 
 	/**
 	 * Create the frame.
@@ -162,19 +149,28 @@ private void crearTableroOrd() {
 						.addGap(27)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING)
 							.addComponent(getLblEscudo())
-							.addComponent(getLblNewLabel_2()))
-						.addGap(18)
+							.addComponent(getLblNewLabel_2())
+							.addComponent(getLblNummisileo())
+							.addComponent(getLblNummisilns())
+							.addComponent(getLblNummisilboom())
+							.addComponent(getLblBomba()))
+						.addGap(43)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING)
-							.addComponent(getBtnBomba())
 							.addComponent(getBtnEscudo())
-							.addComponent(getBtnMisil()))
-						.addContainerGap(753, Short.MAX_VALUE))
+							.addComponent(getBtnBomba())
+							.addComponent(getBtnMisil())
+							.addComponent(getBtnMisilEO())
+							.addComponent(getBtnMisilns())
+							.addComponent(getBtnMisilboom()))
+						.addContainerGap(704, Short.MAX_VALUE))
 			);
 			gl_panelArmas.setVerticalGroup(
 				gl_panelArmas.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_panelArmas.createSequentialGroup()
 						.addContainerGap()
-						.addComponent(getBtnBomba())
+						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblBomba())
+							.addComponent(getBtnBomba()))
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
 							.addComponent(getLblEscudo())
@@ -183,7 +179,19 @@ private void crearTableroOrd() {
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
 							.addComponent(getLblNewLabel_2())
 							.addComponent(getBtnMisil()))
-						.addContainerGap(215, Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblNummisileo())
+							.addComponent(getBtnMisilEO(), GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblNummisilns())
+							.addComponent(getBtnMisilns()))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblNummisilboom())
+							.addComponent(getBtnMisilboom()))
+						.addContainerGap(132, Short.MAX_VALUE))
 			);
 			panelArmas.setLayout(gl_panelArmas);
 			panelArmas.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getBtnBomba(), getLblEscudo(), getBtnEscudo(), getLblNewLabel_2(), getBtnMisil()}));
@@ -232,5 +240,47 @@ private void crearTableroOrd() {
 
 	public void setArma(int pNum) {
 		arma = pNum;
+	}
+	private JLabel getLblNummisileo() {
+		if (lblNummisileo == null) {
+			lblNummisileo = new JLabel("numMisilEO");
+		}
+		return lblNummisileo;
+	}
+	private JButton getBtnMisilEO() {
+		if (btnMisilEO == null) {
+			btnMisilEO = new JButton("MisilEO");
+		}
+		return btnMisilEO;
+	}
+	private JLabel getLblNummisilns() {
+		if (lblNummisilns == null) {
+			lblNummisilns = new JLabel("numMisilNS");
+		}
+		return lblNummisilns;
+	}
+	private JButton getBtnMisilns() {
+		if (btnMisilns == null) {
+			btnMisilns = new JButton("MisilNS");
+		}
+		return btnMisilns;
+	}
+	private JLabel getLblNummisilboom() {
+		if (lblNummisilboom == null) {
+			lblNummisilboom = new JLabel("numMisilBOOM");
+		}
+		return lblNummisilboom;
+	}
+	private JButton getBtnMisilboom() {
+		if (btnMisilboom == null) {
+			btnMisilboom = new JButton("MisilBOOM");
+		}
+		return btnMisilboom;
+	}
+	private JLabel getLblBomba() {
+		if (lblBomba == null) {
+			lblBomba = new JLabel("Ilimitado");
+		}
+		return lblBomba;
 	}
 }
