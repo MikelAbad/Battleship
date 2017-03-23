@@ -3,13 +3,16 @@ package packControlador;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
+
 import packVista.Inicio;
 
 public class CBtnFrag implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Inicio.getInicio().setTipo("Fragata");
+		JButton btn = (JButton) e.getSource();
+		if (btn.isEnabled()) Inicio.getInicio().setTipo("Fragata");
 	}
 	
 	@Override

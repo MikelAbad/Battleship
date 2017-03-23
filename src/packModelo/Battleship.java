@@ -127,4 +127,8 @@ public class Battleship {
 	public boolean hayBarcoUsu(Coordenada pC){
 		return usuario.hayBarco(pC);
 	}
+	
+	public boolean todosBarcosUsPuestos(){
+		return usuario.getListaBarcos().numBarcos()>=DatosJuego.NUM_BARCOS;
+	}
 }
