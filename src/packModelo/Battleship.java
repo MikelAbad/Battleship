@@ -33,6 +33,7 @@ public class Battleship {
 		ordenador = new Ordenador();
 		colocarBarcosOrd();
 		ordenador.imprimirTablero();
+		turno=true;
 		// TODO mas cosas, supongo
 	}
 

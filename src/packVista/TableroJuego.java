@@ -2,13 +2,13 @@ package packVista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import packControlador.CBtnsUsuario;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
@@ -20,9 +20,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
 public class TableroJuego extends JFrame {
 
@@ -37,16 +37,16 @@ public class TableroJuego extends JFrame {
 	private JLabel lblEscudo;
 	private JButton btnEscudo;
 	private JButton btnBomba;
-	private JLabel lblNewLabel_2;
+	private JLabel lblMisil;
 	private JButton btnMisil;
 	private JButton[][] tableroUs;
 	private JButton[][] tableroOrd;
 	private int arma;
-	private JLabel lblNummisileo;
+	private JLabel lblMisilEO;
 	private JButton btnMisilEO;
-	private JLabel lblNummisilns;
+	private JLabel lblMisilNS;
 	private JButton btnMisilns;
-	private JLabel lblNummisilboom;
+	private JLabel lblMisilBOOM;
 	private JButton btnMisilboom;
 	private JLabel lblBomba;
 
@@ -73,7 +73,7 @@ public class TableroJuego extends JFrame {
 		this.setMinimumSize(d);
 		this.setMaximumSize(d);
 		this.setSize(d);
-		
+		arma=-1;
 	}
 
 	private void crearTableroUsu() {
@@ -84,12 +84,14 @@ public class TableroJuego extends JFrame {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				JButton btn = new JButton();
 				btn.setName(j + "," + i);
-				btn.setText(j + "," + i);
 				tableroUs[j][i] = btn;
 				panelUsuario.add(btn);
 				Coordenada c = new Coordenada(j, i);
 				if (!Battleship.getBattleship().hayBarcoUsu(c)) btn.setEnabled(false);
-				else btn.setBackground(Color.GREEN);
+				else {
+					btn.setBackground(Color.GREEN);
+					btn.addMouseListener(new CBtnsUsuario());
+				}
 			}
 		}
 	}
@@ -136,7 +138,7 @@ private void crearTableroOrd() {
 	}
 	private JLabel getLblTurno() {
 		if (lblTurno == null) {
-			lblTurno = new JLabel("Tu turno!!");
+			lblTurno = new JLabel("Tu turno!! Tienes "+DatosJuego.DINERO_INICIAL+"$");
 		}
 		return lblTurno;
 	}
@@ -150,20 +152,20 @@ private void crearTableroOrd() {
 						.addGap(27)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING)
 							.addComponent(getLblEscudo())
-							.addComponent(getLblNewLabel_2())
-							.addComponent(getLblNummisileo())
-							.addComponent(getLblNummisilns())
-							.addComponent(getLblNummisilboom())
+							.addComponent(getLblMisil())
+							.addComponent(getLblMisilEO())
+							.addComponent(getLblMisilNS())
+							.addComponent(getLblMisilBOOM())
 							.addComponent(getLblBomba()))
 						.addGap(43)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING)
 							.addComponent(getBtnEscudo())
 							.addComponent(getBtnBomba())
 							.addComponent(getBtnMisil())
-							.addComponent(getBtnMisilEO())
 							.addComponent(getBtnMisilns())
-							.addComponent(getBtnMisilboom()))
-						.addContainerGap(704, Short.MAX_VALUE))
+							.addComponent(getBtnMisilboom())
+							.addComponent(getBtnMisilEO()))
+						.addContainerGap(702, Short.MAX_VALUE))
 			);
 			gl_panelArmas.setVerticalGroup(
 				gl_panelArmas.createParallelGroup(Alignment.LEADING)
@@ -178,36 +180,36 @@ private void crearTableroOrd() {
 							.addComponent(getBtnEscudo()))
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblNewLabel_2())
+							.addComponent(getLblMisil())
 							.addComponent(getBtnMisil()))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblNummisileo())
-							.addComponent(getBtnMisilEO(), GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+							.addComponent(getLblMisilEO())
+							.addComponent(getBtnMisilEO()))
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblNummisilns())
+							.addComponent(getLblMisilNS())
 							.addComponent(getBtnMisilns()))
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblNummisilboom())
+							.addComponent(getLblMisilBOOM())
 							.addComponent(getBtnMisilboom()))
-						.addContainerGap(132, Short.MAX_VALUE))
+						.addContainerGap(118, Short.MAX_VALUE))
 			);
+			gl_panelArmas.linkSize(SwingConstants.VERTICAL, new Component[] {getLblEscudo(), getLblMisil(), getLblMisilEO(), getLblMisilNS(), getLblMisilBOOM(), getLblBomba(), getBtnEscudo(), getBtnBomba(), getBtnMisil(), getBtnMisilns(), getBtnMisilboom(), getBtnMisilEO()});
 			panelArmas.setLayout(gl_panelArmas);
-			panelArmas.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getBtnBomba(), getLblEscudo(), getBtnEscudo(), getLblNewLabel_2(), getBtnMisil()}));
 		}
 		return panelArmas;
 	}
 	private JLabel getLblEscudo() {
 		if (lblEscudo == null) {
-			lblEscudo = new JLabel("numEscudos");
+			lblEscudo = new JLabel("Stock: "+DatosJuego.CANT_ESCUDO);
 		}
 		return lblEscudo;
 	}
 	private JButton getBtnEscudo() {
 		if (btnEscudo == null) {
-			btnEscudo = new JButton("Escudo");
+			btnEscudo = new JButton("Escudo: "+DatosJuego.PRECIO_ESCUDO+"$");
 			btnEscudo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 				}
@@ -221,15 +223,15 @@ private void crearTableroOrd() {
 		}
 		return btnBomba;
 	}
-	private JLabel getLblNewLabel_2() {
-		if (lblNewLabel_2 == null) {
-			lblNewLabel_2 = new JLabel("numMisil");
+	private JLabel getLblMisil() {
+		if (lblMisil == null) {
+			lblMisil = new JLabel("Stock: "+DatosJuego.CANT_MISIL);
 		}
-		return lblNewLabel_2;
+		return lblMisil;
 	}
 	private JButton getBtnMisil() {
 		if (btnMisil == null) {
-			btnMisil = new JButton("Misil");
+			btnMisil = new JButton("Misil: "+DatosJuego.PRECIO_MISIL+"$");
 		}
 		return btnMisil;
 	}
@@ -239,42 +241,42 @@ private void crearTableroOrd() {
 		return miTableroJuego;
 	}
 
-	public void setArma(int pNum) {
-		arma = pNum;
-	}
-	private JLabel getLblNummisileo() {
-		if (lblNummisileo == null) {
-			lblNummisileo = new JLabel("numMisilEO");
+	public void setArma(int pNum) {arma = pNum;}
+	public int getArma() {return arma;}
+	
+	private JLabel getLblMisilEO() {
+		if (lblMisilEO == null) {
+			lblMisilEO = new JLabel("Stock: "+DatosJuego.CANT_MISIL_EO);
 		}
-		return lblNummisileo;
+		return lblMisilEO;
 	}
 	private JButton getBtnMisilEO() {
 		if (btnMisilEO == null) {
-			btnMisilEO = new JButton("MisilEO");
+			btnMisilEO = new JButton("numMisilEO "+DatosJuego.PRECIO_MISIL_EO+"$");
 		}
 		return btnMisilEO;
 	}
-	private JLabel getLblNummisilns() {
-		if (lblNummisilns == null) {
-			lblNummisilns = new JLabel("numMisilNS");
+	private JLabel getLblMisilNS() {
+		if (lblMisilNS == null) {
+			lblMisilNS = new JLabel("Stock: "+DatosJuego.CANT_MISIL_NS);
 		}
-		return lblNummisilns;
+		return lblMisilNS;
 	}
 	private JButton getBtnMisilns() {
 		if (btnMisilns == null) {
-			btnMisilns = new JButton("MisilNS");
+			btnMisilns = new JButton("MisilNS "+DatosJuego.PRECIO_MISIL_NS+"$");
 		}
 		return btnMisilns;
 	}
-	private JLabel getLblNummisilboom() {
-		if (lblNummisilboom == null) {
-			lblNummisilboom = new JLabel("numMisilBOOM");
+	private JLabel getLblMisilBOOM() {
+		if (lblMisilBOOM == null) {
+			lblMisilBOOM = new JLabel("Stock: "+DatosJuego.CANT_MISIL_BOOM);
 		}
-		return lblNummisilboom;
+		return lblMisilBOOM;
 	}
 	private JButton getBtnMisilboom() {
 		if (btnMisilboom == null) {
-			btnMisilboom = new JButton("MisilBOOM");
+			btnMisilboom = new JButton("MisilBOOM "+DatosJuego.PRECIO_MISIL_BOOM+"$");
 		}
 		return btnMisilboom;
 	}
