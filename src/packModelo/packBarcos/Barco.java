@@ -10,7 +10,6 @@ public abstract class Barco {
 	private ListaCoordenadas posicion;
 	private ListaCoordenadas tocadas;
 	private String tipo;
-	private int longitud = 0;
 	private int escudo = 0;
 
 	public Barco() {
@@ -68,4 +67,6 @@ public abstract class Barco {
 	public void setTipo(String pTipo) {
 		this.tipo = pTipo;
 	}
+	
+	public abstract boolean puedePonerse(ListaBarcos listaBarcos);
 }

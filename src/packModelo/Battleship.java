@@ -94,7 +94,7 @@ public class Battleship {
 			elJugador = ordenador;
 		}
 		boolean exito;
-		if (pArma == -1) {
+		if (pArma == DatosJuego.NUM_BOMBA) {
 			elJugador.usarBomba(pCoordenada);
 			exito = true;
 		} else {
@@ -124,11 +124,12 @@ public class Battleship {
 		}
 		return exito;
 	}
+	
 	public boolean hayBarcoUsu(Coordenada pC){
 		return usuario.hayBarco(pC);
 	}
 	
 	public boolean todosBarcosUsPuestos(){
-		return usuario.getListaBarcos().numBarcos()>=DatosJuego.NUM_BARCOS;
+		return usuario.getListaBarcos().numBarcos() >= DatosJuego.NUM_BARCOS;
 	}
 }

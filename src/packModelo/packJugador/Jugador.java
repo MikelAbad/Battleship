@@ -130,6 +130,6 @@ public abstract class Jugador {
 		return puede;
 	}
 	public boolean hayBarco(Coordenada pC) {
-		return listaBarcos.buscarBarco(pC)!=null;
+		return listaBarcos.buscarBarco(pC) != null;
 	}
 }

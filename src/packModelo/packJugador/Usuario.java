@@ -20,13 +20,16 @@ public class Usuario extends Jugador {
 	public void colocarBarco(Barco pBarco) {
 		getListaBarcos().addBarco(pBarco);
 		
-		//provoca error en alguna JUnit, comentar esta linea al ejecutarlas
+		//TODO Provoca error en alguna JUnit, comentar esta linea al ejecutarlas
 		Battleship.getBattleship().imprimirTableroUsuario();
 	}
 
 	public boolean puedePonerUs(Barco pBarco) {
 		boolean puede = false;
 		if (getListaBarcos().numBarcos() < DatosJuego.NUM_BARCOS) {
+			puede = pBarco.puedePonerse(getListaBarcos());			
+		}		
+		/*if (getListaBarcos().numBarcos() < DatosJuego.NUM_BARCOS) {
 			switch (pBarco.getTipo()) {
 			case "Fragata":
 				if (getListaBarcos().getNumBarcosRestantes(pBarco.getTipo()) < DatosJuego.NUM_FRAGATA) {
@@ -49,7 +52,7 @@ public class Usuario extends Jugador {
 				}
 				break;
 			}
-		}
+		}*/
 		return puede;
 	}
 	

@@ -2,7 +2,7 @@ package packModelo;
 
 public class DatosJuego {
 
-	public static final int FILAS_TABLERO = 20;
+	public static final int FILAS_TABLERO = 10;
 	public static final int COLUMNAS_TABLERO = 10;
 	public static final int DINERO_INICIAL = 100;
 	public static final int VALOR_ESCUDO = 2;
@@ -41,6 +41,8 @@ public class DatosJuego {
 	public static final int NUM_DESTRUCTOR = 3;
 	public static final int NUM_SUBMARINO = 2;
 	public static final int NUM_PORTAAVIONES = 1;
+	
+	private DatosJuego() {}
 	
 	// Devuelve la longitud del tipo de barco
 	public static int getLongDeTipo(String pTipo) {

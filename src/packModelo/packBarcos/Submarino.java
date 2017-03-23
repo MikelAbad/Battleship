@@ -22,4 +22,8 @@ public class Submarino extends Barco {
 			}
 		}
 	}
+	
+	public boolean puedePonerse(ListaBarcos listaBarcos) {
+		return listaBarcos.getNumBarcosRestantes(this.getTipo()) < DatosJuego.NUM_SUBMARINO;
+	}
 }
