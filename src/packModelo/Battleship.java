@@ -8,6 +8,7 @@ import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Ordenador;
 import packModelo.packJugador.Usuario;
+import packVista.TableroJuego;
 
 public class Battleship extends Observable{
 
@@ -92,6 +93,7 @@ public class Battleship extends Observable{
 				switch (pArma) {
 				case DatosJuego.NUM_ESCUDO:
 					exito = elJugador.ponerEscudo(pCoordenada);
+					if (turno && exito) notificarEscudo(pCoordenada);
 					break;
 				case DatosJuego.NUM_MISIL:
 					exito = elJugador.usarMisil(pCoordenada);
@@ -111,11 +113,21 @@ public class Battleship extends Observable{
 				}
 			}
 		}
-		setChanged();
-		notifyObservers();
 		return exito;
 	}
 	
+	private void notificarEscudo(Coordenada pCoordenada) {
+		// Solo pinta los escudos que pone el usuario
+		// Si llegamos aquí es porque ya sabemos que hay un barco, nunca null
+		Barco barco = usuario.getListaBarcos().buscarBarco(pCoordenada);
+		String cambios = DatosJuego.NUM_ESCUDO + "";
+		for (Coordenada co : barco.getPosicion().getCoordenadas()) {
+			cambios = cambios + ";" + co.getX() + "," + co.getY();
+		}
+		setChanged();
+		notifyObservers(cambios);
+	}
+
 	public boolean hayBarcoUsu(Coordenada pC){
 		return usuario.hayBarco(pC);
 	}

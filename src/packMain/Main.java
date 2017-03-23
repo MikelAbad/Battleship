@@ -2,6 +2,7 @@ package packMain;
 
 import packModelo.Battleship;
 import packVista.Inicio;
+import packVista.TableroJuego;
 
 public class Main {
 

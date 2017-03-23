@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import packControlador.CBtnEscudo;
 import packControlador.CBtnsUsuario;
@@ -17,6 +18,7 @@ import packModelo.packCoordenada.Coordenada;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -77,11 +79,11 @@ public class TableroJuego extends JFrame implements Observer{
 		this.setMinimumSize(d);
 		this.setMaximumSize(d);
 		this.setSize(d);
-		arma=-1;
+		arma = DatosJuego.NUM_BOMBA;
+		Battleship.getBattleship().addObserver(this);
 	}
 
-	private void crearTableroUsu() {
-		
+	private void crearTableroUsu() {		
 		tableroUs = new JButton[DatosJuego.COLUMNAS_TABLERO][DatosJuego.FILAS_TABLERO];
 
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
@@ -100,8 +102,7 @@ public class TableroJuego extends JFrame implements Observer{
 		}
 	}
 	
-	private void crearTableroOrd() {
-		
+	private void crearTableroOrd() {		
 		tableroOrd = new JButton[DatosJuego.COLUMNAS_TABLERO][DatosJuego.FILAS_TABLERO];
 
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
@@ -143,7 +144,7 @@ public class TableroJuego extends JFrame implements Observer{
 	}
 	private JLabel getLblTurno() {
 		if (lblTurno == null) {
-			lblTurno = new JLabel("Tu turno!! Tienes "+DatosJuego.DINERO_INICIAL+"$");
+			lblTurno = new JLabel("Tienes "+DatosJuego.DINERO_INICIAL+"$");
 		}
 		return lblTurno;
 	}
@@ -290,15 +291,22 @@ public class TableroJuego extends JFrame implements Observer{
 	}
 	
 	@Override
-	public void update(Observable o, Object parametro) {
-		System.out.println("Hemos llegado al update");
-		if (o instanceof Battleship) {
-			
-		} else if (o instanceof Almacen) {
+	public void update(Observable observable, Object parametro) {
+		if (observable instanceof Battleship) {
+			String[] splitted = ((String) parametro).split(";");
+			int pArma = Integer.parseInt(splitted[0]);
+			if (pArma == DatosJuego.NUM_ESCUDO) {
+				int i,j;
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroUs[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+				}
+			}			
+		} else if (observable instanceof Almacen) {
 			int[] stock = (int[]) parametro;
 			switch(stock[0]) {
 			case DatosJuego.NUM_ESCUDO:
-				System.out.println("Entramos al case: " + stock[1]);
 				lblEscudo.setText("Stock: " + stock[1]);
 				break;
 			case DatosJuego.NUM_MISIL:
