@@ -78,15 +78,16 @@ public class TableroJuego extends JFrame {
 
 	private void crearTableroUsu() {
 		
-		tableroUs = new JButton[DatosJuego.FILAS_TABLERO][DatosJuego.COLUMNAS_TABLERO];
+		tableroUs = new JButton[DatosJuego.COLUMNAS_TABLERO][DatosJuego.FILAS_TABLERO];
 
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				JButton btn = new JButton();
-				btn.setName(i + "," + j);
-				tableroUs[i][j] = btn;
+				btn.setName(j + "," + i);
+				btn.setText(j + "," + i);
+				tableroUs[j][i] = btn;
 				panelUsuario.add(btn);
-				Coordenada c = new Coordenada(i, j);
+				Coordenada c = new Coordenada(j, i);
 				if (!Battleship.getBattleship().hayBarcoUsu(c)) btn.setEnabled(false);
 				else btn.setBackground(Color.GREEN);
 			}
@@ -94,13 +95,13 @@ public class TableroJuego extends JFrame {
 	}
 private void crearTableroOrd() {
 		
-		tableroOrd = new JButton[DatosJuego.FILAS_TABLERO][DatosJuego.COLUMNAS_TABLERO];
+		tableroOrd = new JButton[DatosJuego.COLUMNAS_TABLERO][DatosJuego.FILAS_TABLERO];
 
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				JButton btn = new JButton();
-				btn.setName(i + "," + j);
-				tableroOrd[i][j] = btn;
+				btn.setName(j + "," + i);
+				tableroOrd[j][i] = btn;
 				panelOrdenador.add(btn);
 			}
 		}

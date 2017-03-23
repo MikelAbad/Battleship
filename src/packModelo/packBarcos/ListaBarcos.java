@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
 
 public class ListaBarcos {
@@ -64,8 +65,8 @@ public class ListaBarcos {
 
 	public void imprimirTablero() {
 		System.out.println("");
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
+			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				if (buscarBarco(new Coordenada(j, i)) != null) {
 					System.out.print("X ");
 				} else {

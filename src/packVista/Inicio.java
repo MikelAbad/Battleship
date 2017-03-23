@@ -114,7 +114,7 @@ public class Inicio extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		contentPane.add(getPanel_1(), BorderLayout.EAST);
 		contentPane.add(getPanel_2(), BorderLayout.NORTH);
-		tablero = new JButton[DatosJuego.FILAS_TABLERO][DatosJuego.COLUMNAS_TABLERO];
+		tablero = new JButton[DatosJuego.COLUMNAS_TABLERO][DatosJuego.FILAS_TABLERO];
 
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
@@ -261,7 +261,7 @@ public class Inicio extends JFrame {
 
 		if (Battleship.getBattleship().puedeColocar(tipo, new Coordenada(i, j), vertical)) {
 			if (!vertical) {
-				while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
+				while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.COLUMNAS_TABLERO) {
 					if (tablero[i][j].isEnabled()) {
 						tablero[i][j].setBackground(Color.GREEN);
 					}
@@ -269,7 +269,7 @@ public class Inicio extends JFrame {
 					k++;
 				}
 			} else {
-				while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
+				while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.FILAS_TABLERO) {
 					if (tablero[i][j].isEnabled()) {
 						tablero[i][j].setBackground(Color.GREEN);
 					}
@@ -279,7 +279,7 @@ public class Inicio extends JFrame {
 			}
 		} else {
 			if (!vertical) {
-				while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
+				while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.COLUMNAS_TABLERO) {
 					if (tablero[i][j].isEnabled()) {
 						tablero[i][j].setBackground(Color.RED);
 					}
@@ -287,7 +287,7 @@ public class Inicio extends JFrame {
 					k++;
 				}
 			} else {
-				while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
+				while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.FILAS_TABLERO) {
 					if (tablero[i][j].isEnabled()) {
 						tablero[i][j].setBackground(Color.RED);
 					}
@@ -305,13 +305,13 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (!vertical) {
-			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.COLUMNAS_TABLERO) {
 				tablero[i][j].setBackground(Color.PINK);
 				i++;
 				k++;
 			}
 		} else {
-			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.FILAS_TABLERO) {
 				tablero[i][j].setBackground(Color.PINK);
 				j++;
 				k++;
@@ -325,7 +325,7 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (!vertical) {
-			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.COLUMNAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(null);
 				}
@@ -333,7 +333,7 @@ public class Inicio extends JFrame {
 				k++;
 			}
 		} else {
-			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.FILAS_TABLERO) {
 				if (tablero[i][j].isEnabled()) {
 					tablero[i][j].setBackground(null);
 				}
@@ -380,13 +380,13 @@ public class Inicio extends JFrame {
 		int j = Integer.parseInt(coor[1]);
 		int k = 0;
 		if (!vertical) {
-			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.FILAS_TABLERO) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && i < DatosJuego.COLUMNAS_TABLERO) {
 				tablero[i][j].setEnabled(false);
 				i++;
 				k++;
 			}
 		} else {
-			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.COLUMNAS_TABLERO) {
+			while (k < DatosJuego.getLongDeTipo(tipo) && j < DatosJuego.FILAS_TABLERO) {
 				tablero[i][j].setEnabled(false);
 				j++;
 				k++;
