@@ -2,6 +2,7 @@ package packModelo.packJugador;
 
 import packModelo.Almacen;
 import packModelo.DatosJuego;
+import packModelo.Radar;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.ListaBarcos;
 import packModelo.packCoordenada.Coordenada;
@@ -10,7 +11,7 @@ import packModelo.packCoordenada.ListaCoordenadas;
 public abstract class Jugador {
 
 	private ListaCoordenadas listNoDisparable;
-	//private Radar radar;
+	private Radar radar;
 	private ListaBarcos listaBarcos;
 	private int dinero;
 	private ListaBarcos barcosEneDest;
