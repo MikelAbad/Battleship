@@ -136,4 +136,8 @@ public class Battleship extends Observable{
 	public boolean todosBarcosUsPuestos(){
 		return usuario.getListaBarcos().numBarcos() >= DatosJuego.NUM_BARCOS;
 	}
+	
+	public int getDineroUsuario() {
+		return usuario.getDinero();
+	}
 }

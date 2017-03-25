@@ -20,7 +20,7 @@ public class CBtnsUsuario implements MouseListener{
 			Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
 			if(TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_ESCUDO){
 				if(!Battleship.getBattleship().usarArmamento(TableroJuego.getTableroJuego().getArma(), c)){
-					JOptionPane.showMessageDialog(null, "¡No es posible utilizar ahí!", "Alerta",
+					JOptionPane.showMessageDialog(null, "¡No es posible utilizar!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				}
 			} else {
