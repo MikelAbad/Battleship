@@ -92,11 +92,6 @@ public abstract class Jugador {
 		throw new UnsupportedOperationException();
 	}
 
-	public boolean usarEscudo(Coordenada pCoordenada) {
-		// TODO SegundoSprint
-		throw new UnsupportedOperationException();
-	}
-
 	public void pagarArma(int pPrecio) {
 		dinero = dinero - pPrecio;
 	}

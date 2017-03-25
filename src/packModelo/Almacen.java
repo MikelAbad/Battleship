@@ -8,18 +8,18 @@ import packVista.TableroJuego;
 public class Almacen extends Observable{
 
 	private static Almacen miAlmacen;
+	private int misil;
 	private int misilNS;
 	private int misilEO;
-	private int misil;
 	private int misilBOOM;
 	private int escudo;
 	private int[] stock;
 
 	private Almacen() {
+		misil = DatosJuego.CANT_MISIL;
 		misilNS = DatosJuego.CANT_MISIL_NS;
 		misilEO = DatosJuego.CANT_MISIL_EO;
 		misilBOOM = DatosJuego.CANT_MISIL_BOOM;
-		misil = DatosJuego.CANT_MISIL;
 		escudo = DatosJuego.CANT_ESCUDO;
 		stock = new int[2]; // Para la vista
 		addObserver(TableroJuego.getTableroJuego());

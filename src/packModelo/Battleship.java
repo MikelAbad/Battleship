@@ -50,6 +50,7 @@ public class Battleship extends Observable{
 		}
 	}
 	
+	// Para la vista, no colocar nada, solo comprueba
 	public boolean puedeColocar(String pTipo, Coordenada pC, boolean pVertical) {
 		Barco unBarco = BarcosFactory.getBarcoFactory().crearBarco(pTipo, pC, pVertical);
 		if (usuario.puedePonerUs(unBarco) && usuario.puedeColocar(unBarco)) {
