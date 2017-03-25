@@ -1,15 +1,10 @@
 package packModelo.packJugador;
 
-import java.util.Random;
 
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packBarcos.Barco;
-import packModelo.packBarcos.Destructor;
-import packModelo.packBarcos.Fragata;
-import packModelo.packBarcos.Portaaviones;
-import packModelo.packBarcos.Submarino;
-import packModelo.packCoordenada.Coordenada;
+
 
 public class Usuario extends Jugador {
 

@@ -5,8 +5,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-
-import jdk.internal.org.objectweb.asm.commons.TableSwitchGenerator;
 import packModelo.Battleship;
 import packModelo.packCoordenada.Coordenada;
 import packVista.Inicio;
@@ -21,10 +19,11 @@ public class CBtnsColocar implements MouseListener {
 			if (Inicio.getInicio().getTipo() != null) {
 				String coor[] = btn.getName().split(",");
 				Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
-				if (!Battleship.getBattleship().colocarBarcoUs(Inicio.getInicio().getTipo(), c, Inicio.getInicio().isVertical())) {
+				if (!Battleship.getBattleship().puedeColocar(Inicio.getInicio().getTipo(), c, Inicio.getInicio().isVertical())) {
 					JOptionPane.showMessageDialog(null, "¡Seleccione una posición correcta, por favor!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
+					Battleship.getBattleship().colocarBarcoUs(Inicio.getInicio().getTipo(), c, Inicio.getInicio().isVertical());
 					Inicio.getInicio().deshabilitarBotones(btn);
 					Inicio.getInicio().pintarBarcoPuesto(btn);
 					Inicio.getInicio().decrementarCont();

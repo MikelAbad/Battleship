@@ -8,7 +8,6 @@ import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Ordenador;
 import packModelo.packJugador.Usuario;
-import packVista.TableroJuego;
 
 public class Battleship extends Observable{
 
@@ -40,14 +39,10 @@ public class Battleship extends Observable{
 		// TODO mas cosas, supongo
 	}
 
-	public boolean colocarBarcoUs(String pTipo, Coordenada pC, boolean pVertical) {
+	public void colocarBarcoUs(String pTipo, Coordenada pC, boolean pVertical) {
 		Barco unBarco = BarcosFactory.getBarcoFactory().crearBarco(pTipo, pC, pVertical);
-		if (usuario.puedePonerUs(unBarco) && usuario.puedePoner(unBarco)) {
-			usuario.colocarBarco(unBarco);
-			return true;
-		} else {
-			return false;
-		}
+		usuario.anadirAdyacentesBarco(unBarco);
+		usuario.colocarBarco(unBarco);
 	}
 	
 	// Para la vista, no colocar nada, solo comprueba

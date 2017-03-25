@@ -30,7 +30,8 @@ public class Ordenador extends Jugador {
 		while (!puesto) {
 			unBarco = new Portaaviones(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
 					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-			if (puedePoner(unBarco)) {
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
 				anadirBarcoProp(unBarco);
 				puesto = true;
 			}	
@@ -41,7 +42,8 @@ public class Ordenador extends Jugador {
 		while (barcosPuestos < DatosJuego.NUM_SUBMARINO) {
 			unBarco = new Submarino(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
 					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-			if (puedePoner(unBarco)) {
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
 				anadirBarcoProp(unBarco);
 				barcosPuestos++;
 			}
@@ -52,7 +54,8 @@ public class Ordenador extends Jugador {
 		while (barcosPuestos < DatosJuego.NUM_DESTRUCTOR) {
 			unBarco = new Destructor(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
 					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-			if (puedePoner(unBarco)) {
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
 				anadirBarcoProp(unBarco);
 				barcosPuestos++;
 			}
@@ -63,7 +66,8 @@ public class Ordenador extends Jugador {
 		while (barcosPuestos < DatosJuego.NUM_FRAGATA) {
 			unBarco = new Fragata(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
 					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)));
-			if (puedePoner(unBarco)) {
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
 				anadirBarcoProp(unBarco);
 				barcosPuestos++;
 			}

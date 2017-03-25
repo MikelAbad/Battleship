@@ -45,10 +45,10 @@ public abstract class Jugador {
 		boolean exito = false;
 		Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
 		if (unBarco != null) {
-			exito = listaBarcos.buscarBarco(pCoordenada).ponerEscudo();
-		}
-		if (exito) {
-			Almacen.getAlmacen().venderEscudo(this);
+			if (unBarco.ponerEscudo()) {
+				exito = true;
+				Almacen.getAlmacen().venderEscudo(this);
+			}
 		}
 		return exito;
 	}
@@ -105,15 +105,8 @@ public abstract class Jugador {
 		return this.listaBarcos;
 	}
 
-	public boolean puedePoner(Barco pBarco) {
-		boolean puede = false;
-		if (!pBarco.fueraDeLimites()) {
-			if (!pBarco.getPosicion().comprobarListas(listaNoPonerB)) {
-				puede = true;
-				listaNoPonerB.addCoordenadas(pBarco.calcularAdyacentes());
-			}
-		}
-		return puede;
+	public void anadirAdyacentesBarco(Barco pBarco) {
+		listaNoPonerB.addCoordenadas(pBarco.calcularAdyacentes());
 	}
 	
 	public boolean puedeColocar(Barco pBarco) {
