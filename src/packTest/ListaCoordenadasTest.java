@@ -55,14 +55,14 @@ public class ListaCoordenadasTest {
 		
 		int cont = 0;
 		// Miramos que ambos arraylist contienen las mismas coordenadas
-		for (int i = 0; i < adyacentes.size(); i++) {
-			for (int j = 0; j < adyacentes.size(); j++) {
-				if ((adyacentes.get(i).getX() == misAdyacentes.get(j).getX())
+			for (int i = 0; i < adyacentes.size(); i++) {
+				for (int j = 0; j < adyacentes.size(); j++) {
+					if ((adyacentes.get(i).getX() == misAdyacentes.get(j).getX())
 						&& adyacentes.get(i).getY() == misAdyacentes.get(j).getY()) {
 					cont++;
+					}
 				}
 			}
-		}
 		assertEquals(cont, adyacentes.size());
 
 		Coordenada c2=new Coordenada(5,7);

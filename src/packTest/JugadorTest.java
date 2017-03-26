@@ -14,7 +14,7 @@ import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Usuario;
 
-public class TestJugador {
+public class JugadorTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -35,10 +35,6 @@ public class TestJugador {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testPonerEscudo() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testUsarBomba() {
@@ -65,10 +61,6 @@ public class TestJugador {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testUsarEscudo() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	public void testpuedeColocar() {
@@ -85,7 +77,7 @@ public class TestJugador {
 		assertFalse(u.puedeColocar(b2));
 		b2 = new Fragata(new Coordenada(9, 9));
 		assertTrue(u.puedeColocar(b2));
-		b2 = new Submarino(new Coordenada(8, 8), true);
+		b2 = new Submarino(new Coordenada(8,8), true);
 		assertFalse(u.puedeColocar(b2));
 
 		Barco b4 = new Submarino(new Coordenada(5, 5), true);
