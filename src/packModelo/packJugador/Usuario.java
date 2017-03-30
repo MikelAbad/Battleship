@@ -21,31 +21,7 @@ public class Usuario extends Jugador {
 		boolean puede = false;
 		if (getListaBarcos().numBarcos() < DatosJuego.NUM_BARCOS) {
 			puede = pBarco.puedePonerse(getListaBarcos());			
-		}		
-		/*if (getListaBarcos().numBarcos() < DatosJuego.NUM_BARCOS) {
-			switch (pBarco.getTipo()) {
-			case "Fragata":
-				if (getListaBarcos().getNumBarcosRestantes(pBarco.getTipo()) < DatosJuego.NUM_FRAGATA) {
-					puede = true;
-				}
-				break;
-			case "Destructor":
-				if (getListaBarcos().getNumBarcosRestantes(pBarco.getTipo()) < DatosJuego.NUM_DESTRUCTOR) {
-					puede = true;
-				}
-				break;
-			case "Submarino":
-				if (getListaBarcos().getNumBarcosRestantes(pBarco.getTipo()) < DatosJuego.NUM_SUBMARINO) {
-					puede = true;
-				}
-				break;
-			case "Portaaviones":
-				if (getListaBarcos().getNumBarcosRestantes(pBarco.getTipo()) < DatosJuego.NUM_PORTAAVIONES) {
-					puede = true;
-				}
-				break;
-			}
-		}*/
+		}
 		return puede;
 	}
 	

@@ -14,6 +14,7 @@ import packModelo.Almacen;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
+import packModelo.packJugador.Jugador;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -75,6 +76,7 @@ public class TableroJuego extends JFrame implements Observer {
 		this.setSize(d);
 		arma = DatosJuego.NUM_BOMBA;
 		Battleship.getBattleship().addObserver(this);
+		Battleship.getBattleship().getUsuario().addObserver(this);;
 	}
 
 	private void crearTableroUsu() {
@@ -245,7 +247,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JButton getBtnMisilEO() {
 		if (btnMisilEO == null) {
-			btnMisilEO = new JButton("numMisilEO " + DatosJuego.PRECIO_MISIL_EO + "$");
+			btnMisilEO = new JButton("MisilEO " + DatosJuego.PRECIO_MISIL_EO + "$");
 		}
 		return btnMisilEO;
 	}
@@ -318,6 +320,13 @@ public class TableroJuego extends JFrame implements Observer {
 				lblMisilBOOM.setText("Stock: " + stock[1]);
 				break;
 			}
+		} else if (observable instanceof Jugador) {
+			if (Battleship.getBattleship().getTurno()) {
+				// Actualizar etiquetas de Jugador
+			} else {
+				// Actualizar etiquetas de Ordenador
+			}
+			
 		}
 	}
 }

@@ -8,6 +8,13 @@ public class DatosJuego {
 	public static final int VALOR_ESCUDO = 2;
 	public static final int NUM_ARMAS = 5; //Numero de armas diferentes
 	
+	// Numero inicializacion armamento
+	public static final int INI_MISIL = 3;
+	public static final int INI_MISIL_NS = 1;
+	public static final int INI_MISIL_EO = 1;
+	public static final int INI_MISIL_BOOM = 0;
+	public static final int INI_ESCUDO = 2;
+	
 	// Numero id arma
 	public static final int NUM_MISIL = 1;
 	public static final int NUM_MISIL_NS = 2;

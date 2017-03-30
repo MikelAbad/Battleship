@@ -8,20 +8,12 @@ import packVista.TableroJuego;
 public class Almacen extends Observable{
 
 	private static Almacen miAlmacen;
-	private int misil;
-	private int misilNS;
-	private int misilEO;
-	private int misilBOOM;
-	private int escudo;
-	private int[] stock;
+	private Cantidades stock;
+	private int[] info; // Para la vista
 
 	private Almacen() {
-		misil = DatosJuego.CANT_MISIL;
-		misilNS = DatosJuego.CANT_MISIL_NS;
-		misilEO = DatosJuego.CANT_MISIL_EO;
-		misilBOOM = DatosJuego.CANT_MISIL_BOOM;
-		escudo = DatosJuego.CANT_ESCUDO;
-		stock = new int[2]; // Para la vista
+		stock.iniciarAlmacen();
+		info = new int[2];
 		addObserver(TableroJuego.getTableroJuego());
 	}
 
@@ -31,87 +23,77 @@ public class Almacen extends Observable{
 		return miAlmacen;
 	}
 
-	public boolean puedeVender(int pArma, Jugador pJugador) {
+	public boolean puedeVender(int pArma) {
 		boolean puede = false;
 		switch (pArma) {
 		case DatosJuego.NUM_ESCUDO:
-			if (escudo > 0)
-				if (pJugador.getDinero() >= DatosJuego.PRECIO_ESCUDO) {
-					puede = true;
-				}
+			if (stock.getEscudo() > 0) {
+				puede = true;
+			}
 			break;
 		case DatosJuego.NUM_MISIL:
-			if (misil > 0)
-				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL) {
-					puede = true;
-				}
+			if (stock.getMisil() > 0) {
+				puede = true;
+			}
 			break;
 		case DatosJuego.NUM_MISIL_NS:
-			if (misilNS > 0)
-				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL_NS) {
-					puede = true;
-				}
+			if (stock.getMisilNS() > 0) {
+				puede = true;
+			}
 			break;
 		case DatosJuego.NUM_MISIL_EO:
-			if (misilEO > 0)
-				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL_EO) {
-					puede = true;
-				}
+			if (stock.getMisilEO() > 0) {
+				puede = true;
+			}
 			break;
 		case DatosJuego.NUM_MISIL_BOOM:
-			if (misilBOOM > 0)
-				if (pJugador.getDinero() >= DatosJuego.PRECIO_MISIL_BOOM) {
-					puede = true;
-				}
+			if (stock.getMisilBOOM() > 0) {
+				puede = true;
+			}
 			break;
 		}
 		return puede;
 	}
 
 	
-	public void venderEscudo(Jugador pJugador) {
-		pJugador.pagarArma(DatosJuego.PRECIO_ESCUDO);
-		escudo--;
-		stock[0] = DatosJuego.NUM_ESCUDO;
-		stock[1] = escudo;
+	public void venderEscudo() {
+		stock.rmvEscudo();
+		info[0] = DatosJuego.NUM_ESCUDO;
+		info[1] = stock.getEscudo();
 		notificar();
 	}
 	
-	public void venderMisil(Jugador pJugador) {
-		pJugador.pagarArma(DatosJuego.PRECIO_MISIL);
-		misil--;
-		stock[0] = DatosJuego.NUM_MISIL;
-		stock[1] = misil;
+	public void venderMisil() {
+		stock.rmvMisil();
+		info[0] = DatosJuego.NUM_MISIL;
+		info[1] = stock.getMisil();
 		notificar();
 	}
 
 
-	public void venderMisilNS(Jugador pJugador) {
-		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_NS);
-		misilNS--;
-		stock[0] = DatosJuego.NUM_MISIL_NS;
-		stock[1] = misilNS;
+	public void venderMisilNS() {
+		stock.rmvMisilNS();;
+		info[0] = DatosJuego.NUM_MISIL_NS;
+		info[1] = stock.getMisilNS();
 		notificar();
 	}
 
-	public void venderMisilEO(Jugador pJugador) {
-		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_EO);
-		misilEO--;
-		stock[0] = DatosJuego.NUM_MISIL_EO;
-		stock[1] = misilEO;
+	public void venderMisilEO() {
+		stock.rmvMisilEO();
+		info[0] = DatosJuego.NUM_MISIL_EO;
+		info[1] = stock.getMisilEO();
 		notificar();
 	}
 	
-	public void venderMisilBOOM(Jugador pJugador) {
-		pJugador.pagarArma(DatosJuego.PRECIO_MISIL_BOOM);
-		misilBOOM--;
-		stock[0] = DatosJuego.NUM_MISIL_BOOM;
-		stock[1] = misilBOOM;
+	public void venderMisilBOOM() {
+		stock.rmvMisilBOOM();
+		info[0] = DatosJuego.NUM_MISIL_BOOM;
+		info[1] = stock.getMisilBOOM();
 		notificar();
 	}
 	
 	private void notificar() {
 		setChanged();
-		notifyObservers(stock);
+		notifyObservers(info);
 	}
 }

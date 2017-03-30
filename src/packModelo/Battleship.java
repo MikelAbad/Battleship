@@ -35,7 +35,7 @@ public class Battleship extends Observable{
 		ordenador = new Ordenador();
 		colocarBarcosOrd();
 		ordenador.imprimirTablero();
-		turno=true;
+		turno = true;
 		// TODO mas cosas, supongo
 	}
 
@@ -55,6 +55,14 @@ public class Battleship extends Observable{
 		}
 	}
 
+	public boolean getTurno() {
+		return this.turno;
+	}
+	
+	public Jugador getUsuario() {
+		return this.usuario;
+	}
+	
 	private void colocarBarcosOrd() {
 		ordenador.colocarBarcosOrd();
 	}
@@ -84,29 +92,26 @@ public class Battleship extends Observable{
 			elJugador.usarBomba(pCoordenada);
 			exito = true;
 		} else {
-			exito = Almacen.getAlmacen().puedeVender(pArma, elJugador);
-			if (exito) {
-				switch (pArma) {
-				case DatosJuego.NUM_ESCUDO:
-					exito = elJugador.ponerEscudo(pCoordenada);
-					if (turno && exito) notificarEscudo(pCoordenada);
-					break;
-				case DatosJuego.NUM_MISIL:
-					exito = elJugador.usarMisil(pCoordenada);
-					break;
-				case DatosJuego.NUM_MISIL_NS:
-					exito = elJugador.usarMisilNS(pCoordenada);
-					break;
-				case DatosJuego.NUM_MISIL_EO:
-					exito = elJugador.usarMisilEO(pCoordenada);
-					break;
-				case DatosJuego.NUM_MISIL_BOOM:
-					exito = elJugador.usarMisilBOOM(pCoordenada);
-					break;
-				default:
-					exito = false;
-					break;
-				}
+			switch (pArma) {
+			case DatosJuego.NUM_ESCUDO:
+				exito = elJugador.ponerEscudo(pCoordenada);
+				if (turno && exito) notificarEscudo(pCoordenada);
+				break;
+			case DatosJuego.NUM_MISIL:
+				exito = elJugador.usarMisil(pCoordenada);
+				break;
+			case DatosJuego.NUM_MISIL_NS:
+				exito = elJugador.usarMisilNS(pCoordenada);
+				break;
+			case DatosJuego.NUM_MISIL_EO:
+				exito = elJugador.usarMisilEO(pCoordenada);
+				break;
+			case DatosJuego.NUM_MISIL_BOOM:
+				exito = elJugador.usarMisilBOOM(pCoordenada);
+				break;
+			default:
+				exito = false;
+				break;
 			}
 		}
 		return exito;
