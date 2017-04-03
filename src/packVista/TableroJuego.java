@@ -27,6 +27,7 @@ import java.util.Observer;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
 
 public class TableroJuego extends JFrame implements Observer {
 
@@ -34,25 +35,61 @@ public class TableroJuego extends JFrame implements Observer {
 	private JPanel contentPane;
 	private JPanel panelUsuario;
 	private JPanel panelOrdenador;
-	private JPanel panelBotones;
-	private JPanel panelInformacion;
+	private JPanel panelArmamentoEne;
+	private JPanel panelTienda;
 	private JLabel lblTurno;
-	private JPanel panelArmas;
+	private JPanel panelArmamento;
 	private JLabel lblEscudo;
-	private JButton btnEscudo;
-	private JButton btnBomba;
+	private JButton btnCompEscudo;
+	private JButton btnUsarBomba;
 	private JLabel lblMisil;
-	private JButton btnMisil;
+	private JButton btnCompMisil;
 	private JButton[][] tableroUs;
 	private JButton[][] tableroOrd;
 	private int arma;
 	private JLabel lblMisilEO;
-	private JButton btnMisilEO;
+	private JButton btnCompMisilEO;
 	private JLabel lblMisilNS;
-	private JButton btnMisilns;
+	private JButton btnCompMisilNS;
 	private JLabel lblMisilBOOM;
-	private JButton btnMisilboom;
-	private JLabel lblBomba;
+	private JButton btnCompMisilBOOM;
+	private JLabel lblCantBomba;
+	private JLabel lblRadar;
+	private JButton btnUsarRadar;
+	private JLabel lblCompras;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JPanel panel_6;
+	private JPanel panel_7;
+	private JPanel panel_8;
+	private JPanel panel_9;
+	private JPanel panel_10;
+	private JLabel lblCantMisil;
+	private JLabel lblCantMisilEO;
+	private JLabel lblCantMisilNS;
+	private JPanel panel_11;
+	private JPanel panel_12;
+	private JLabel lblCantMisilBOOM;
+	private JButton btnUsarMisil;
+	private JButton btnUsarMisilEO;
+	private JButton btnUsarMisilNS;
+	private JButton btnUsarMisilBOOM;
+	private JPanel panelTienda1;
+	private JPanel panelDinero;
+	private JPanel panelTienda2;
+	private JPanel panelArmamento2;
+	private JPanel panelArmamento1;
+	private JLabel lblArmamento;
+	private JLabel lblArmamentoEnemigo;
+	private JLabel lblMisilesEne;
+	private JLabel lblMisilesEOEne;
+	private JLabel lblMisilesNSEne;
+	private JLabel lblMisilesBOOMEne;
+	private JLabel lblRadarEne;
 
 	private TableroJuego() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,20 +100,20 @@ public class TableroJuego extends JFrame implements Observer {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(getPanelUsuario(), BorderLayout.WEST);
 		contentPane.add(getPanelOrdenador(), BorderLayout.EAST);
-		contentPane.add(getPanelBotones(), BorderLayout.SOUTH);
-		contentPane.add(getPanelInformacion(), BorderLayout.NORTH);
-		contentPane.add(getPanelArmas(), BorderLayout.CENTER);
+		contentPane.add(getPanelArmamentoEne(), BorderLayout.SOUTH);
+		contentPane.add(getPanelTienda(), BorderLayout.NORTH);
+		contentPane.add(getPanelArmamento(), BorderLayout.CENTER);
 		crearTableroOrd();
 		crearTableroUsu();
 		int ancho = 950;
-		int alto = 400;
+		int alto = 500;
 		Dimension d = new Dimension(ancho, alto);
 		this.setMinimumSize(d);
 		this.setMaximumSize(d);
 		this.setSize(d);
 		arma = DatosJuego.NUM_BOMBA;
 		Battleship.getBattleship().addObserver(this);
-		Battleship.getBattleship().getUsuario().addObserver(this);;
+		Battleship.getBattleship().getUsuario().addObserver(this);
 	}
 
 	private void crearTableroUsu() {
@@ -128,19 +165,24 @@ public class TableroJuego extends JFrame implements Observer {
 		return panelOrdenador;
 	}
 
-	private JPanel getPanelBotones() {
-		if (panelBotones == null) {
-			panelBotones = new JPanel();
+	private JPanel getPanelArmamentoEne() {
+		if (panelArmamentoEne == null) {
+			panelArmamentoEne = new JPanel();
+			panelArmamentoEne.setLayout(new BorderLayout(0, 0));
+			panelArmamentoEne.add(getPanel(), BorderLayout.SOUTH);
 		}
-		return panelBotones;
+		return panelArmamentoEne;
 	}
 
-	private JPanel getPanelInformacion() {
-		if (panelInformacion == null) {
-			panelInformacion = new JPanel();
-			panelInformacion.add(getLblTurno());
+	private JPanel getPanelTienda() {
+		if (panelTienda == null) {
+			panelTienda = new JPanel();
+			panelTienda.setLayout(new BorderLayout(0, 0));
+			panelTienda.add(getPanelTienda1(), BorderLayout.CENTER);
+			panelTienda.add(getPanelDinero(), BorderLayout.NORTH);
+			panelTienda.add(getPanelTienda2(), BorderLayout.SOUTH);
 		}
-		return panelInformacion;
+		return panelTienda;
 	}
 
 	private JLabel getLblTurno() {
@@ -150,47 +192,14 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblTurno;
 	}
 
-	private JPanel getPanelArmas() {
-		if (panelArmas == null) {
-			panelArmas = new JPanel();
-			GroupLayout gl_panelArmas = new GroupLayout(panelArmas);
-			gl_panelArmas.setHorizontalGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING).addGroup(gl_panelArmas
-					.createSequentialGroup().addGap(27)
-					.addGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING).addComponent(getLblEscudo())
-							.addComponent(getLblMisil()).addComponent(getLblMisilEO()).addComponent(getLblMisilNS())
-							.addComponent(getLblMisilBOOM()).addComponent(getLblBomba()))
-					.addGap(43)
-					.addGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING).addComponent(getBtnEscudo())
-							.addComponent(getBtnBomba()).addComponent(getBtnMisil()).addComponent(getBtnMisilns())
-							.addComponent(getBtnMisilboom()).addComponent(getBtnMisilEO()))
-					.addContainerGap(702, Short.MAX_VALUE)));
-			gl_panelArmas.setVerticalGroup(gl_panelArmas.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panelArmas.createSequentialGroup().addContainerGap()
-							.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE).addComponent(getLblBomba())
-									.addComponent(getBtnBomba()))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE).addComponent(getLblEscudo())
-									.addComponent(getBtnEscudo()))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE).addComponent(getLblMisil())
-									.addComponent(getBtnMisil()))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblMisilEO()).addComponent(getBtnMisilEO()))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblMisilNS()).addComponent(getBtnMisilns()))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_panelArmas.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblMisilBOOM()).addComponent(getBtnMisilboom()))
-							.addContainerGap(118, Short.MAX_VALUE)));
-			gl_panelArmas.linkSize(SwingConstants.VERTICAL,
-					new Component[] { getLblEscudo(), getLblMisil(), getLblMisilEO(), getLblMisilNS(),
-							getLblMisilBOOM(), getLblBomba(), getBtnEscudo(), getBtnBomba(), getBtnMisil(),
-							getBtnMisilns(), getBtnMisilboom(), getBtnMisilEO() });
-			panelArmas.setLayout(gl_panelArmas);
+	private JPanel getPanelArmamento() {
+		if (panelArmamento == null) {
+			panelArmamento = new JPanel();
+			panelArmamento.setLayout(new BorderLayout(0, 0));
+			panelArmamento.add(getPanelArmamento1(), BorderLayout.CENTER);
+			panelArmamento.add(getPanelArmamento2(), BorderLayout.NORTH);
 		}
-		return panelArmas;
+		return panelArmamento;
 	}
 
 	private JLabel getLblEscudo() {
@@ -200,19 +209,20 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblEscudo;
 	}
 
-	private JButton getBtnEscudo() {
-		if (btnEscudo == null) {
-			btnEscudo = new JButton("Escudo: " + DatosJuego.PRECIO_ESCUDO + "$");
-			btnEscudo.addMouseListener(new CBtnEscudo());
+	private JButton getBtnCompEscudo() {
+		if (btnCompEscudo == null) {
+			btnCompEscudo = new JButton("Escudo: " + DatosJuego.PRECIO_ESCUDO + "$");
+			btnCompEscudo.addMouseListener(new CBtnEscudo());
 		}
-		return btnEscudo;
+		return btnCompEscudo;
 	}
 
-	private JButton getBtnBomba() {
-		if (btnBomba == null) {
-			btnBomba = new JButton("Bomba");
+	private JButton getBtnUsarBomba() {
+		if (btnUsarBomba == null) {
+			btnUsarBomba = new JButton("Bomba");
+			btnUsarBomba.setHorizontalAlignment(SwingConstants.LEFT);
 		}
-		return btnBomba;
+		return btnUsarBomba;
 	}
 
 	private JLabel getLblMisil() {
@@ -222,11 +232,11 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblMisil;
 	}
 
-	private JButton getBtnMisil() {
-		if (btnMisil == null) {
-			btnMisil = new JButton("Misil: " + DatosJuego.PRECIO_MISIL + "$");
+	private JButton getBtnCompMisil() {
+		if (btnCompMisil == null) {
+			btnCompMisil = new JButton("Misil: " + DatosJuego.PRECIO_MISIL + "$");
 		}
-		return btnMisil;
+		return btnCompMisil;
 	}
 
 	public static TableroJuego getTableroJuego() {
@@ -245,11 +255,11 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblMisilEO;
 	}
 
-	private JButton getBtnMisilEO() {
-		if (btnMisilEO == null) {
-			btnMisilEO = new JButton("MisilEO " + DatosJuego.PRECIO_MISIL_EO + "$");
+	private JButton getBtnCompMisilEO() {
+		if (btnCompMisilEO == null) {
+			btnCompMisilEO = new JButton("numMisilEO " + DatosJuego.PRECIO_MISIL_EO + "$");
 		}
-		return btnMisilEO;
+		return btnCompMisilEO;
 	}
 
 	private JLabel getLblMisilNS() {
@@ -259,11 +269,11 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblMisilNS;
 	}
 
-	private JButton getBtnMisilns() {
-		if (btnMisilns == null) {
-			btnMisilns = new JButton("MisilNS " + DatosJuego.PRECIO_MISIL_NS + "$");
+	private JButton getBtnCompMisilNS() {
+		if (btnCompMisilNS == null) {
+			btnCompMisilNS = new JButton("MisilNS " + DatosJuego.PRECIO_MISIL_NS + "$");
 		}
-		return btnMisilns;
+		return btnCompMisilNS;
 	}
 
 	private JLabel getLblMisilBOOM() {
@@ -273,18 +283,19 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblMisilBOOM;
 	}
 
-	private JButton getBtnMisilboom() {
-		if (btnMisilboom == null) {
-			btnMisilboom = new JButton("MisilBOOM " + DatosJuego.PRECIO_MISIL_BOOM + "$");
+	private JButton getBtnCompMisilBOOM() {
+		if (btnCompMisilBOOM == null) {
+			btnCompMisilBOOM = new JButton("MisilBOOM " + DatosJuego.PRECIO_MISIL_BOOM + "$");
 		}
-		return btnMisilboom;
+		return btnCompMisilBOOM;
 	}
 
-	private JLabel getLblBomba() {
-		if (lblBomba == null) {
-			lblBomba = new JLabel("Ilimitado");
+	private JLabel getLblCantBomba() {
+		if (lblCantBomba == null) {
+			lblCantBomba = new JLabel("Ilimitado  ");
+			lblCantBomba.setHorizontalAlignment(SwingConstants.RIGHT);
 		}
-		return lblBomba;
+		return lblCantBomba;
 	}
 
 	@Override
@@ -326,7 +337,282 @@ public class TableroJuego extends JFrame implements Observer {
 			} else {
 				// Actualizar etiquetas de Ordenador
 			}
-			
 		}
+	}
+	private JLabel getLblRadar() {
+		if (lblRadar == null) {
+			lblRadar = new JLabel("Usos : ");
+			lblRadar.setHorizontalAlignment(SwingConstants.RIGHT);
+		}
+		return lblRadar;
+	}
+	private JButton getBtnUsarRadar() {
+		if (btnUsarRadar == null) {
+			btnUsarRadar = new JButton("Radar");
+			btnUsarRadar.setAlignmentY(0.52f);
+			btnUsarRadar.setHorizontalAlignment(SwingConstants.LEFT);
+		}
+		return btnUsarRadar;
+	}
+	private JLabel getLblCompras() {
+		if (lblCompras == null) {
+			lblCompras = new JLabel("Tienda: ");
+			lblCompras.setHorizontalAlignment(SwingConstants.CENTER);
+		}
+		return lblCompras;
+	}
+	private JPanel getPanel() {
+		if (panel == null) {
+			panel = new JPanel();
+			panel.add(getLblArmamentoEnemigo());
+			panel.add(getLblMisilesEne());
+			panel.add(getLblMisilesEOEne());
+			panel.add(getLblMisilesNSEne());
+			panel.add(getLblMisilesBOOMEne());
+			panel.add(getLblRadarEne());
+		}
+		return panel;
+	}
+	private JPanel getPanel_1() {
+		if (panel_1 == null) {
+			panel_1 = new JPanel();
+			panel_1.setLayout(new BorderLayout(0, 0));
+			panel_1.add(getLblCantBomba(), BorderLayout.EAST);
+		}
+		return panel_1;
+	}
+	private JPanel getPanel_2() {
+		if (panel_2 == null) {
+			panel_2 = new JPanel();
+			panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
+			panel_2.add(getBtnUsarBomba());
+		}
+		return panel_2;
+	}
+	private JPanel getPanel_3() {
+		if (panel_3 == null) {
+			panel_3 = new JPanel();
+			panel_3.setLayout(new BorderLayout(0, 0));
+			panel_3.add(getLblCantMisil(), BorderLayout.EAST);
+		}
+		return panel_3;
+	}
+	private JPanel getPanel_4() {
+		if (panel_4 == null) {
+			panel_4 = new JPanel();
+			panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.X_AXIS));
+			panel_4.add(getBtnUsarMisil());
+		}
+		return panel_4;
+	}
+	private JPanel getPanel_5() {
+		if (panel_5 == null) {
+			panel_5 = new JPanel();
+			panel_5.setLayout(new BorderLayout(0, 0));
+			panel_5.add(getLblCantMisilEO(), BorderLayout.EAST);
+		}
+		return panel_5;
+	}
+	private JPanel getPanel_6() {
+		if (panel_6 == null) {
+			panel_6 = new JPanel();
+			panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
+			panel_6.add(getBtnUsarMisilEO());
+		}
+		return panel_6;
+	}
+	private JPanel getPanel_7() {
+		if (panel_7 == null) {
+			panel_7 = new JPanel();
+			panel_7.setLayout(new BorderLayout(0, 0));
+			panel_7.add(getLblCantMisilNS(), BorderLayout.EAST);
+		}
+		return panel_7;
+	}
+	private JPanel getPanel_8() {
+		if (panel_8 == null) {
+			panel_8 = new JPanel();
+			panel_8.setLayout(new BoxLayout(panel_8, BoxLayout.X_AXIS));
+			panel_8.add(getBtnUsarMisilNS());
+		}
+		return panel_8;
+	}
+	private JPanel getPanel_9() {
+		if (panel_9 == null) {
+			panel_9 = new JPanel();
+			panel_9.setLayout(new BorderLayout(0, 0));
+			panel_9.add(getLblCantMisilBOOM(), BorderLayout.EAST);
+		}
+		return panel_9;
+	}
+	private JPanel getPanel_10() {
+		if (panel_10 == null) {
+			panel_10 = new JPanel();
+			panel_10.setLayout(new BorderLayout(0, 0));
+			panel_10.add(getLblRadar(), BorderLayout.EAST);
+		}
+		return panel_10;
+	}
+	private JLabel getLblCantMisil() {
+		if (lblCantMisil == null) {
+			lblCantMisil = new JLabel("Cantidad: ");
+		}
+		return lblCantMisil;
+	}
+	private JLabel getLblCantMisilEO() {
+		if (lblCantMisilEO == null) {
+			lblCantMisilEO = new JLabel("Cantidad: ");
+		}
+		return lblCantMisilEO;
+	}
+	private JLabel getLblCantMisilNS() {
+		if (lblCantMisilNS == null) {
+			lblCantMisilNS = new JLabel("Canditad: ");
+		}
+		return lblCantMisilNS;
+	}
+	private JPanel getPanel_11() {
+		if (panel_11 == null) {
+			panel_11 = new JPanel();
+			panel_11.setLayout(new BoxLayout(panel_11, BoxLayout.X_AXIS));
+			panel_11.add(getBtnUsarMisilBOOM());
+		}
+		return panel_11;
+	}
+	private JPanel getPanel_12() {
+		if (panel_12 == null) {
+			panel_12 = new JPanel();
+			panel_12.setLayout(new BoxLayout(panel_12, BoxLayout.X_AXIS));
+			panel_12.add(getBtnUsarRadar());
+		}
+		return panel_12;
+	}
+	private JLabel getLblCantMisilBOOM() {
+		if (lblCantMisilBOOM == null) {
+			lblCantMisilBOOM = new JLabel("Cantidad: ");
+		}
+		return lblCantMisilBOOM;
+	}
+	private JButton getBtnUsarMisil() {
+		if (btnUsarMisil == null) {
+			btnUsarMisil = new JButton("Misil");
+		}
+		return btnUsarMisil;
+	}
+	private JButton getBtnUsarMisilEO() {
+		if (btnUsarMisilEO == null) {
+			btnUsarMisilEO = new JButton("MisilEO");
+		}
+		return btnUsarMisilEO;
+	}
+	private JButton getBtnUsarMisilNS() {
+		if (btnUsarMisilNS == null) {
+			btnUsarMisilNS = new JButton("MisilNS");
+		}
+		return btnUsarMisilNS;
+	}
+	private JButton getBtnUsarMisilBOOM() {
+		if (btnUsarMisilBOOM == null) {
+			btnUsarMisilBOOM = new JButton("MisilBOOM");
+		}
+		return btnUsarMisilBOOM;
+	}
+	private JPanel getPanelTienda1() {
+		if (panelTienda1 == null) {
+			panelTienda1 = new JPanel();
+			panelTienda1.add(getLblCompras());
+		}
+		return panelTienda1;
+	}
+	private JPanel getPanelDinero() {
+		if (panelDinero == null) {
+			panelDinero = new JPanel();
+			panelDinero.add(getLblTurno());
+		}
+		return panelDinero;
+	}
+	private JPanel getPanelTienda2() {
+		if (panelTienda2 == null) {
+			panelTienda2 = new JPanel();
+			panelTienda2.add(getLblEscudo());
+			panelTienda2.add(getBtnCompEscudo());
+			panelTienda2.add(getLblMisil());
+			panelTienda2.add(getBtnCompMisil());
+			panelTienda2.add(getLblMisilEO());
+			panelTienda2.add(getBtnCompMisilEO());
+			panelTienda2.add(getLblMisilNS());
+			panelTienda2.add(getBtnCompMisilNS());
+			panelTienda2.add(getLblMisilBOOM());
+			panelTienda2.add(getBtnCompMisilBOOM());
+		}
+		return panelTienda2;
+	}
+	private JPanel getPanelArmamento2() {
+		if (panelArmamento2 == null) {
+			panelArmamento2 = new JPanel();
+			panelArmamento2.add(getLblArmamento());
+		}
+		return panelArmamento2;
+	}
+	private JPanel getPanelArmamento1() {
+		if (panelArmamento1 == null) {
+			panelArmamento1 = new JPanel();
+			panelArmamento1.setLayout(new GridLayout(8, 0, 0, 0));
+			panelArmamento1.add(getPanel_1());
+			panelArmamento1.add(getPanel_2());
+			panelArmamento1.add(getPanel_3());
+			panelArmamento1.add(getPanel_4());
+			panelArmamento1.add(getPanel_5());
+			panelArmamento1.add(getPanel_6());
+			panelArmamento1.add(getPanel_7());
+			panelArmamento1.add(getPanel_8());
+			panelArmamento1.add(getPanel_9());
+			panelArmamento1.add(getPanel_11());
+			panelArmamento1.add(getPanel_10());
+			panelArmamento1.add(getPanel_12());
+		}
+		return panelArmamento1;
+	}
+	private JLabel getLblArmamento() {
+		if (lblArmamento == null) {
+			lblArmamento = new JLabel("Armamento: ");
+		}
+		return lblArmamento;
+	}
+	private JLabel getLblArmamentoEnemigo() {
+		if (lblArmamentoEnemigo == null) {
+			lblArmamentoEnemigo = new JLabel("Armamento Enemigo: ");
+		}
+		return lblArmamentoEnemigo;
+	}
+	private JLabel getLblMisilesEne() {
+		if (lblMisilesEne == null) {
+			lblMisilesEne = new JLabel("Misiles ");
+		}
+		return lblMisilesEne;
+	}
+	private JLabel getLblMisilesEOEne() {
+		if (lblMisilesEOEne == null) {
+			lblMisilesEOEne = new JLabel("MisilesEO ");
+		}
+		return lblMisilesEOEne;
+	}
+	private JLabel getLblMisilesNSEne() {
+		if (lblMisilesNSEne == null) {
+			lblMisilesNSEne = new JLabel("MisilesNS ");
+		}
+		return lblMisilesNSEne;
+	}
+	private JLabel getLblMisilesBOOMEne() {
+		if (lblMisilesBOOMEne == null) {
+			lblMisilesBOOMEne = new JLabel("MisilesBOOM ");
+		}
+		return lblMisilesBOOMEne;
+	}
+	private JLabel getLblRadarEne() {
+		if (lblRadarEne == null) {
+			lblRadarEne = new JLabel("Radar ");
+		}
+		return lblRadarEne;
 	}
 }
