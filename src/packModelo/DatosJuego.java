@@ -6,7 +6,8 @@ public class DatosJuego {
 	public static final int COLUMNAS_TABLERO = 10;
 	public static final int DINERO_INICIAL = 150;
 	public static final int VALOR_ESCUDO = 2;
-	public static final int NUM_ARMAS = 5; //Numero de armas diferentes
+	public static final int NUM_ARMAS = 5;//Numero de armas diferentes
+	public static final int USOS_RADAR = 2;//Usos iniciales del radar
 	
 	// Numero inicializacion armamento
 	public static final int INI_MISIL = 3;
