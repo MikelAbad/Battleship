@@ -14,6 +14,9 @@ import packVista.TableroJuego;
 public class CBtnsOrdenador implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if(!TableroJuego.getTableroJuego().getBtnMoverRadar().isEnabled()){
+			
+		}
 		JButton btn = (JButton) e.getSource();
 		if (btn.isEnabled()) {
 			String coor[] = btn.getName().split(",");

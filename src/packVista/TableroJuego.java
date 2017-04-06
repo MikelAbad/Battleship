@@ -36,6 +36,8 @@ import java.util.Observer;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TableroJuego extends JFrame implements Observer {
 
@@ -102,6 +104,16 @@ public class TableroJuego extends JFrame implements Observer {
 	private JPanel panel_14;
 	private JLabel lblCantEscudo;
 	private JButton btnUsarEscudo;
+	private JButton btnMoverRadar;
+	private int[] radar;
+
+	public int[] getRadar() {
+		return radar;
+	}
+
+	public void setRadar(int[] radar) {
+		this.radar = radar;
+	}
 
 	private TableroJuego() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,6 +138,10 @@ public class TableroJuego extends JFrame implements Observer {
 		arma = DatosJuego.NUM_BOMBA;
 		Battleship.getBattleship().addObserver(this);
 		Battleship.getBattleship().getUsuario().addObserver(this);
+		int [] i = new int[2];
+		i[0] = 1;
+		i[1] = 1;
+		setRadar(i);
 	}
 
 	private void crearTableroUsu() {
@@ -503,6 +519,7 @@ public class TableroJuego extends JFrame implements Observer {
 			panel_12 = new JPanel();
 			panel_12.setLayout(new BoxLayout(panel_12, BoxLayout.X_AXIS));
 			panel_12.add(getBtnUsarRadar());
+			panel_12.add(getBtnMoverRadar());
 		}
 		return panel_12;
 	}
@@ -668,5 +685,15 @@ public class TableroJuego extends JFrame implements Observer {
 			btnCompEscudo.addMouseListener(new CBtnUsarEscudo());
 		}
 		return btnUsarEscudo;
+	}
+	public JButton getBtnMoverRadar() {
+		if (btnMoverRadar == null) {
+			btnMoverRadar = new JButton("Mover");
+			btnMoverRadar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+		}
+		return btnMoverRadar;
 	}
 }
