@@ -17,10 +17,23 @@ public abstract class Barco {
 		tocadas = new ListaCoordenadas();
 	}
 
-	public void tocar(Coordenada pCoordenada) {
+	public int tocar(Coordenada pCoordenada) {
+		// 0 = No tocada
+		// 1 = Tocada
+		// 2 = EscudoQuitado
+		int tocada = 0;
 		if (posicion.estaEnLista(pCoordenada) && !tocadas.estaEnLista(pCoordenada)) {
-			tocadas.addCoordenada(pCoordenada);
+			if (escudo >= 1) {
+				escudo--;
+				if (escudo == 0) {
+					tocada = 2;
+				}
+			} else {
+				tocadas.addCoordenada(pCoordenada);
+				tocada = 1;
+			}
 		}
+		return tocada;
 	}
 
 	public void reparar(Coordenada pCoordenada) {

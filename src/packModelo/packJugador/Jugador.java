@@ -1,5 +1,6 @@
 package packModelo.packJugador;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 import packModelo.Almacen;
@@ -23,7 +24,6 @@ public abstract class Jugador extends Observable{
 	private ListaBarcos barcosEneDest;
 	private ListaCoordenadas listaTocadasEnem;
 	private ListaCoordenadas listaNoPonerB;
-	private int[] info; // Para la vista
 
 	public Jugador() {
 		armamento = new Cantidades();
@@ -34,7 +34,7 @@ public abstract class Jugador extends Observable{
 		listaTocadasEnem = new ListaCoordenadas();
 		listaNoPonerB = new ListaCoordenadas();
 		dinero = DatosJuego.DINERO_INICIAL;
-		info = new int[2];
+		radar = new Radar();
 	}
 
 	public int getDinero() {
@@ -42,8 +42,26 @@ public abstract class Jugador extends Observable{
 	}
 
 	public boolean tocarBarco(Coordenada pCoordenada) {
-		// TODO SegundoSprint
-		throw new UnsupportedOperationException();
+		boolean tocado = false;
+		if (hayBarco(pCoordenada)) {
+			int resultado = this.listaBarcos.buscarBarco(pCoordenada).tocar(pCoordenada);
+			if (resultado == 1) {
+				tocado = true;
+				String c = pCoordenada.getX() + "," + pCoordenada.getY();
+				setChanged();
+				notifyObservers(c);	
+			} else if (resultado == 2 && !Battleship.getBattleship().getTurno()) {
+				Barco barco = this.getListaBarcos().buscarBarco(pCoordenada);
+				String cambios = DatosJuego.NUM_ESCUDO + "";
+				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
+					cambios = cambios + ";" + co.getX() + "," + co.getY();
+				}
+				setChanged();
+				notifyObservers(cambios);
+			}
+			
+		}
+		return tocado;
 	}
 
 	public void destruirBarco(Coordenada pCoordenada) {
@@ -66,6 +84,7 @@ public abstract class Jugador extends Observable{
 	}
 	
 	public boolean comprarArma(int pArma) {
+		int[] info = new int[2]; // Para la vista
 		boolean exito = false;
 		if (Almacen.getAlmacen().puedeVender(pArma)) {
 			if (meLlega(pArma)) {
@@ -78,7 +97,7 @@ public abstract class Jugador extends Observable{
 					if (Battleship.getBattleship().getTurno()) {
 						info[0] = DatosJuego.NUM_ESCUDO;
 						info[1] = armamento.getEscudo();
-						notificar();
+						notificarCompra(info);
 					}
 					break;
 				case DatosJuego.NUM_MISIL:
@@ -87,7 +106,7 @@ public abstract class Jugador extends Observable{
 					if (Battleship.getBattleship().getTurno()){
 						info[0] = DatosJuego.NUM_MISIL;
 						info[1] = armamento.getMisil();
-						notificar();
+						notificarCompra(info);
 					}
 					break;
 				case DatosJuego.NUM_MISIL_NS:
@@ -96,7 +115,7 @@ public abstract class Jugador extends Observable{
 					if (Battleship.getBattleship().getTurno()) {
 						info[0] = DatosJuego.NUM_MISIL_NS;
 						info[1] = armamento.getMisilNS();
-						notificar();
+						notificarCompra(info);
 					}
 					break;
 				case DatosJuego.NUM_MISIL_EO:
@@ -105,7 +124,7 @@ public abstract class Jugador extends Observable{
 					if (Battleship.getBattleship().getTurno()) {
 						info[0] = DatosJuego.NUM_MISIL_EO;
 						info[1] = armamento.getMisilEO();
-						notificar();
+						notificarCompra(info);
 					}
 					break;
 				case DatosJuego.NUM_MISIL_BOOM:
@@ -114,7 +133,7 @@ public abstract class Jugador extends Observable{
 					if (Battleship.getBattleship().getTurno()) {
 						info[0] = DatosJuego.NUM_MISIL_BOOM;
 						info[1] = armamento.getMisilBOOM();
-						notificar();
+						notificarCompra(info);
 					}
 					break;
 				}
@@ -191,8 +210,11 @@ public abstract class Jugador extends Observable{
 	}
 
 	public void usarBomba(Coordenada pCoordenada) {
-		// TODO SegundoSprint
-		throw new UnsupportedOperationException();
+		if (Battleship.getBattleship().getTurno()) { // Jugador
+			Battleship.getBattleship().getOrdenador().tocarBarco(pCoordenada);
+		} else { // Ordenador
+			Battleship.getBattleship().getUsuario().tocarBarco(pCoordenada);
+		}
 	}
 
 	public boolean usarMisil(Coordenada pCoordenada) {
@@ -240,7 +262,49 @@ public abstract class Jugador extends Observable{
 		return listaBarcos.buscarBarco(pC) != null;
 	}
 	
-	private void notificar() {
+	public boolean usarRadar(){
+		boolean usado = radar.usarRadar();
+		if (usado) {
+			String[] infoRadar = new String[5];
+			infoRadar[0] = "scan";
+			ArrayList<Coordenada> escaneadas = radar.escanear();
+			for (Coordenada co : escaneadas) {
+				if (hayBarco(co)) {
+					infoRadar[1] = infoRadar[1] + co.getX() + "," + co.getY() + ";"; // Barcos
+				} else {
+					infoRadar[2] = infoRadar[2] + co.getX() + "," + co.getY() + ";"; // Aguas
+				}
+			}
+		notificarRadar(infoRadar);	
+		}
+		return usado;
+	}
+	
+	public void moverRadar(Coordenada pCoordenada) {
+		String[] infoRadar = new String[5];
+		infoRadar[0] = "move";
+		Coordenada c = radar.getPosicion();
+		if (c == null) {
+			infoRadar[1] = null;
+			infoRadar[2] = null;
+		} else {
+			infoRadar[1] = "" + c.getX();
+			infoRadar[2] = "" + c.getY();
+		}
+
+		radar.mover(pCoordenada);
+		infoRadar[3] = "" + pCoordenada.getX();
+		infoRadar[4] = "" + pCoordenada.getY();
+		setChanged();
+		notifyObservers(infoRadar);
+	}
+	
+	public void notificarRadar(String[] pInfoRadar){
+		setChanged();
+		notifyObservers(pInfoRadar);
+	}
+	
+	private void notificarCompra(int[] info) {
 		setChanged();
 		notifyObservers(info);
 	}

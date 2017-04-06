@@ -121,6 +121,22 @@ public class Battleship extends Observable{
 		return exito;
 	}
 	
+	public void moverRadar(Coordenada pCoordenada) {
+		if (turno) {
+			usuario.moverRadar(pCoordenada);
+		} else {
+			ordenador.moverRadar(pCoordenada);
+		}
+	}
+
+	public boolean usarRadar() {
+		if (turno) {
+			return usuario.usarRadar();
+		} else {
+			return ordenador.usarRadar();
+		}
+	}
+
 	private void notificarEscudo(Coordenada pCoordenada) {
 		// Solo pinta los escudos que pone el usuario
 		// Si llegamos aquí es porque ya sabemos que hay un barco, nunca null
