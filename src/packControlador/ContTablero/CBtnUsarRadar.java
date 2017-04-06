@@ -1,18 +1,12 @@
-package packControlador;
+package packControlador.ContTablero;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
 
-import packVista.Inicio;
-
-public class CBtnFrag implements MouseListener {
-
+public class CBtnUsarRadar implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
-		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) Inicio.getInicio().setTipo("Fragata");
 	}
 	
 	@Override

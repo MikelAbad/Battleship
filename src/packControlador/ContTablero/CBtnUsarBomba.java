@@ -1,18 +1,15 @@
-package packControlador;
+package packControlador.ContTablero;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
+import packModelo.DatosJuego;
+import packVista.TableroJuego;
 
-import packVista.Inicio;
-
-public class CBtnSub implements MouseListener {
-
+public class CBtnUsarBomba implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
-		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) Inicio.getInicio().setTipo("Submarino");
+		TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_BOMBA);
 	}
 	
 	@Override

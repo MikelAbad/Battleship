@@ -1,4 +1,4 @@
-package packControlador;
+package packControlador.ContTablero;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,14 +11,14 @@ import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
 import packVista.TableroJuego;
 
-public class CBtnsUsuario implements MouseListener {
+public class CBtnsOrdenador implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
 		if (btn.isEnabled()) {
 			String coor[] = btn.getName().split(",");
 			Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
-			if (TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_ESCUDO) {
+			if (TableroJuego.getTableroJuego().getArma() != DatosJuego.NUM_ESCUDO) {
 				if (!Battleship.getBattleship().usarArmamento(TableroJuego.getTableroJuego().getArma(), c)) {
 					JOptionPane.showMessageDialog(null, "¡No es posible utilizar!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);

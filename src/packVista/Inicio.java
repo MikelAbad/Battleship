@@ -10,12 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import packControlador.CBtnDest;
-import packControlador.CBtnFrag;
-import packControlador.CBtnOrient;
-import packControlador.CBtnPort;
-import packControlador.CBtnSub;
-import packControlador.CBtnsColocar;
+import packControlador.ContInicio.CBtnDest;
+import packControlador.ContInicio.CBtnFrag;
+import packControlador.ContInicio.CBtnOrient;
+import packControlador.ContInicio.CBtnPort;
+import packControlador.ContInicio.CBtnSub;
+import packControlador.ContInicio.CBtnsColocar;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;

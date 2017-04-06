@@ -144,4 +144,9 @@ public class Battleship extends Observable{
 	public int getDineroUsuario() {
 		return usuario.getDinero();
 	}
+	
+	public boolean comprarArma(int pArma){
+		return usuario.comprarArma(pArma);
+		
+	}
 }
