@@ -8,8 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import packControlador.CBtnEscudo;
-import packControlador.CBtnsUsuario;
+import packControlador.ContTablero.CBtnUsarBomba;
+import packControlador.ContTablero.CBtnUsarEscudo;
+import packControlador.ContTablero.CBtnUsarMisil;
+import packControlador.ContTablero.CBtnUsarMisilBoom;
+import packControlador.ContTablero.CBtnUsarMisilEO;
+import packControlador.ContTablero.CBtnUsarMisilNS;
+import packControlador.ContTablero.CBtnUsarRadar;
+import packControlador.ContTablero.CBtnsUsuario;
 import packModelo.Almacen;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
@@ -28,6 +34,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TableroJuego extends JFrame implements Observer {
 
@@ -90,6 +98,10 @@ public class TableroJuego extends JFrame implements Observer {
 	private JLabel lblMisilesNSEne;
 	private JLabel lblMisilesBOOMEne;
 	private JLabel lblRadarEne;
+	private JPanel panel_13;
+	private JPanel panel_14;
+	private JLabel lblCantEscudo;
+	private JButton btnUsarEscudo;
 
 	private TableroJuego() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -212,7 +224,7 @@ public class TableroJuego extends JFrame implements Observer {
 	private JButton getBtnCompEscudo() {
 		if (btnCompEscudo == null) {
 			btnCompEscudo = new JButton("Escudo: " + DatosJuego.PRECIO_ESCUDO + "$");
-			btnCompEscudo.addMouseListener(new CBtnEscudo());
+			btnCompEscudo.addMouseListener(new CBtnUsarEscudo());
 		}
 		return btnCompEscudo;
 	}
@@ -220,6 +232,7 @@ public class TableroJuego extends JFrame implements Observer {
 	private JButton getBtnUsarBomba() {
 		if (btnUsarBomba == null) {
 			btnUsarBomba = new JButton("Bomba");
+			btnCompEscudo.addMouseListener(new CBtnUsarBomba());
 			btnUsarBomba.setHorizontalAlignment(SwingConstants.LEFT);
 		}
 		return btnUsarBomba;
@@ -349,6 +362,7 @@ public class TableroJuego extends JFrame implements Observer {
 	private JButton getBtnUsarRadar() {
 		if (btnUsarRadar == null) {
 			btnUsarRadar = new JButton("Radar");
+			btnCompEscudo.addMouseListener(new CBtnUsarRadar());
 			btnUsarRadar.setAlignmentY(0.52f);
 			btnUsarRadar.setHorizontalAlignment(SwingConstants.LEFT);
 		}
@@ -496,24 +510,28 @@ public class TableroJuego extends JFrame implements Observer {
 	private JButton getBtnUsarMisil() {
 		if (btnUsarMisil == null) {
 			btnUsarMisil = new JButton("Misil");
+			btnCompEscudo.addMouseListener(new CBtnUsarMisil());
 		}
 		return btnUsarMisil;
 	}
 	private JButton getBtnUsarMisilEO() {
 		if (btnUsarMisilEO == null) {
 			btnUsarMisilEO = new JButton("MisilEO");
+			btnCompEscudo.addMouseListener(new CBtnUsarMisilEO());
 		}
 		return btnUsarMisilEO;
 	}
 	private JButton getBtnUsarMisilNS() {
 		if (btnUsarMisilNS == null) {
 			btnUsarMisilNS = new JButton("MisilNS");
+			btnCompEscudo.addMouseListener(new CBtnUsarMisilNS());
 		}
 		return btnUsarMisilNS;
 	}
 	private JButton getBtnUsarMisilBOOM() {
 		if (btnUsarMisilBOOM == null) {
 			btnUsarMisilBOOM = new JButton("MisilBOOM");
+			btnCompEscudo.addMouseListener(new CBtnUsarMisilBoom());
 		}
 		return btnUsarMisilBOOM;
 	}
@@ -570,6 +588,8 @@ public class TableroJuego extends JFrame implements Observer {
 			panelArmamento1.add(getPanel_11());
 			panelArmamento1.add(getPanel_10());
 			panelArmamento1.add(getPanel_12());
+			panelArmamento1.add(getPanel_13());
+			panelArmamento1.add(getPanel_14());
 		}
 		return panelArmamento1;
 	}
@@ -614,5 +634,34 @@ public class TableroJuego extends JFrame implements Observer {
 			lblRadarEne = new JLabel("Radar ");
 		}
 		return lblRadarEne;
+	}
+	private JPanel getPanel_13() {
+		if (panel_13 == null) {
+			panel_13 = new JPanel();
+			panel_13.setLayout(new BorderLayout(0, 0));
+			panel_13.add(getLblCantEscudo(), BorderLayout.EAST);
+		}
+		return panel_13;
+	}
+	private JPanel getPanel_14() {
+		if (panel_14 == null) {
+			panel_14 = new JPanel();
+			panel_14.setLayout(new BoxLayout(panel_14, BoxLayout.X_AXIS));
+			panel_14.add(getBtnUsarEscudo());
+		}
+		return panel_14;
+	}
+	private JLabel getLblCantEscudo() {
+		if (lblCantEscudo == null) {
+			lblCantEscudo = new JLabel("Cantidad: ");
+		}
+		return lblCantEscudo;
+	}
+	private JButton getBtnUsarEscudo() {
+		if (btnUsarEscudo == null) {
+			btnUsarEscudo = new JButton("Escudo");
+			btnCompEscudo.addMouseListener(new CBtnUsarEscudo());
+		}
+		return btnUsarEscudo;
 	}
 }
