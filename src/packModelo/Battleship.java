@@ -63,6 +63,10 @@ public class Battleship extends Observable{
 		return this.usuario;
 	}
 	
+	public Jugador getOrdenador() {
+		return this.ordenador;
+	}
+	
 	private void colocarBarcosOrd() {
 		ordenador.colocarBarcosOrd();
 	}
