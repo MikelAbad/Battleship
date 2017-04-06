@@ -1,16 +1,15 @@
-package packControlador;
+package packControlador.ContTablero;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import packModelo.DatosJuego;
-import packVista.Inicio;
 import packVista.TableroJuego;
 
-public class CBtnEscudo implements MouseListener {
+public class CBtnUsarMisilEO implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
-		TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_ESCUDO);
+		TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_MISIL_EO);
 	}
 	
 	@Override

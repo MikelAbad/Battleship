@@ -1,15 +1,19 @@
-package packControlador;
+package packControlador.ContTablero;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import packVista.Inicio;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
-public class CBtnOrient implements MouseListener {
+import packModelo.Battleship;
+import packModelo.DatosJuego;
 
+public class CBtnMoverRadar implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Inicio.getInicio().setVertical();
+		JButton btn = (JButton) e.getSource();
+		btn.setEnabled(false);
 	}
 	
 	@Override
