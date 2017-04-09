@@ -10,7 +10,7 @@ public class Radar {
 
 	public Radar() {
 		this.posicion = null;
-		usos = DatosJuego.USOS_RADAR;
+		usos = DatosJuego.INI_USOS_RADAR;
 	}
 
 	public void mover(Coordenada pC) {

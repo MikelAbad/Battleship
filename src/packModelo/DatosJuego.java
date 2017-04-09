@@ -7,7 +7,6 @@ public class DatosJuego {
 	public static final int DINERO_INICIAL = 150;
 	public static final int VALOR_ESCUDO = 2;
 	public static final int NUM_ARMAS = 5;//Numero de armas diferentes
-	public static final int USOS_RADAR = 2;//Usos iniciales del radar
 	
 	// Numero inicializacion armamento
 	public static final int INI_MISIL = 3;
@@ -15,12 +14,14 @@ public class DatosJuego {
 	public static final int INI_MISIL_EO = 1;
 	public static final int INI_MISIL_BOOM = 0;
 	public static final int INI_ESCUDO = 2;
+	public static final int INI_USOS_RADAR = 2;//Usos iniciales del radar
 	
 	// Numero id arma
 	public static final int NUM_MISIL = 1;
 	public static final int NUM_MISIL_NS = 2;
 	public static final int NUM_MISIL_EO = 3;
 	public static final int NUM_MISIL_BOOM = 4;
+	public static final int NUM_MOVER_RADAR = 5;
 	public static final int NUM_ESCUDO = 0;
 	public static final int NUM_BOMBA = -1;
 	

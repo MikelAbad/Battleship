@@ -3,13 +3,19 @@ package packControlador.ContTablero;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JButton;
+
 import packModelo.DatosJuego;
 import packVista.TableroJuego;
 
 public class CBtnUsarMisil implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
-		TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_MISIL);
+		JButton btn = (JButton) e.getSource();
+		if(btn.isEnabled()){
+			TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_MISIL);
+			TableroJuego.getTableroJuego().getLblArmamento().setText("Armamento seleccionado: Misil");
+		}
 	}
 	
 	@Override

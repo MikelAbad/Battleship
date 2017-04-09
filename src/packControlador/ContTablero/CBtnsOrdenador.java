@@ -14,12 +14,12 @@ import packVista.TableroJuego;
 public class CBtnsOrdenador implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(!TableroJuego.getTableroJuego().getBtnMoverRadar().isEnabled()){
-			
-		}
 		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) {
-			String coor[] = btn.getName().split(",");
+		String coor[] = btn.getName().split(",");
+		if(TableroJuego.getTableroJuego().getArma()==DatosJuego.NUM_MOVER_RADAR){
+			TableroJuego.getTableroJuego().setRadar(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
+		}
+		else if (btn.isEnabled()) {
 			Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
 			if (TableroJuego.getTableroJuego().getArma() != DatosJuego.NUM_ESCUDO) {
 				if (!Battleship.getBattleship().usarArmamento(TableroJuego.getTableroJuego().getArma(), c)) {

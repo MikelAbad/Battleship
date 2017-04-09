@@ -2,6 +2,7 @@ package packVista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 
@@ -76,6 +77,10 @@ public class Inicio extends JFrame {
 		crearTablero();
 		vertical = false;
 		tipo = null;
+		int ancho = 540;
+		int alto = 370;
+		Dimension d = new Dimension(ancho, alto);
+		this.setMinimumSize(d);
 	}
 
 	public boolean isVertical() {
