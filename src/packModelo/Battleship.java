@@ -122,19 +122,11 @@ public class Battleship extends Observable{
 	}
 	
 	public void moverRadar(Coordenada pCoordenada) {
-		if (turno) {
-			usuario.moverRadar(pCoordenada);
-		} else {
-			ordenador.moverRadar(pCoordenada);
-		}
+		ordenador.moverRadar(pCoordenada);
 	}
 
 	public boolean usarRadar() {
-		if (turno) {
-			return usuario.usarRadar();
-		} else {
-			return ordenador.usarRadar();
-		}
+		return ordenador.usarRadar();
 	}
 
 	private void notificarEscudo(Coordenada pCoordenada) {
