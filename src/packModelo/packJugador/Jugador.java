@@ -261,24 +261,7 @@ public abstract class Jugador extends Observable{
 	public boolean hayBarco(Coordenada pC) {
 		return listaBarcos.buscarBarco(pC) != null;
 	}
-	
-	public boolean usarRadar(){
-		boolean usado = radar.usarRadar();
-		if (usado) {
-			String[] infoRadar = new String[5];
-			infoRadar[0] = "scan";
-			ArrayList<Coordenada> escaneadas = radar.escanear();
-			for (Coordenada co : escaneadas) {
-				if (hayBarco(co)) {
-					infoRadar[1] = infoRadar[1] + co.getX() + "," + co.getY() + ";"; // Barcos
-				} else {
-					infoRadar[2] = infoRadar[2] + co.getX() + "," + co.getY() + ";"; // Aguas
-				}
-			}
-		notificarRadar(infoRadar);	
-		}
-		return usado;
-	}
+	protected Radar getRadar(){return radar;}
 	
 	public void moverRadar(Coordenada pCoordenada) {
 		String[] infoRadar = new String[5];

@@ -27,11 +27,11 @@ public class Radar {
 		return posicion;
 	}
 
-	public boolean usarRadar() {
-		boolean usado = false;
+	public boolean puedeUsarRadar() {
+		boolean puede = false;
 		if (usos >= 1 && posicion != null) {
-			usado = true;
+			puede = true;
 		}
-		return usado;
+		return puede;
 	}
 }

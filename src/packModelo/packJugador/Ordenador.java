@@ -1,5 +1,6 @@
 package packModelo.packJugador;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import packModelo.DatosJuego;
@@ -78,4 +79,21 @@ public class Ordenador extends Jugador {
 		System.out.println("Barcos del ordenador:");
 		getListaBarcos().imprimirTablero();
 	}
+	
+	public boolean usarRadar(){
+		if(super.getRadar().puedeUsarRadar()){
+			String[] infoRadar = new String[5];
+			infoRadar[0] = "scan";
+			ArrayList<Coordenada> escaneadas = super.getRadar().escanear();
+			for (Coordenada co : escaneadas) {
+				if (hayBarco(co)) {
+					infoRadar[1] = infoRadar[1] + co.getX() + "," + co.getY() + ";"; // Barcos
+				}
+			}
+			notificarRadar(infoRadar);	
+			return true;
+		}
+		else return false;
+	}
+	
 }
