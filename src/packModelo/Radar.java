@@ -9,7 +9,7 @@ public class Radar {
 	private int usos;
 
 	public Radar() {
-		this.posicion = null;
+		this.posicion = new Coordenada(0,0);
 		usos = DatosJuego.INI_USOS_RADAR;
 	}
 
