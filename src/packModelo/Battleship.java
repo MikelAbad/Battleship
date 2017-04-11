@@ -59,11 +59,11 @@ public class Battleship extends Observable{
 		return this.turno;
 	}
 	
-	public Jugador getUsuario() {
+	public Usuario getUsuario() {
 		return this.usuario;
 	}
 	
-	public Jugador getOrdenador() {
+	public Ordenador getOrdenador() {
 		return this.ordenador;
 	}
 	
@@ -83,50 +83,42 @@ public class Battleship extends Observable{
 		// TODO SegundoSprint
 		throw new UnsupportedOperationException();
 	}
-
-	public boolean usarArmamento(int pArma, Coordenada pCoordenada) {
-		Jugador elJugador;
-		if (turno) {
-			elJugador = usuario;
-		} else {
-			elJugador = ordenador;
-		}
-		boolean exito;
-		if (pArma == DatosJuego.NUM_BOMBA) {
-			elJugador.usarBomba(pCoordenada);
-			exito = true;
-		} else {
-			switch (pArma) {
-			case DatosJuego.NUM_ESCUDO:
-				exito = elJugador.ponerEscudo(pCoordenada);
-				if (turno && exito) notificarEscudo(pCoordenada);
-				break;
-			case DatosJuego.NUM_MISIL:
-				exito = elJugador.usarMisil(pCoordenada);
-				break;
-			case DatosJuego.NUM_MISIL_NS:
-				exito = elJugador.usarMisilNS(pCoordenada);
-				break;
-			case DatosJuego.NUM_MISIL_EO:
-				exito = elJugador.usarMisilEO(pCoordenada);
-				break;
-			case DatosJuego.NUM_MISIL_BOOM:
-				exito = elJugador.usarMisilBOOM(pCoordenada);
-				break;
-			default:
-				exito = false;
-				break;
-			}
-		}
-		return exito;
+	public boolean usarEscudo(Coordenada pCoordenada) {
+		if(usuario.ponerEscudo(pCoordenada)) {
+			notificarEscudo(pCoordenada);
+			return true;
+		}else return false;
 	}
 	
+	public void usarBomba(Coordenada pCoordenada) {
+		usuario.usarBomba(pCoordenada);
+	}
+	
+	public void usarMisil(Coordenada pCoordenada) {
+		usuario.usarMisil(pCoordenada);
+	}
+	
+	public void usarMisilNS(Coordenada pCoordenada) {
+		usuario.usarMisilNS(pCoordenada);
+	}
+	
+	public void usarMisilEO(Coordenada pCoordenada) {
+		usuario.usarMisilEO(pCoordenada);
+	}
+	
+	public void usarMisilBOOM(Coordenada pCoordenada) {
+		usuario.usarMisilBOOM(pCoordenada);
+	}
+	
+	public boolean puedeUsar(int pArma){
+		return usuario.puedeUsar(pArma);
+	}
 	public void moverRadar(Coordenada pCoordenada) {
 		ordenador.moverRadar(pCoordenada);
 	}
 
 	public boolean usarRadar() {
-		return ordenador.usarRadar();
+		return ordenador.recibirEscaRadar();
 	}
 
 	private void notificarEscudo(Coordenada pCoordenada) {

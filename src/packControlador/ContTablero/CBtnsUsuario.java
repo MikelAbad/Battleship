@@ -19,8 +19,8 @@ public class CBtnsUsuario implements MouseListener {
 			String coor[] = btn.getName().split(",");
 			Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
 			if (TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_ESCUDO) {
-				if (!Battleship.getBattleship().usarArmamento(TableroJuego.getTableroJuego().getArma(), c)) {
-					JOptionPane.showMessageDialog(null, "¡No es posible utilizar!", "Alerta",
+				if (!Battleship.getBattleship().usarEscudo(c)) {
+					JOptionPane.showMessageDialog(null, "¡El barco ya dispone de Escudo!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				}
 			} else {

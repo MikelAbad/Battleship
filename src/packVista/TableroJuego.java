@@ -621,7 +621,7 @@ public class TableroJuego extends JFrame implements Observer {
 	}
 	public JLabel getLblArmamento() {
 		if (lblArmamento == null) {
-			lblArmamento = new JLabel("Armamento seleccionado: ¡Ninguno!");
+			lblArmamento = new JLabel("Armamento seleccionado: Bomba");
 		}
 		return lblArmamento;
 	}

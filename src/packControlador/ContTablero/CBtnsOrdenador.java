@@ -23,10 +23,26 @@ public class CBtnsOrdenador implements MouseListener {
 		}
 		else if (btn.isEnabled()) {
 			if (TableroJuego.getTableroJuego().getArma() != DatosJuego.NUM_ESCUDO) {
-				if (!Battleship.getBattleship().usarArmamento(TableroJuego.getTableroJuego().getArma(), c)) {
-					JOptionPane.showMessageDialog(null, "¡No es posible utilizar!", "Alerta",
-							JOptionPane.WARNING_MESSAGE);
-				}
+				if (Battleship.getBattleship().puedeUsar(TableroJuego.getTableroJuego().getArma())) {
+					switch (TableroJuego.getTableroJuego().getArma()){
+					case DatosJuego.NUM_BOMBA:
+						Battleship.getBattleship().usarBomba(c);
+						break;
+					case DatosJuego.NUM_MISIL:
+						Battleship.getBattleship().usarMisil(c);
+						break;
+					case DatosJuego.NUM_MISIL_NS:
+						Battleship.getBattleship().usarMisilNS(c);
+						break;
+					case DatosJuego.NUM_MISIL_EO:
+						Battleship.getBattleship().usarMisilEO(c);
+						break;
+					case DatosJuego.NUM_MISIL_BOOM:
+						Battleship.getBattleship().usarMisilBOOM(c);
+						break;	
+					}
+				}else JOptionPane.showMessageDialog(null, "¡No dispone de unidades de armamento suficiente!", "Alerta",
+						JOptionPane.WARNING_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(null, "¡Seleccione armamento correcto!", "Alerta",
 						JOptionPane.WARNING_MESSAGE);

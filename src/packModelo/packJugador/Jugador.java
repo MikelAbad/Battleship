@@ -203,6 +203,9 @@ public abstract class Jugador extends Observable{
 				puede = true;
 			}
 			break;
+		case DatosJuego.NUM_BOMBA:
+			puede = true;
+			break;
 		case DatosJuego.NUM_MISIL:
 			if (armamento.getMisil() > 0) {
 				puede = true;
