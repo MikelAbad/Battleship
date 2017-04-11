@@ -2,6 +2,8 @@ package packModelo.packCoordenada;
 
 import java.util.ArrayList;
 
+import packModelo.DatosJuego;
+
 public class Coordenada {
 	private int x;
 	private int y;
@@ -30,5 +32,17 @@ public class Coordenada {
 		adyacentes.add(new Coordenada(x,y+1));
 		adyacentes.add(new Coordenada(x+1,y+1));
 		return adyacentes;
+	}
+	public boolean fueraDeLimites() {
+		boolean fueraDeLimites = false;
+		if (x < 0 || x > DatosJuego.COLUMNAS_TABLERO - 1 || y < 0
+				|| y > DatosJuego.FILAS_TABLERO - 1) {
+			fueraDeLimites = true;
+		}
+		return fueraDeLimites;
+	}
+	
+	public boolean isEqual(Coordenada pC){
+		return (x == pC.getX() && y == pC.getY());
 	}
 }

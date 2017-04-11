@@ -22,15 +22,16 @@ public abstract class Barco {
 		// 1 = Tocada
 		// 2 = EscudoQuitado
 		int tocada = 0;
-		if (posicion.estaEnLista(pCoordenada) && !tocadas.estaEnLista(pCoordenada)) {
+		if (!tocadas.estaEnLista(pCoordenada)) {
 			if (escudo >= 1) {
 				escudo--;
 				if (escudo == 0) {
 					tocada = 2;
-				}
+				}else tocada=4;
 			} else {
 				tocadas.addCoordenada(pCoordenada);
-				tocada = 1;
+				if(estaDestruido())tocada = 3;
+				else tocada = 1;
 			}
 		}
 		return tocada;
@@ -53,8 +54,10 @@ public abstract class Barco {
 		}
 	}
 
-	public void destruir() {
-		tocadas = posicion;
+	public boolean destruir() {
+		if (escudo!=0) escudo=0;
+		else tocadas = posicion;
+		return escudo==0;
 	}
 
 	public boolean estaEnPos(Coordenada pCoordenada) {

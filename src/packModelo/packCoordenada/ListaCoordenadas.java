@@ -40,7 +40,7 @@ public class ListaCoordenadas {
 		ArrayList<Coordenada> adyacentes = new ArrayList<Coordenada>();
 		for (Coordenada co : listaCoordenadas) {
 			for (Coordenada co2 : co.getAdyacentes()) {
-				if (!esta(adyacentes, co2)) {
+				if (!esta(adyacentes, co2) && !co.fueraDeLimites()) {
 					adyacentes.add(co2);
 				}
 			}
