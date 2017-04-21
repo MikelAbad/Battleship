@@ -28,6 +28,8 @@ import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Jugador;
+import packModelo.packJugador.Ordenador;
+import packModelo.packJugador.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -107,7 +109,7 @@ public class TableroJuego extends JFrame implements Observer {
 	private JButton btnUsarEscudo;
 	private JButton btnMoverRadar;
 	private int[] radar;
-	Icon iRadar= new ImageIcon(getClass().getResource("/packImages/Dragon_Radar.png"));
+	Icon iRadar = new ImageIcon(getClass().getResource("/packImages/Dragon_Radar.png"));
 	private JLabel lblEscudoEne;
 
 	public int[] getRadar() {
@@ -116,11 +118,11 @@ public class TableroJuego extends JFrame implements Observer {
 
 	public void setRadar(int i, int j) {
 		tableroOrd[radar[0]][radar[1]].setIcon(null);
-		radar[0]=i;
-		radar[1]=j;
-		tableroOrd[radar[0]][radar[1]].setIcon(iRadar);	
+		radar[0] = i;
+		radar[1] = j;
+		tableroOrd[radar[0]][radar[1]].setIcon(iRadar);
 	}
-
+	
 	private TableroJuego() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -151,7 +153,6 @@ public class TableroJuego extends JFrame implements Observer {
 		panelOrdenador.setPreferredSize(d2);
 		panelUsuario.setPreferredSize(d2);
 	}
-
 
 	private JPanel getPanelUsuario() {
 		if (panelUsuario == null) {
@@ -279,8 +280,13 @@ public class TableroJuego extends JFrame implements Observer {
 		return miTableroJuego;
 	}
 
-	public void setArma(int pNum) {arma = pNum;}
-	public int getArma() {return arma;}
+	public void setArma(int pNum) {
+		arma = pNum;
+	}
+
+	public int getArma() {
+		return arma;
+	}
 
 	private JLabel getLblMisilEO() {
 		if (lblMisilEO == null) {
@@ -335,54 +341,14 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblCantBomba;
 	}
 
-	@Override
-	public void update(Observable observable, Object parametro) {
-		if (observable instanceof Battleship) {
-			String[] splitted = ((String) parametro).split(";");
-			int pArma = Integer.parseInt(splitted[0]);
-			if (pArma == DatosJuego.NUM_ESCUDO) {
-				int i, j;
-				for (int k = 1; k < splitted.length; k++) {
-					i = Integer.parseInt(splitted[k].split(",")[0]);
-					j = Integer.parseInt(splitted[k].split(",")[1]);
-					tableroUs[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
-				}
-				lblTurno.setText("Tienes " + Battleship.getBattleship().getDineroUsuario() + "$");
-			}
-		} else if (observable instanceof Almacen) {
-			int[] stock = (int[]) parametro;
-			switch (stock[0]) {
-			case DatosJuego.NUM_ESCUDO:
-				lblEscudo.setText("Stock: " + stock[1]);
-				break;
-			case DatosJuego.NUM_MISIL:
-				lblMisil.setText("Stock: " + stock[1]);
-				break;
-			case DatosJuego.NUM_MISIL_NS:
-				lblMisilNS.setText("Stock: " + stock[1]);
-				break;
-			case DatosJuego.NUM_MISIL_EO:
-				lblMisilEO.setText("Stock: " + stock[1]);
-				break;
-			case DatosJuego.NUM_MISIL_BOOM:
-				lblMisilBOOM.setText("Stock: " + stock[1]);
-				break;
-			}
-		} else if (observable instanceof Jugador) {
-			if (Battleship.getBattleship().getTurno()) {
-				// Actualizar etiquetas de Jugador
-			} else {
-				// Actualizar etiquetas de Ordenador
-			}
-		}
-	}
 	private JLabel getLblRadar() {
 		if (lblRadar == null) {
-			lblRadar = new JLabel("Usos : "+DatosJuego.INI_USOS_RADAR+" ");
+			lblRadar = new JLabel("Usos : " + DatosJuego.INI_USOS_RADAR + " ");
 			lblRadar.setHorizontalAlignment(SwingConstants.RIGHT);
 		}
 		return lblRadar;
 	}
+
 	private JButton getBtnUsarRadar() {
 		if (btnUsarRadar == null) {
 			btnUsarRadar = new JButton("Radar");
@@ -391,6 +357,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnUsarRadar;
 	}
+
 	private JLabel getLblCompras() {
 		if (lblCompras == null) {
 			lblCompras = new JLabel("Tienda: ");
@@ -398,6 +365,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return lblCompras;
 	}
+
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
@@ -411,6 +379,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel;
 	}
+
 	private JPanel getPanel_1() {
 		if (panel_1 == null) {
 			panel_1 = new JPanel();
@@ -419,6 +388,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_1;
 	}
+
 	private JPanel getPanel_2() {
 		if (panel_2 == null) {
 			panel_2 = new JPanel();
@@ -427,6 +397,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_2;
 	}
+
 	private JPanel getPanel_3() {
 		if (panel_3 == null) {
 			panel_3 = new JPanel();
@@ -435,6 +406,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_3;
 	}
+
 	private JPanel getPanel_4() {
 		if (panel_4 == null) {
 			panel_4 = new JPanel();
@@ -443,6 +415,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_4;
 	}
+
 	private JPanel getPanel_5() {
 		if (panel_5 == null) {
 			panel_5 = new JPanel();
@@ -451,6 +424,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_5;
 	}
+
 	private JPanel getPanel_6() {
 		if (panel_6 == null) {
 			panel_6 = new JPanel();
@@ -459,6 +433,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_6;
 	}
+
 	private JPanel getPanel_7() {
 		if (panel_7 == null) {
 			panel_7 = new JPanel();
@@ -467,6 +442,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_7;
 	}
+
 	private JPanel getPanel_8() {
 		if (panel_8 == null) {
 			panel_8 = new JPanel();
@@ -475,6 +451,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_8;
 	}
+
 	private JPanel getPanel_9() {
 		if (panel_9 == null) {
 			panel_9 = new JPanel();
@@ -483,6 +460,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_9;
 	}
+
 	private JPanel getPanel_10() {
 		if (panel_10 == null) {
 			panel_10 = new JPanel();
@@ -491,24 +469,28 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_10;
 	}
+
 	private JLabel getLblCantMisil() {
 		if (lblCantMisil == null) {
-			lblCantMisil = new JLabel("Cantidad: "+DatosJuego.INI_MISIL+" ");
+			lblCantMisil = new JLabel("Cantidad: " + DatosJuego.INI_MISIL + " ");
 		}
 		return lblCantMisil;
 	}
+
 	private JLabel getLblCantMisilEO() {
 		if (lblCantMisilEO == null) {
-			lblCantMisilEO = new JLabel("Cantidad: "+DatosJuego.INI_MISIL_EO+" ");
+			lblCantMisilEO = new JLabel("Cantidad: " + DatosJuego.INI_MISIL_EO + " ");
 		}
 		return lblCantMisilEO;
 	}
+
 	private JLabel getLblCantMisilNS() {
 		if (lblCantMisilNS == null) {
-			lblCantMisilNS = new JLabel("Canditad: "+DatosJuego.INI_MISIL_NS+" ");
+			lblCantMisilNS = new JLabel("Canditad: " + DatosJuego.INI_MISIL_NS + " ");
 		}
 		return lblCantMisilNS;
 	}
+
 	private JPanel getPanel_11() {
 		if (panel_11 == null) {
 			panel_11 = new JPanel();
@@ -517,6 +499,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_11;
 	}
+
 	private JPanel getPanel_12() {
 		if (panel_12 == null) {
 			panel_12 = new JPanel();
@@ -526,12 +509,14 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_12;
 	}
+
 	private JLabel getLblCantMisilBOOM() {
 		if (lblCantMisilBOOM == null) {
-			lblCantMisilBOOM = new JLabel("Cantidad: "+DatosJuego.INI_MISIL_BOOM+" ");
+			lblCantMisilBOOM = new JLabel("Cantidad: " + DatosJuego.INI_MISIL_BOOM + " ");
 		}
 		return lblCantMisilBOOM;
 	}
+
 	private JButton getBtnUsarMisil() {
 		if (btnUsarMisil == null) {
 			btnUsarMisil = new JButton("Misil");
@@ -539,6 +524,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnUsarMisil;
 	}
+
 	private JButton getBtnUsarMisilEO() {
 		if (btnUsarMisilEO == null) {
 			btnUsarMisilEO = new JButton("MisilEO");
@@ -546,6 +532,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnUsarMisilEO;
 	}
+
 	private JButton getBtnUsarMisilNS() {
 		if (btnUsarMisilNS == null) {
 			btnUsarMisilNS = new JButton("MisilNS");
@@ -553,6 +540,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnUsarMisilNS;
 	}
+
 	private JButton getBtnUsarMisilBOOM() {
 		if (btnUsarMisilBOOM == null) {
 			btnUsarMisilBOOM = new JButton("MisilBOOM");
@@ -561,6 +549,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnUsarMisilBOOM;
 	}
+
 	private JPanel getPanelTienda1() {
 		if (panelTienda1 == null) {
 			panelTienda1 = new JPanel();
@@ -568,6 +557,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panelTienda1;
 	}
+
 	private JPanel getPanelDinero() {
 		if (panelDinero == null) {
 			panelDinero = new JPanel();
@@ -575,6 +565,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panelDinero;
 	}
+
 	private JPanel getPanelTienda2() {
 		if (panelTienda2 == null) {
 			panelTienda2 = new JPanel();
@@ -591,6 +582,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panelTienda2;
 	}
+
 	private JPanel getPanelArmamento2() {
 		if (panelArmamento2 == null) {
 			panelArmamento2 = new JPanel();
@@ -598,6 +590,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panelArmamento2;
 	}
+
 	private JPanel getPanelArmamento1() {
 		if (panelArmamento1 == null) {
 			panelArmamento1 = new JPanel();
@@ -619,48 +612,56 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panelArmamento1;
 	}
+
 	public JLabel getLblArmamento() {
 		if (lblArmamento == null) {
 			lblArmamento = new JLabel("Armamento seleccionado: Bomba");
 		}
 		return lblArmamento;
 	}
+
 	private JLabel getLblArmamentoEnemigo() {
 		if (lblArmamentoEnemigo == null) {
 			lblArmamentoEnemigo = new JLabel("Armamento Enemigo: ");
 		}
 		return lblArmamentoEnemigo;
 	}
+
 	private JLabel getLblMisilesEne() {
 		if (lblMisilesEne == null) {
-			lblMisilesEne = new JLabel("Misiles "+DatosJuego.INI_MISIL);
+			lblMisilesEne = new JLabel("Misiles " + DatosJuego.INI_MISIL);
 		}
 		return lblMisilesEne;
 	}
+
 	private JLabel getLblMisilesEOEne() {
 		if (lblMisilesEOEne == null) {
-			lblMisilesEOEne = new JLabel(" MisilesEO "+DatosJuego.INI_MISIL_EO);
+			lblMisilesEOEne = new JLabel(" MisilesEO " + DatosJuego.INI_MISIL_EO);
 		}
 		return lblMisilesEOEne;
 	}
+
 	private JLabel getLblMisilesNSEne() {
 		if (lblMisilesNSEne == null) {
-			lblMisilesNSEne = new JLabel(" MisilesNS "+DatosJuego.INI_MISIL_NS);
+			lblMisilesNSEne = new JLabel(" MisilesNS " + DatosJuego.INI_MISIL_NS);
 		}
 		return lblMisilesNSEne;
 	}
+
 	private JLabel getLblMisilesBOOMEne() {
 		if (lblMisilesBOOMEne == null) {
-			lblMisilesBOOMEne = new JLabel(" MisilesBOOM "+DatosJuego.INI_MISIL_BOOM);
+			lblMisilesBOOMEne = new JLabel(" MisilesBOOM " + DatosJuego.INI_MISIL_BOOM);
 		}
 		return lblMisilesBOOMEne;
 	}
+
 	private JLabel getLblRadarEne() {
 		if (lblRadarEne == null) {
-			lblRadarEne = new JLabel(" Radar "+DatosJuego.INI_USOS_RADAR);
+			lblRadarEne = new JLabel(" Radar " + DatosJuego.INI_USOS_RADAR);
 		}
 		return lblRadarEne;
 	}
+
 	private JPanel getPanel_13() {
 		if (panel_13 == null) {
 			panel_13 = new JPanel();
@@ -669,6 +670,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_13;
 	}
+
 	private JPanel getPanel_14() {
 		if (panel_14 == null) {
 			panel_14 = new JPanel();
@@ -677,12 +679,14 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return panel_14;
 	}
+
 	private JLabel getLblCantEscudo() {
 		if (lblCantEscudo == null) {
-			lblCantEscudo = new JLabel("Cantidad: "+DatosJuego.INI_ESCUDO+" ");
+			lblCantEscudo = new JLabel("Cantidad: " + DatosJuego.INI_ESCUDO + " ");
 		}
 		return lblCantEscudo;
 	}
+
 	private JButton getBtnUsarEscudo() {
 		if (btnUsarEscudo == null) {
 			btnUsarEscudo = new JButton("Escudo");
@@ -690,6 +694,7 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnUsarEscudo;
 	}
+
 	public JButton getBtnMoverRadar() {
 		if (btnMoverRadar == null) {
 			btnMoverRadar = new JButton("Mover");
@@ -697,10 +702,157 @@ public class TableroJuego extends JFrame implements Observer {
 		}
 		return btnMoverRadar;
 	}
+
 	private JLabel getLblEscudoEne() {
 		if (lblEscudoEne == null) {
-			lblEscudoEne = new JLabel(" Escudos "+DatosJuego.INI_ESCUDO);
+			lblEscudoEne = new JLabel(" Escudos " + DatosJuego.INI_ESCUDO);
 		}
 		return lblEscudoEne;
+	}
+
+	@Override
+	public void update(Observable observable, Object parametro) {
+		// Battleship notifica cuando nos ponemos escudos
+		if (observable instanceof Battleship) {
+			String[] splitted = ((String) parametro).split(";");
+			String what = splitted[0];
+			if (what.equals("escudo")) {
+				int i, j;
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroUs[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+				}
+			}
+		// Almacen notifica el stock cuando se realiza alguna compra
+		} else if (observable instanceof Almacen) {
+			int[] stock = (int[]) parametro;
+			switch (stock[0]) {
+			case DatosJuego.NUM_ESCUDO:
+				lblEscudo.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL:
+				lblMisil.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL_NS:
+				lblMisilNS.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL_EO:
+				lblMisilEO.setText("Stock: " + stock[1]);
+				break;
+			case DatosJuego.NUM_MISIL_BOOM:
+				lblMisilBOOM.setText("Stock: " + stock[1]);
+				break;
+			}
+		// Usuario notifica si le tocan o destruyen algun barco
+		} else if (observable instanceof Usuario) {
+			String[] splitted = ((String) parametro).split(";");
+			String what = splitted[0]; // Lo que ha ocurrido
+			int i, j;
+			switch (what) {
+			case "tocada":
+				String[] coordenada = ((String) splitted[1]).split(",");
+				i = Integer.parseInt(coordenada[0]);
+				j = Integer.parseInt(coordenada[1]);
+				tableroUs[i][j].setBackground(Color.YELLOW);
+				break;
+			case "destruido":
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroUs[i][j].setBackground(Color.RED);
+				}
+				break;
+			}
+		// Ordenador notifica si le tocan o destruyen algún barco
+		} else if (observable instanceof Ordenador) {
+			String[] splitted = ((String) parametro).split(";");
+			String what = splitted[0]; // Lo que ha ocurrido
+			int i, j;
+			switch (what) {
+			case "tocada":
+				String[] coordenada = ((String) splitted[1]).split(",");
+				i = Integer.parseInt(coordenada[0]);
+				j = Integer.parseInt(coordenada[1]);
+				tableroOrd[i][j].setBackground(Color.YELLOW);	// Hemos tocado la casilla
+				tableroOrd[i][j].setEnabled(false);
+				break;
+			case "destruido":
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroOrd[i][j].setBackground(Color.RED);	// Hemos destruido el barco
+					tableroOrd[i][j].setEnabled(false);
+				}
+				break;
+			case "escudo":
+				String[] co = ((String) splitted[1]).split(",");
+				i = Integer.parseInt(co[0]);
+				j = Integer.parseInt(co[1]);
+				tableroOrd[i][j].setBackground(Color.GREEN);	// Sabemos que esta, pero no la hemos tocado
+				break;
+			case "detectado":
+				String[] coord = ((String) splitted[1]).split(",");
+				i = Integer.parseInt(coord[0]);
+				j = Integer.parseInt(coord[1]);
+				tableroOrd[i][j].setBackground(Color.GREEN);	// Sabemos que esta y que aún tiene escudo
+				tableroOrd[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+				break;
+			}
+		// Jugador notifica cuando realiza alguna compra o se hace algo con el radar
+		} else if (observable instanceof Jugador) {
+			// Se ha notificado por alguna compra
+			if (parametro instanceof int[]) {
+				int[] info = (int[]) parametro;
+				if (Battleship.getBattleship().getTurno()) { // Jugador
+					lblTurno.setText("Tienes " + Battleship.getBattleship().getDineroUsuario() + "$");
+					switch (info[0]) {
+					case DatosJuego.NUM_ESCUDO:
+						lblCantEscudo.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL:
+						lblCantMisil.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL_NS:
+						lblCantMisilNS.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL_EO:
+						lblCantMisilEO.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL_BOOM:
+						lblCantMisilBOOM.setText("Cantidad: " + info[1]);
+						break;
+					}
+				} else { // Ordenador
+					switch (info[0]) {
+					case DatosJuego.NUM_MISIL:
+						lblMisilesEne.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL_NS:
+						lblMisilesNSEne.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL_EO:
+						lblMisilesEOEne.setText("Cantidad: " + info[1]);
+						break;
+					case DatosJuego.NUM_MISIL_BOOM:
+						lblMisilesBOOMEne.setText("Cantidad: " + info[1]);
+						break;
+					}
+				}
+			// Se ha notificado por el radar
+			} else if (parametro instanceof String[]) {
+				String[] info = (String[]) parametro;
+				if ((String) info[0] == "move") {
+					String[] coordenada = ((String) info[1]).split(",");
+					int i = Integer.parseInt(coordenada[0]);
+					int j = Integer.parseInt(coordenada[1]);
+					setRadar(i,j);
+				} else if ((String) info[0] == "scan") {
+
+				} else if ((String) info[0] == "shield") {
+					// TODO quitarnos el escudo
+				}
+			}
+		}
 	}
 }

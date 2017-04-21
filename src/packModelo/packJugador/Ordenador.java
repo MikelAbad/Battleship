@@ -21,7 +21,7 @@ public class Ordenador extends Jugador {
 	private ListaCoordenadas listNoDisparar;
 	private ListaCoordenadas listDisparar;
 	private ListaCoordenadas listTocadas;
-	
+
 	public Ordenador() {
 		super();
 		listNoDisparar = new ListaCoordenadas();
@@ -47,7 +47,7 @@ public class Ordenador extends Jugador {
 				anadirAdyacentesBarco(unBarco);
 				anadirBarcoProp(unBarco);
 				puesto = true;
-			}	
+			}
 		}
 
 		// Submarinos (2)
@@ -86,14 +86,14 @@ public class Ordenador extends Jugador {
 			}
 		}
 	}
-	
+
 	public void imprimirTablero() {
 		System.out.println("Barcos del ordenador:");
 		getListaBarcos().imprimirTablero();
 	}
-	
-	public boolean recibirEscaRadar(){
-		if(super.getRadar().puedeUsarRadar()){
+
+	public boolean recibirEscaRadar() {
+		if (super.getRadar().puedeUsarRadar()) {
 			String[] infoRadar = new String[5];
 			infoRadar[0] = "scan";
 			ArrayList<Coordenada> escaneadas = super.getRadar().escanear();
@@ -102,33 +102,33 @@ public class Ordenador extends Jugador {
 					infoRadar[1] = infoRadar[1] + co.getX() + "," + co.getY() + ";"; // Barcos
 				}
 			}
-			notificarRadar(infoRadar);	
+			notificarRadar(infoRadar);
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
-	
-	private void usarRadar(){
+
+	private void usarRadar() {
 		ArrayList<Coordenada> listas[] = Battleship.getBattleship().getUsuario().recibirEscaRadar();
 		listNoDisparar.addCoordenadas(listas[0]);
 		listDisparar.addCoordenadas(listas[1]);
 	}
-	
+
 	public void tocarBarco(Coordenada pCoordenada) {
 		if (hayBarco(pCoordenada)) {
 			switch (super.getListaBarcos().buscarBarco(pCoordenada).tocar(pCoordenada)) {
 			case 1:
-				String cambios = "tocada;"+pCoordenada.getX() + "," + pCoordenada.getY();
+				String cambios = "tocada;" + pCoordenada.getX() + "," + pCoordenada.getY();
 				setChanged();
 				notifyObservers(cambios);
 				break;
 			case 2:
-				String cambios1 = "escudo;"+ pCoordenada.getX() + "," + pCoordenada.getY();
+				String cambios1 = "escudo;" + pCoordenada.getX() + "," + pCoordenada.getY();
 				setChanged();
 				notifyObservers(cambios1);
 				break;
 			case 3:
-				Barco barco1 = super.getListaBarcos().buscarBarco(pCoordenada);		
+				Barco barco1 = super.getListaBarcos().buscarBarco(pCoordenada);
 				String cambios11 = "destruido";
 				for (Coordenada co : barco1.getPosicion().getCoordenadas()) {
 					cambios11 = cambios11 + ";" + co.getX() + "," + co.getY();
@@ -137,17 +137,17 @@ public class Ordenador extends Jugador {
 				notifyObservers(cambios11);
 				break;
 			case 4:
-				String cambios111 = "detectado;"+pCoordenada.getX() + "," + pCoordenada.getY();
+				String cambios111 = "detectado;" + pCoordenada.getX() + "," + pCoordenada.getY();
 				setChanged();
 				notifyObservers(cambios111);
 				break;
 			}
 		}
 	}
-	
+
 	public void destruirBarco(Coordenada pCoordenada) {
-		if (hayBarco(pCoordenada)){
-			if(super.getListaBarcos().buscarBarco(pCoordenada).destruir()){
+		if (hayBarco(pCoordenada)) {
+			if (super.getListaBarcos().buscarBarco(pCoordenada).destruir()) {
 				Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
 				String cambios = "destruido";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
@@ -155,17 +155,16 @@ public class Ordenador extends Jugador {
 				}
 				setChanged();
 				notifyObservers(cambios);
-			}
-			else{
-				String cambios = "detectado;"+pCoordenada.getX() + "," + pCoordenada.getY();
+			} else {
+				String cambios = "escudo;" + pCoordenada.getX() + "," + pCoordenada.getY();
 				setChanged();
 				notifyObservers(cambios);
 			}
 		}
 	}
-	
+
 	private void usarBomba(Coordenada pCoordenada) {
-		switch (Battleship.getBattleship().getUsuario().tocarBarco(pCoordenada)){
+		switch (Battleship.getBattleship().getUsuario().tocarBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
 			break;
@@ -178,20 +177,20 @@ public class Ordenador extends Jugador {
 			listDisparar.addCoordenada(pCoordenada);
 			break;
 		case 3:
-			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);		
+			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
 			getBarcosEneDest().addBarco(barco);
 			listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
 			break;
 		}
 	}
-	
+
 	private void usarMisil(Coordenada pCoordenada) {
-		switch (Battleship.getBattleship().getUsuario().destruirBarco(pCoordenada)){
+		switch (Battleship.getBattleship().getUsuario().destruirBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
 			break;
 		case 1:
-			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);		
+			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
 			getBarcosEneDest().addBarco(barco);
 			listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
 			break;
@@ -206,56 +205,56 @@ public class Ordenador extends Jugador {
 		ListaBarcos listaBa = new ListaBarcos();
 		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
 		Coordenada c;
-		for (int y=0; y<DatosJuego.FILAS_TABLERO; y++){
-			c=new Coordenada(pCoordenada.getX(),y);
-			if(listaBa.buscarBarco(c)==null) {
+		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
+			c = new Coordenada(pCoordenada.getX(), y);
+			if (listaBa.buscarBarco(c) == null) {
 				listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}
 		}
-		for (Coordenada co: listaCo) {
+		for (Coordenada co : listaCo) {
 			super.getArmamento().addMisil();
 			usarMisil(co);
 		}
 		super.getArmamento().rmvMisilNS();
 	}
-	
+
 	private void usarMisilEO(Coordenada pCoordenada) {
 		ListaBarcos listaBa = new ListaBarcos();
 		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
 		Coordenada c;
-		for (int x=0; x<DatosJuego.COLUMNAS_TABLERO; x++){
-			c=new Coordenada(x,pCoordenada.getY());
-			if(listaBa.buscarBarco(c)==null) {
+		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
+			c = new Coordenada(x, pCoordenada.getY());
+			if (listaBa.buscarBarco(c) == null) {
 				listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}
 		}
-		for (Coordenada co: listaCo) {
+		for (Coordenada co : listaCo) {
 			super.getArmamento().addMisil();
 			usarMisil(co);
 		}
-		super.getArmamento().rmvMisilEO();		
+		super.getArmamento().rmvMisilEO();
 	}
-	
+
 	private void usarMisilBOOM(Coordenada pCoordenada) {
 		super.getArmamento().addMisilNS();
 		usarMisilNS(pCoordenada);
 		ListaBarcos listaBa = new ListaBarcos();
 		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
 		Coordenada c;
-		for (int x=0; x<DatosJuego.COLUMNAS_TABLERO; x++){
-			c=new Coordenada(x,pCoordenada.getY());
-			if(listaBa.buscarBarco(c)==null && !pCoordenada.isEqual(c)) {
+		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
+			c = new Coordenada(x, pCoordenada.getY());
+			if (listaBa.buscarBarco(c) == null && !pCoordenada.isEqual(c)) {
 				listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}
 		}
-		for (Coordenada co: listaCo){
+		for (Coordenada co : listaCo) {
 			super.getArmamento().addMisil();
 			usarMisil(co);
 		}
 		super.getArmamento().rmvMisilBOOM();
 	}
-	
+
 }

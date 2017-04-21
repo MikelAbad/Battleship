@@ -27,11 +27,14 @@ public abstract class Barco {
 				escudo--;
 				if (escudo == 0) {
 					tocada = 2;
-				}else tocada=4;
+				} else
+					tocada = 4;
 			} else {
 				tocadas.addCoordenada(pCoordenada);
-				if(estaDestruido())tocada = 3;
-				else tocada = 1;
+				if (estaDestruido())
+					tocada = 3;
+				else
+					tocada = 1;
 			}
 		}
 		return tocada;
@@ -55,9 +58,14 @@ public abstract class Barco {
 	}
 
 	public boolean destruir() {
-		if (escudo!=0) escudo=0;
-		else tocadas = posicion;
-		return escudo==0;
+		boolean destruido = false;
+		if (escudo != 0) {
+			escudo = 0;
+		} else {
+			tocadas = posicion;
+			destruido = true;
+		}
+		return destruido;
 	}
 
 	public boolean estaEnPos(Coordenada pCoordenada) {
@@ -83,6 +91,6 @@ public abstract class Barco {
 	public void setTipo(String pTipo) {
 		this.tipo = pTipo;
 	}
-	
+
 	public abstract boolean puedePonerse(ListaBarcos listaBarcos);
 }

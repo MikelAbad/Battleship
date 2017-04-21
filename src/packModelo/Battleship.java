@@ -125,9 +125,9 @@ public class Battleship extends Observable{
 		// Solo pinta los escudos que pone el usuario
 		// Si llegamos aquí es porque ya sabemos que hay un barco, nunca null
 		Barco barco = usuario.getListaBarcos().buscarBarco(pCoordenada);
-		String cambios = DatosJuego.NUM_ESCUDO + "";
+		String cambios = "escudo";
 		for (Coordenada co : barco.getPosicion().getCoordenadas()) {
-			cambios = cambios + ";" + co.getX() + "," + co.getY();
+			cambios += ";" + co.getX() + "," + co.getY();
 		}
 		setChanged();
 		notifyObservers(cambios);

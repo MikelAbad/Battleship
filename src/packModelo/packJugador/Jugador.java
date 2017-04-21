@@ -177,22 +177,15 @@ public abstract class Jugador extends Observable{
 	protected Radar getRadar(){return radar;}
 	
 	public void moverRadar(Coordenada pCoordenada) {
-		String[] infoRadar = new String[5];
-		infoRadar[0] = "move";
-		Coordenada c = radar.getPosicion();
-		if (c == null) {
-			infoRadar[1] = null;
-			infoRadar[2] = null;
-		} else {
-			infoRadar[1] = "" + c.getX();
-			infoRadar[2] = "" + c.getY();
-		}
-
 		radar.mover(pCoordenada);
-		infoRadar[3] = "" + pCoordenada.getX();
-		infoRadar[4] = "" + pCoordenada.getY();
-		setChanged();
-		notifyObservers(infoRadar);
+		// Solo notifica si es el jugador
+		if (Battleship.getBattleship().getTurno()) {
+			String[] infoRadar = new String[2];
+			infoRadar[0] = "move";
+			infoRadar[1] = pCoordenada.getX() + "," + pCoordenada.getY();
+			setChanged();
+			notifyObservers(infoRadar);
+		}
 	}
 	
 	public boolean puedeUsar(int pArma) {
