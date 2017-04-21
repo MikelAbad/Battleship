@@ -28,6 +28,7 @@ public class CBtnsUsuario implements MouseListener {
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
+		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 
 	@Override

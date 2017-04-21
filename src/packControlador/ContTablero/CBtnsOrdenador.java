@@ -48,6 +48,7 @@ public class CBtnsOrdenador implements MouseListener {
 						JOptionPane.WARNING_MESSAGE);
 			}
 		}
+		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 
 	@Override

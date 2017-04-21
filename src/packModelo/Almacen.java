@@ -8,7 +8,7 @@ import packVista.TableroJuego;
 public class Almacen extends Observable{
 
 	private static Almacen miAlmacen;
-	private Cantidades stock;
+	private Cantidades stock = new Cantidades();
 	private int[] info; // Para la vista
 
 	private Almacen() {

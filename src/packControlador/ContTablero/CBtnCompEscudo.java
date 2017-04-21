@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import packModelo.Battleship;
 import packModelo.DatosJuego;
+import packVista.TableroJuego;
 
 public class CBtnCompEscudo implements MouseListener{
 	@Override
@@ -15,6 +16,7 @@ public class CBtnCompEscudo implements MouseListener{
 			JOptionPane.showMessageDialog(null, "¡No es posible comprar escudos!",
 					"Alerta", JOptionPane.WARNING_MESSAGE);
 		}
+		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 	
 	@Override

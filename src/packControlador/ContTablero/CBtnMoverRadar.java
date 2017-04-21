@@ -18,6 +18,7 @@ public class CBtnMoverRadar implements MouseListener{
 			TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_MOVER_RADAR);
 			TableroJuego.getTableroJuego().getLblArmamento().setText("Armamento seleccionado: Mover Radar");
 		}
+		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 	
 	@Override

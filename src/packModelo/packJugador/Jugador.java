@@ -35,6 +35,16 @@ public abstract class Jugador extends Observable{
 		radar = new Radar();
 	}
 
+	public int[] getCantidades() {
+		int[] cantidades = new int[5];
+		cantidades[0] = armamento.getMisil();
+		cantidades[1] = armamento.getMisilNS();
+		cantidades[2] = armamento.getMisilEO();
+		cantidades[3] = armamento.getMisilBOOM();
+		cantidades[4] = armamento.getEscudo();
+		return cantidades;
+	}
+	
 	public int getDinero() {
 		return dinero;
 	}
@@ -66,7 +76,6 @@ public abstract class Jugador extends Observable{
 	}
 	
 	public boolean comprarArma(int pArma) {
-		int[] info = new int[2]; // Para la vista
 		boolean exito = false;
 		if (Almacen.getAlmacen().puedeVender(pArma)) {
 			if (meLlega(pArma)) {
@@ -76,41 +85,26 @@ public abstract class Jugador extends Observable{
 					Almacen.getAlmacen().venderEscudo();
 					dinero = dinero - DatosJuego.PRECIO_ESCUDO;
 					armamento.addEscudo();
-					info[0] = DatosJuego.NUM_ESCUDO;
-					info[1] = armamento.getEscudo();
-					notificarCompra(info);
 					break;
 				case DatosJuego.NUM_MISIL:
 					Almacen.getAlmacen().venderMisil();
 					dinero = dinero - DatosJuego.PRECIO_MISIL;
 					armamento.addMisil();
-					info[0] = DatosJuego.NUM_MISIL;
-					info[1] = armamento.getMisil();
-					notificarCompra(info);
 					break;
 				case DatosJuego.NUM_MISIL_NS:
 					Almacen.getAlmacen().venderMisilNS();
 					dinero = dinero - DatosJuego.PRECIO_MISIL_NS;
 					armamento.addMisilNS();
-					info[0] = DatosJuego.NUM_MISIL_NS;
-					info[1] = armamento.getMisilNS();
-					notificarCompra(info);
 					break;
 				case DatosJuego.NUM_MISIL_EO:
 					Almacen.getAlmacen().venderMisilEO();
 					dinero = dinero - DatosJuego.PRECIO_MISIL_EO;
 					armamento.addMisilEO();
-					info[0] = DatosJuego.NUM_MISIL_EO;
-					info[1] = armamento.getMisilEO();
-					notificarCompra(info);
 					break;
 				case DatosJuego.NUM_MISIL_BOOM:
 					Almacen.getAlmacen().venderMisilBOOM();
 					dinero = dinero - DatosJuego.PRECIO_MISIL_BOOM;
 					armamento.addMisilBOOM();
-					info[0] = DatosJuego.NUM_MISIL_BOOM;
-					info[1] = armamento.getMisilBOOM();
-					notificarCompra(info);
 					break;
 				}
 			}
@@ -226,10 +220,5 @@ public abstract class Jugador extends Observable{
 	public void notificarRadar(String[] pInfoRadar){
 		setChanged();
 		notifyObservers(pInfoRadar);
-	}
-	
-	private void notificarCompra(int[] info) {
-		setChanged();
-		notifyObservers(info);
 	}
 }

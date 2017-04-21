@@ -122,7 +122,7 @@ public class TableroJuego extends JFrame implements Observer {
 		radar[1] = j;
 		tableroOrd[radar[0]][radar[1]].setIcon(iRadar);
 	}
-	
+
 	private TableroJuego() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -724,7 +724,7 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroUs[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
 				}
 			}
-		// Almacen notifica el stock cuando se realiza alguna compra
+			// Almacen notifica el stock cuando se realiza alguna compra
 		} else if (observable instanceof Almacen) {
 			int[] stock = (int[]) parametro;
 			switch (stock[0]) {
@@ -744,7 +744,7 @@ public class TableroJuego extends JFrame implements Observer {
 				lblMisilBOOM.setText("Stock: " + stock[1]);
 				break;
 			}
-		// Usuario notifica si le tocan o destruyen algun barco
+			// Usuario notifica si le tocan o destruyen algun barco
 		} else if (observable instanceof Usuario) {
 			String[] splitted = ((String) parametro).split(";");
 			String what = splitted[0]; // Lo que ha ocurrido
@@ -764,95 +764,62 @@ public class TableroJuego extends JFrame implements Observer {
 				}
 				break;
 			}
-		// Ordenador notifica si le tocan o destruyen algún barco
+			// Ordenador notifica si le tocan o destruyen algún barco
 		} else if (observable instanceof Ordenador) {
 			String[] splitted = ((String) parametro).split(";");
 			String what = splitted[0]; // Lo que ha ocurrido
+			String[] coordenada = ((String) splitted[1]).split(","); // Coordenada enviada
 			int i, j;
 			switch (what) {
 			case "tocada":
-				String[] coordenada = ((String) splitted[1]).split(",");
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
-				tableroOrd[i][j].setBackground(Color.YELLOW);	// Hemos tocado la casilla
+				tableroOrd[i][j].setBackground(Color.YELLOW); // Hemos tocado la casilla
 				tableroOrd[i][j].setEnabled(false);
 				break;
 			case "destruido":
 				for (int k = 1; k < splitted.length; k++) {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);
-					tableroOrd[i][j].setBackground(Color.RED);	// Hemos destruido el barco
+					tableroOrd[i][j].setBackground(Color.RED); // Hemos destruido el barco
 					tableroOrd[i][j].setEnabled(false);
 				}
 				break;
 			case "escudo":
-				String[] co = ((String) splitted[1]).split(",");
-				i = Integer.parseInt(co[0]);
-				j = Integer.parseInt(co[1]);
-				tableroOrd[i][j].setBackground(Color.GREEN);	// Sabemos que esta, pero no la hemos tocado
+				i = Integer.parseInt(coordenada[0]);
+				j = Integer.parseInt(coordenada[1]);
+				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta, pero no la hemos tocado
 				break;
 			case "detectado":
-				String[] coord = ((String) splitted[1]).split(",");
-				i = Integer.parseInt(coord[0]);
-				j = Integer.parseInt(coord[1]);
-				tableroOrd[i][j].setBackground(Color.GREEN);	// Sabemos que esta y que aún tiene escudo
+				i = Integer.parseInt(coordenada[0]);
+				j = Integer.parseInt(coordenada[1]);
+				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta y que aún tiene escudo
 				tableroOrd[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
 				break;
-			}
-		// Jugador notifica cuando realiza alguna compra o se hace algo con el radar
-		} else if (observable instanceof Jugador) {
-			// Se ha notificado por alguna compra
-			if (parametro instanceof int[]) {
-				int[] info = (int[]) parametro;
-				if (Battleship.getBattleship().getTurno()) { // Jugador
-					lblTurno.setText("Tienes " + Battleship.getBattleship().getDineroUsuario() + "$");
-					switch (info[0]) {
-					case DatosJuego.NUM_ESCUDO:
-						lblCantEscudo.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL:
-						lblCantMisil.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL_NS:
-						lblCantMisilNS.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL_EO:
-						lblCantMisilEO.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL_BOOM:
-						lblCantMisilBOOM.setText("Cantidad: " + info[1]);
-						break;
-					}
-				} else { // Ordenador
-					switch (info[0]) {
-					case DatosJuego.NUM_MISIL:
-						lblMisilesEne.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL_NS:
-						lblMisilesNSEne.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL_EO:
-						lblMisilesEOEne.setText("Cantidad: " + info[1]);
-						break;
-					case DatosJuego.NUM_MISIL_BOOM:
-						lblMisilesBOOMEne.setText("Cantidad: " + info[1]);
-						break;
-					}
-				}
-			// Se ha notificado por el radar
-			} else if (parametro instanceof String[]) {
-				String[] info = (String[]) parametro;
-				if ((String) info[0] == "move") {
-					String[] coordenada = ((String) info[1]).split(",");
-					int i = Integer.parseInt(coordenada[0]);
-					int j = Integer.parseInt(coordenada[1]);
-					setRadar(i,j);
-				} else if ((String) info[0] == "scan") {
-
-				} else if ((String) info[0] == "shield") {
-					// TODO quitarnos el escudo
-				}
+			case "move":
+				i = Integer.parseInt(coordenada[0]);
+				j = Integer.parseInt(coordenada[1]);
+				setRadar(i, j);
 			}
 		}
+	}
+
+	public void actualizarCantidades() {
+		// Usuario
+		int [] cantidadesUsuario = Battleship.getBattleship().getUsuario().getCantidades();
+		lblCantMisil.setText("Cantidad: " + cantidadesUsuario[0] + " ");
+		lblCantMisilNS.setText("Cantidad: " + cantidadesUsuario[1] + " ");
+		lblCantMisilEO.setText("Cantidad: " + cantidadesUsuario[2] + " ");
+		lblCantMisilBOOM.setText("Cantidad: " + cantidadesUsuario[3] + " ");
+		lblCantEscudo.setText("Cantidad: " + cantidadesUsuario[4] + " ");
+		lblTurno.setText("Tienes " + Battleship.getBattleship().getDineroUsuario() + "$");
+		
+		// Ordenador
+		int [] cantidadesOrdenador = Battleship.getBattleship().getOrdenador().getCantidades();
+		lblMisilesEne.setText("Cantidad: " + cantidadesOrdenador[0] + " ");
+		lblMisilesNSEne.setText("Cantidad: " + cantidadesOrdenador[1] + " ");
+		lblMisilesEOEne.setText("Cantidad: " + cantidadesOrdenador[2] + " ");
+		lblMisilesBOOMEne.setText("Cantidad: " + cantidadesOrdenador[3] + " ");
+		lblEscudoEne.setText("Cantidad: " + cantidadesOrdenador[4] + " ");
 	}
 }

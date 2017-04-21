@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import packModelo.Battleship;
 import packModelo.DatosJuego;
+import packVista.TableroJuego;
 
 public class CBtnCompMisilEO implements MouseListener{
 	@Override
@@ -15,6 +16,7 @@ public class CBtnCompMisilEO implements MouseListener{
 			JOptionPane.showMessageDialog(null, "¡No es posible comprar misiles EO!",
 					"Alerta", JOptionPane.WARNING_MESSAGE);
 		}
+		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 	
 	@Override

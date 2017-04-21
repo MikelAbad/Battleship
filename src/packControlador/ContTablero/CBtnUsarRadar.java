@@ -17,6 +17,7 @@ public class CBtnUsarRadar implements MouseListener{
 		if(btn.isEnabled()){
 			Battleship.getBattleship().usarRadar();
 		}
+		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 
 	@Override
