@@ -88,7 +88,6 @@ public class Ordenador extends Jugador {
 			 */
 		} else {
 			Coordenada co = listDisparar.getRandomCo();
-			// TODO Puede que haya que quitar esta coordenada de la lista
 			usarBomba(co);
 		}
 	}
@@ -109,7 +108,6 @@ public class Ordenador extends Jugador {
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
-				// TODO quitar coordenada?
 				usarMisil(co);
 			}
 		} else { // Si no tiene misil, intenta comprar
@@ -127,8 +125,6 @@ public class Ordenador extends Jugador {
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
-					// TODO Puede que haya que quitar esta coordenada de
-					// la lista
 					usarMisil(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
@@ -153,7 +149,6 @@ public class Ordenador extends Jugador {
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
-				// TODO quitar coordenada?
 				usarMisilNS(co);
 			}
 		} else { // Si no tiene misilNS, intenta comprar
@@ -171,8 +166,6 @@ public class Ordenador extends Jugador {
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
-					// TODO Puede que haya que quitar esta coordenada de
-					// la lista
 					usarMisilNS(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
@@ -197,7 +190,6 @@ public class Ordenador extends Jugador {
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
-				// TODO quitar coordenada?
 				usarMisilEO(co);
 			}
 		} else { // Si no tiene misilEO, intenta comprar
@@ -215,8 +207,6 @@ public class Ordenador extends Jugador {
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
-					// TODO Puede que haya que quitar esta coordenada de
-					// la lista
 					usarMisilEO(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
@@ -276,7 +266,6 @@ public class Ordenador extends Jugador {
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
-				// TODO quitar coordenada?
 				usarMisilBOOM(co);
 			}
 		} else { // Si no tiene misil, intenta comprar
@@ -294,8 +283,6 @@ public class Ordenador extends Jugador {
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
-					// TODO Puede que haya que quitar esta coordenada de
-					// la lista
 					usarMisilBOOM(co);
 				}
 			} else { // Si no puede comprar, dispara bomba

@@ -19,7 +19,6 @@ public class Radar {
 
 	public void mover(Coordenada pC) {
 		this.posicion = pC;
-		// TODO: Notificar al observer y eso.
 	}
 
 	public ArrayList<Coordenada> escanear() {

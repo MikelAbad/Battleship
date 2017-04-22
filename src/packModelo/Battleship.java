@@ -26,17 +26,12 @@ public class Battleship extends Observable{
 		return theBattleship;
 	}
 
-	public void jugar() {
-		// TODO SegundoSprint
-	}
-
 	public void inicializar() {
 		usuario = new Usuario();
 		ordenador = new Ordenador();
 		colocarBarcosOrd();
 		ordenador.imprimirTablero();
 		turno = true;
-		// TODO mas cosas, supongo
 	}
 
 	public void colocarBarcoUs(String pTipo, Coordenada pC, boolean pVertical) {
@@ -85,7 +80,7 @@ public class Battleship extends Observable{
 	}
 
 	public boolean hasGanado() {
-		// TODO SegundoSprint
+		// TODO TercerSprint
 		throw new UnsupportedOperationException();
 	}
 	public boolean usarEscudo(Coordenada pCoordenada) {
