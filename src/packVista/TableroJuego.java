@@ -764,6 +764,12 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroUs[i][j].setBackground(Color.RED);
 				}
 				break;
+			case "agua":
+				String[] co = ((String) splitted[1]).split(",");
+				i = Integer.parseInt(co[0]);
+				j = Integer.parseInt(co[1]);
+				tableroUs[i][j].setBackground(Color.BLUE);
+				break;
 			}
 			// Ordenador notifica si le tocan o destruyen algún barco
 		} else if (observable instanceof Ordenador) {

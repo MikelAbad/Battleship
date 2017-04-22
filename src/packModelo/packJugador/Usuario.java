@@ -66,6 +66,10 @@ public class Usuario extends Jugador {
 				setChanged();
 				notifyObservers(cambios);
 			}
+		} else {
+			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
+			setChanged();
+			notifyObservers(cambios);
 		}
 		return resultado;
 	}

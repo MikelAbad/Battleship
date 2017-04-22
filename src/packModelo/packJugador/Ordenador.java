@@ -78,7 +78,7 @@ public class Ordenador extends Jugador {
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
 				if (!listNoDisparar.estaEnLista(co)) {
-					usarBomba(new Coordenada(x, y));
+					usarBomba(co);
 					disparado = true;
 				}
 			}
@@ -103,7 +103,7 @@ public class Ordenador extends Jugador {
 					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
-						usarMisil(new Coordenada(x, y));
+						usarMisil(co);
 						disparado = true;
 					}
 				}
@@ -121,7 +121,7 @@ public class Ordenador extends Jugador {
 						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
-							usarMisil(new Coordenada(x, y));
+							usarMisil(co);
 							disparado = true;
 						}
 					}
@@ -147,7 +147,7 @@ public class Ordenador extends Jugador {
 					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
-						usarMisilNS(new Coordenada(x, y));
+						usarMisilNS(co);
 						disparado = true;
 					}
 				}
@@ -165,7 +165,7 @@ public class Ordenador extends Jugador {
 						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
-							usarMisilNS(new Coordenada(x, y));
+							usarMisilNS(co);
 							disparado = true;
 						}
 					}
@@ -191,7 +191,7 @@ public class Ordenador extends Jugador {
 					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
-						usarMisilEO(new Coordenada(x, y));
+						usarMisilEO(co);
 						disparado = true;
 					}
 				}
@@ -209,7 +209,7 @@ public class Ordenador extends Jugador {
 						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
-							usarMisilEO(new Coordenada(x, y));
+							usarMisilEO(co);
 							disparado = true;
 						}
 					}
@@ -270,7 +270,7 @@ public class Ordenador extends Jugador {
 					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
-						usarMisilBOOM(new Coordenada(x, y));
+						usarMisilBOOM(co);
 						disparado = true;
 					}
 				}
@@ -288,7 +288,7 @@ public class Ordenador extends Jugador {
 						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
-							usarMisilBOOM(new Coordenada(x, y));
+							usarMisilBOOM(co);
 							disparado = true;
 						}
 					}
@@ -444,8 +444,20 @@ public class Ordenador extends Jugador {
 			listDisparar.delCoordenada(pCoordenada);
 			break;
 		case 2:
+			if (!listDisparar.estaEnLista(pCoordenada)) {
+				listDisparar.addCoordenada(pCoordenada);
+			}
+			if (listNoDisparar.estaEnLista(pCoordenada)) {
+				listNoDisparar.delCoordenada(pCoordenada);
+			}
+			break;
 		case 4:
-			listDisparar.addCoordenada(pCoordenada);
+			if (!listDisparar.estaEnLista(pCoordenada)) {
+				listDisparar.addCoordenada(pCoordenada);
+			}
+			if (listNoDisparar.estaEnLista(pCoordenada)) {
+				listNoDisparar.delCoordenada(pCoordenada);
+			}
 			break;
 		case 3:
 			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
