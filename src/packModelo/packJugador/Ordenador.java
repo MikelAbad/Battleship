@@ -29,8 +29,272 @@ public class Ordenador extends Jugador {
 		listTocadas = new ListaCoordenadas();
 	}
 
-	public void Jugar() {
-		// TODO SegundoSprint
+	public void jugar() {
+		if (Math.random() <= 0.65) { // 65% probabilidad de usar bomba
+			dispararBomba();
+		} else { // 35% probabilidad de hacer otra cosa
+			if (Math.random() <= 0.40) { // 40% Misil
+				dispararMisil();
+			} else if (Math.random() > 0.40 && Math.random() <= 0.55) { // 15% MisilNS
+				dispararMisilNS();
+			} else if (Math.random() > 0.55 && Math.random() <= 0.70) { // 15% MisilEO
+				dispararMisilEO();
+			} else if (Math.random() > 0.70 && Math.random() <= 0.80) { // 10% Escudo
+				ponerseEscudo();
+			} else if (Math.random() > 0.80 && Math.random() <= 0.90) { // 10% Mover el radar
+				Random rdn = new Random();
+				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+				Coordenada co = new Coordenada(x, y);
+				Battleship.getBattleship().getUsuario().moverRadar(co);
+				jugar();
+			} else if (Math.random() > 0.90 && Math.random() <= 0.95) { // 5% MisilBOOM
+				dispararMisilBOOM();
+			} else if (Math.random() > 0.95 && Math.random() <= 1) { // 5% Radar
+				usarRadar();
+				jugar();
+			}
+		}
+
+	}
+	
+	private void dispararBomba() {
+		Random rdn = new Random();
+		/*
+		 * Si la lista a donde disparar esta vacia dispara aleatoriamente a
+		 * una coordenada que no este en la lista donde no disparar
+		 */
+		if (listDisparar.vacia()) {
+			boolean disparado = false;
+			while (!disparado) {
+				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+				Coordenada co = new Coordenada(x, y);
+				if (!listNoDisparar.estaEnLista(co)) {
+					usarBomba(new Coordenada(x, y));
+					disparado = true;
+				}
+			}
+			/*
+			 * Si no, dispara a una coordenada aleatoria de la lista a donde
+			 * tiene que disparar
+			 */
+		} else {
+			Coordenada co = listDisparar.getRandomCo();
+			// TODO Puede que haya que quitar esta coordenada de la lista
+			usarBomba(co);
+		}
+	}
+	
+	private void dispararMisil() {
+		Random rdn = new Random();
+		if (getArmamento().getMisil() >= 1) { // Si tiene misil dispara
+			if (listDisparar.vacia()) {
+				boolean disparado = false;
+				while (!disparado) {
+					int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+					Coordenada co = new Coordenada(x, y);
+					if (!listNoDisparar.estaEnLista(co)) {
+						usarMisil(new Coordenada(x, y));
+						disparado = true;
+					}
+				}
+			} else {
+				Coordenada co = listDisparar.getRandomCo();
+				// TODO quitar coordenada?
+				usarMisil(co);
+			}
+		} else { // Si no tiene misil, intenta comprar
+			if (comprarArma(DatosJuego.NUM_MISIL)) { // Si puede comprar, lo usa
+				if (listDisparar.vacia()) {
+					boolean disparado = false;
+					while (!disparado) {
+						int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+						Coordenada co = new Coordenada(x, y);
+						if (!listNoDisparar.estaEnLista(co)) {
+							usarMisil(new Coordenada(x, y));
+							disparado = true;
+						}
+					}
+				} else {
+					Coordenada co = listDisparar.getRandomCo();
+					// TODO Puede que haya que quitar esta coordenada de
+					// la lista
+					usarMisil(co);
+				}
+			} else { // Si no puede comprar, dispara bomba
+				dispararBomba();
+			}
+		}
+	}
+
+	private void dispararMisilNS() {
+		Random rdn = new Random();
+		if (getArmamento().getMisilNS() >= 1) { // Si tiene misilNS dispara
+			if (listDisparar.vacia()) {
+				boolean disparado = false;
+				while (!disparado) {
+					int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+					Coordenada co = new Coordenada(x, y);
+					if (!listNoDisparar.estaEnLista(co)) {
+						usarMisilNS(new Coordenada(x, y));
+						disparado = true;
+					}
+				}
+			} else {
+				Coordenada co = listDisparar.getRandomCo();
+				// TODO quitar coordenada?
+				usarMisilNS(co);
+			}
+		} else { // Si no tiene misilNS, intenta comprar
+			if (comprarArma(DatosJuego.NUM_MISIL_NS)) { // Si puede comprar, lo usa
+				if (listDisparar.vacia()) {
+					boolean disparado = false;
+					while (!disparado) {
+						int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+						Coordenada co = new Coordenada(x, y);
+						if (!listNoDisparar.estaEnLista(co)) {
+							usarMisilNS(new Coordenada(x, y));
+							disparado = true;
+						}
+					}
+				} else {
+					Coordenada co = listDisparar.getRandomCo();
+					// TODO Puede que haya que quitar esta coordenada de
+					// la lista
+					usarMisilNS(co);
+				}
+			} else { // Si no puede comprar, dispara bomba
+				dispararBomba();
+			}
+		}
+	}
+	
+	private void dispararMisilEO() {
+		Random rdn = new Random();
+		if (getArmamento().getMisilEO() >= 1) { // Si tiene misilEO dispara
+			if (listDisparar.vacia()) {
+				boolean disparado = false;
+				while (!disparado) {
+					int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+					Coordenada co = new Coordenada(x, y);
+					if (!listNoDisparar.estaEnLista(co)) {
+						usarMisilEO(new Coordenada(x, y));
+						disparado = true;
+					}
+				}
+			} else {
+				Coordenada co = listDisparar.getRandomCo();
+				// TODO quitar coordenada?
+				usarMisilEO(co);
+			}
+		} else { // Si no tiene misilEO, intenta comprar
+			if (comprarArma(DatosJuego.NUM_MISIL_EO)) { // Si puede comprar, lo usa
+				if (listDisparar.vacia()) {
+					boolean disparado = false;
+					while (!disparado) {
+						int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+						Coordenada co = new Coordenada(x, y);
+						if (!listNoDisparar.estaEnLista(co)) {
+							usarMisilEO(new Coordenada(x, y));
+							disparado = true;
+						}
+					}
+				} else {
+					Coordenada co = listDisparar.getRandomCo();
+					// TODO Puede que haya que quitar esta coordenada de
+					// la lista
+					usarMisilEO(co);
+				}
+			} else { // Si no puede comprar, dispara bomba
+				dispararBomba();
+			}
+		}
+	}
+	
+	private void ponerseEscudo() {
+		Random rdn = new Random();
+		if (getArmamento().getEscudo() >= 1) { // Si tiene escudo se lo pone
+			boolean puesto = false;
+			int cont = 0;
+			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO*DatosJuego.COLUMNAS_TABLERO/2) {
+				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+				Coordenada co = new Coordenada(x, y);
+				if (ponerEscudo(co)) {
+					puesto = true;
+				}
+			}
+			if (puesto = false) {
+				dispararBomba();
+			}
+		} else if (comprarArma(DatosJuego.NUM_ESCUDO)) { // Si puede comprar, lo usa
+			boolean puesto = false;
+			int cont = 0;
+			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO*DatosJuego.COLUMNAS_TABLERO/2) {
+				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+				Coordenada co = new Coordenada(x, y);
+				if (ponerEscudo(co)) {
+					puesto = true;
+				}
+			}
+			if (puesto = false) {
+				dispararBomba();
+			}
+		} else {
+			dispararBomba();
+		}
+	}
+	
+	private void dispararMisilBOOM() {
+		Random rdn = new Random();
+		if (getArmamento().getMisilBOOM() >= 1) { // Si tiene misil dispara
+			if (listDisparar.vacia()) {
+				boolean disparado = false;
+				while (!disparado) {
+					int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+					int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+					Coordenada co = new Coordenada(x, y);
+					if (!listNoDisparar.estaEnLista(co)) {
+						usarMisilBOOM(new Coordenada(x, y));
+						disparado = true;
+					}
+				}
+			} else {
+				Coordenada co = listDisparar.getRandomCo();
+				// TODO quitar coordenada?
+				usarMisilBOOM(co);
+			}
+		} else { // Si no tiene misil, intenta comprar
+			if (comprarArma(DatosJuego.NUM_MISIL_BOOM)) { // Si puede comprar, lo usa
+				if (listDisparar.vacia()) {
+					boolean disparado = false;
+					while (!disparado) {
+						int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+						int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+						Coordenada co = new Coordenada(x, y);
+						if (!listNoDisparar.estaEnLista(co)) {
+							usarMisilBOOM(new Coordenada(x, y));
+							disparado = true;
+						}
+					}
+				} else {
+					Coordenada co = listDisparar.getRandomCo();
+					// TODO Puede que haya que quitar esta coordenada de
+					// la lista
+					usarMisilBOOM(co);
+				}
+			} else { // Si no puede comprar, dispara bomba
+				dispararBomba();
+			}
+		}
 	}
 
 	public void colocarBarcosOrd() {

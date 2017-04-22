@@ -630,35 +630,35 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JLabel getLblMisilesEne() {
 		if (lblMisilesEne == null) {
-			lblMisilesEne = new JLabel("Misiles: " + DatosJuego.INI_MISIL);
+			lblMisilesEne = new JLabel("Misiles: " + DatosJuego.INI_MISIL + " ");
 		}
 		return lblMisilesEne;
 	}
 
 	private JLabel getLblMisilesEOEne() {
 		if (lblMisilesEOEne == null) {
-			lblMisilesEOEne = new JLabel(" MisilesEO: " + DatosJuego.INI_MISIL_EO);
+			lblMisilesEOEne = new JLabel(" MisilesEO: " + DatosJuego.INI_MISIL_EO + " ");
 		}
 		return lblMisilesEOEne;
 	}
 
 	private JLabel getLblMisilesNSEne() {
 		if (lblMisilesNSEne == null) {
-			lblMisilesNSEne = new JLabel(" MisilesNS: " + DatosJuego.INI_MISIL_NS);
+			lblMisilesNSEne = new JLabel(" MisilesNS: " + DatosJuego.INI_MISIL_NS + " ");
 		}
 		return lblMisilesNSEne;
 	}
 
 	private JLabel getLblMisilesBOOMEne() {
 		if (lblMisilesBOOMEne == null) {
-			lblMisilesBOOMEne = new JLabel(" MisilesBOOM: " + DatosJuego.INI_MISIL_BOOM);
+			lblMisilesBOOMEne = new JLabel(" MisilesBOOM: " + DatosJuego.INI_MISIL_BOOM + " ");
 		}
 		return lblMisilesBOOMEne;
 	}
 
 	private JLabel getLblRadarEne() {
 		if (lblRadarEne == null) {
-			lblRadarEne = new JLabel(" Usos radar: " + DatosJuego.INI_USOS_RADAR);
+			lblRadarEne = new JLabel(" Usos radar: " + DatosJuego.INI_USOS_RADAR + " ");
 		}
 		return lblRadarEne;
 	}
@@ -706,7 +706,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JLabel getLblEscudoEne() {
 		if (lblEscudoEne == null) {
-			lblEscudoEne = new JLabel(" Escudos: " + DatosJuego.INI_ESCUDO);
+			lblEscudoEne = new JLabel(" Escudos: " + DatosJuego.INI_ESCUDO + " ");
 		}
 		return lblEscudoEne;
 	}

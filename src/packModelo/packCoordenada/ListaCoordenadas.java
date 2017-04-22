@@ -2,6 +2,7 @@ package packModelo.packCoordenada;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import packModelo.DatosJuego;
 
@@ -22,6 +23,15 @@ public class ListaCoordenadas {
 		if (listaCoordenadas.contains(pCoordenada)) {
 			listaCoordenadas.remove(pCoordenada);
 		}
+	}
+
+	public boolean vacia() {
+		return listaCoordenadas.isEmpty();
+	}
+	
+	public Coordenada getRandomCo() {
+		Random rdn = new Random();
+		return listaCoordenadas.get(rdn.nextInt(listaCoordenadas.size() - 1));
 	}
 
 	public boolean estaEnLista(Coordenada pCoordenada) {

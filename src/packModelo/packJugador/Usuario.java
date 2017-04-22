@@ -138,7 +138,7 @@ public class Usuario extends Jugador {
 		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
 			c = new Coordenada(x, pCoordenada.getY());
 			if (Battleship.getBattleship().getOrdenador().hayBarco(c) && listaBa.buscarBarco(c) == null
-					&& pCoordenada.isEqual(c)) {
+					&& !pCoordenada.isEqual(c)) {
 				listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}
