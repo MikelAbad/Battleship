@@ -83,6 +83,9 @@ public abstract class Barco {
 	public ListaCoordenadas getPosicion() {
 		return posicion;
 	}
+	public ListaCoordenadas getTocadas() {
+		return tocadas;
+	}
 
 	public String getTipo() {
 		return this.tipo;

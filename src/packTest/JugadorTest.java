@@ -26,39 +26,17 @@ public class JugadorTest {
 	}
 
 	@Test
-	public void testTocarBarco() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testDestruirBarco() {
-		fail("Not yet implemented");
-	}
-
-
-	@Test
-	public void testUsarBomba() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUsarMisil() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUsarMisilNS() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUsarMisilEO() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUsarMisilBOOM() {
-		fail("Not yet implemented");
+	public void testcomprarArma() {
+		Usuario u = new Usuario();
+		assertEquals(u.getDinero(),150);
+		u.comprarArma(0);
+		assertEquals(u.getDinero(),125);
+		u.comprarArma(1);
+		assertEquals(u.getDinero(),115);
+		u.comprarArma(2);
+		assertEquals(u.getDinero(),70);
+		u.comprarArma(3);
+		assertEquals(u.getDinero(),25);
 	}
 
 
