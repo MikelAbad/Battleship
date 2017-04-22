@@ -1,6 +1,6 @@
 package packModelo.packJugador;
 
-import java.util.ArrayList;
+
 import java.util.Observable;
 
 import packModelo.Almacen;
@@ -12,7 +12,7 @@ import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.ListaBarcos;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
-import packVista.TableroJuego;
+
 
 public abstract class Jugador extends Observable{
 
@@ -36,12 +36,13 @@ public abstract class Jugador extends Observable{
 	}
 
 	public int[] getCantidades() {
-		int[] cantidades = new int[5];
+		int[] cantidades = new int[6];
 		cantidades[0] = armamento.getMisil();
 		cantidades[1] = armamento.getMisilNS();
 		cantidades[2] = armamento.getMisilEO();
 		cantidades[3] = armamento.getMisilBOOM();
-		cantidades[4] = armamento.getEscudo();
+		cantidades[4] = radar.getUsos();
+		cantidades[5] = armamento.getEscudo();
 		return cantidades;
 	}
 	

@@ -2,9 +2,6 @@ package packModelo;
 
 import java.util.Observable;
 
-import packModelo.packJugador.Jugador;
-import packVista.TableroJuego;
-
 public class Almacen extends Observable{
 
 	private static Almacen miAlmacen;
@@ -14,7 +11,6 @@ public class Almacen extends Observable{
 	private Almacen() {
 		stock.iniciarAlmacen();
 		info = new int[2];
-		addObserver(TableroJuego.getTableroJuego());
 	}
 
 	public static Almacen getAlmacen() {

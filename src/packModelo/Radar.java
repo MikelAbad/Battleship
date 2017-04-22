@@ -13,6 +13,10 @@ public class Radar {
 		usos = DatosJuego.INI_USOS_RADAR;
 	}
 
+	public int getUsos() {
+		return usos;
+	}
+
 	public void mover(Coordenada pC) {
 		this.posicion = pC;
 		// TODO: Notificar al observer y eso.

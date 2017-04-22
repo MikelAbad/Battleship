@@ -143,6 +143,8 @@ public class TableroJuego extends JFrame implements Observer {
 		arma = DatosJuego.NUM_BOMBA;
 		Battleship.getBattleship().addObserver(this);
 		Battleship.getBattleship().getUsuario().addObserver(this);
+		Battleship.getBattleship().getOrdenador().addObserver(this);
+		Almacen.getAlmacen().addObserver(this);
 		radar = new int[2];
 		radar[0] = 0;
 		radar[1] = 0;
@@ -343,7 +345,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JLabel getLblRadar() {
 		if (lblRadar == null) {
-			lblRadar = new JLabel("Usos : " + DatosJuego.INI_USOS_RADAR + " ");
+			lblRadar = new JLabel("Usos: " + DatosJuego.INI_USOS_RADAR + " ");
 			lblRadar.setHorizontalAlignment(SwingConstants.RIGHT);
 		}
 		return lblRadar;
@@ -544,7 +546,6 @@ public class TableroJuego extends JFrame implements Observer {
 	private JButton getBtnUsarMisilBOOM() {
 		if (btnUsarMisilBOOM == null) {
 			btnUsarMisilBOOM = new JButton("MisilBOOM");
-			btnUsarMisilBOOM.setEnabled(false);
 			btnUsarMisilBOOM.addMouseListener(new CBtnUsarMisilBoom());
 		}
 		return btnUsarMisilBOOM;
@@ -629,35 +630,35 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JLabel getLblMisilesEne() {
 		if (lblMisilesEne == null) {
-			lblMisilesEne = new JLabel("Misiles " + DatosJuego.INI_MISIL);
+			lblMisilesEne = new JLabel("Misiles: " + DatosJuego.INI_MISIL);
 		}
 		return lblMisilesEne;
 	}
 
 	private JLabel getLblMisilesEOEne() {
 		if (lblMisilesEOEne == null) {
-			lblMisilesEOEne = new JLabel(" MisilesEO " + DatosJuego.INI_MISIL_EO);
+			lblMisilesEOEne = new JLabel(" MisilesEO: " + DatosJuego.INI_MISIL_EO);
 		}
 		return lblMisilesEOEne;
 	}
 
 	private JLabel getLblMisilesNSEne() {
 		if (lblMisilesNSEne == null) {
-			lblMisilesNSEne = new JLabel(" MisilesNS " + DatosJuego.INI_MISIL_NS);
+			lblMisilesNSEne = new JLabel(" MisilesNS: " + DatosJuego.INI_MISIL_NS);
 		}
 		return lblMisilesNSEne;
 	}
 
 	private JLabel getLblMisilesBOOMEne() {
 		if (lblMisilesBOOMEne == null) {
-			lblMisilesBOOMEne = new JLabel(" MisilesBOOM " + DatosJuego.INI_MISIL_BOOM);
+			lblMisilesBOOMEne = new JLabel(" MisilesBOOM: " + DatosJuego.INI_MISIL_BOOM);
 		}
 		return lblMisilesBOOMEne;
 	}
 
 	private JLabel getLblRadarEne() {
 		if (lblRadarEne == null) {
-			lblRadarEne = new JLabel(" Radar " + DatosJuego.INI_USOS_RADAR);
+			lblRadarEne = new JLabel(" Usos radar: " + DatosJuego.INI_USOS_RADAR);
 		}
 		return lblRadarEne;
 	}
@@ -705,7 +706,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JLabel getLblEscudoEne() {
 		if (lblEscudoEne == null) {
-			lblEscudoEne = new JLabel(" Escudos " + DatosJuego.INI_ESCUDO);
+			lblEscudoEne = new JLabel(" Escudos: " + DatosJuego.INI_ESCUDO);
 		}
 		return lblEscudoEne;
 	}
@@ -775,7 +776,6 @@ public class TableroJuego extends JFrame implements Observer {
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
 				tableroOrd[i][j].setBackground(Color.YELLOW); // Hemos tocado la casilla
-				tableroOrd[i][j].setEnabled(false);
 				break;
 			case "destruido":
 				for (int k = 1; k < splitted.length; k++) {
@@ -789,12 +789,14 @@ public class TableroJuego extends JFrame implements Observer {
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
 				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta, pero no la hemos tocado
+				tableroOrd[i][j].setEnabled(true);
 				break;
 			case "detectado":
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
 				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta y que aún tiene escudo
 				tableroOrd[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+				tableroOrd[i][j].setEnabled(true);
 				break;
 			case "move":
 				i = Integer.parseInt(coordenada[0]);
@@ -811,15 +813,36 @@ public class TableroJuego extends JFrame implements Observer {
 		lblCantMisilNS.setText("Cantidad: " + cantidadesUsuario[1] + " ");
 		lblCantMisilEO.setText("Cantidad: " + cantidadesUsuario[2] + " ");
 		lblCantMisilBOOM.setText("Cantidad: " + cantidadesUsuario[3] + " ");
-		lblCantEscudo.setText("Cantidad: " + cantidadesUsuario[4] + " ");
+		lblRadar.setText("Usos: " + cantidadesUsuario[4] + " ");
+		lblCantEscudo.setText("Cantidad: " + cantidadesUsuario[5] + " ");
 		lblTurno.setText("Tienes " + Battleship.getBattleship().getDineroUsuario() + "$");
 		
 		// Ordenador
 		int [] cantidadesOrdenador = Battleship.getBattleship().getOrdenador().getCantidades();
-		lblMisilesEne.setText("Cantidad: " + cantidadesOrdenador[0] + " ");
-		lblMisilesNSEne.setText("Cantidad: " + cantidadesOrdenador[1] + " ");
-		lblMisilesEOEne.setText("Cantidad: " + cantidadesOrdenador[2] + " ");
-		lblMisilesBOOMEne.setText("Cantidad: " + cantidadesOrdenador[3] + " ");
-		lblEscudoEne.setText("Cantidad: " + cantidadesOrdenador[4] + " ");
+		lblMisilesEne.setText("Misiles: " + cantidadesOrdenador[0] + " ");
+		lblMisilesNSEne.setText(" MisilesNS: " + cantidadesOrdenador[1] + " ");
+		lblMisilesEOEne.setText(" MisilesEO: " + cantidadesOrdenador[2] + " ");
+		lblMisilesBOOMEne.setText(" MisilesBOOM: " + cantidadesOrdenador[3] + " ");
+		lblRadarEne.setText(" Usos radar: " + cantidadesOrdenador[4] + " ");
+		lblEscudoEne.setText(" Escudos: " + cantidadesOrdenador[5] + " ");
+	}
+
+	public void deshabilitarNS(JButton btn) {
+		String coor[] = btn.getName().split(",");
+		for (int y = 0; y<DatosJuego.FILAS_TABLERO; y++){
+			tableroOrd[Integer.parseInt(coor[0])][y].setEnabled(false);
+		}
+	}
+
+	public void deshabilitarEO(JButton btn) {
+		String coor[] = btn.getName().split(",");
+		for (int x = 0; x<DatosJuego.COLUMNAS_TABLERO; x++){
+			tableroOrd[x][Integer.parseInt(coor[1])].setEnabled(false);
+		}
+	}
+
+	public void deshabilitarBOOM(JButton btn) {
+		deshabilitarEO(btn);
+		deshabilitarNS(btn);
 	}
 }

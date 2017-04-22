@@ -26,18 +26,23 @@ public class CBtnsOrdenador implements MouseListener {
 				if (Battleship.getBattleship().puedeUsar(TableroJuego.getTableroJuego().getArma())) {
 					switch (TableroJuego.getTableroJuego().getArma()){
 					case DatosJuego.NUM_BOMBA:
+						btn.setEnabled(false);
 						Battleship.getBattleship().usarBomba(c);
 						break;
 					case DatosJuego.NUM_MISIL:
+						btn.setEnabled(false);
 						Battleship.getBattleship().usarMisil(c);
 						break;
 					case DatosJuego.NUM_MISIL_NS:
+						TableroJuego.getTableroJuego().deshabilitarNS(btn);
 						Battleship.getBattleship().usarMisilNS(c);
 						break;
 					case DatosJuego.NUM_MISIL_EO:
+						TableroJuego.getTableroJuego().deshabilitarEO(btn);
 						Battleship.getBattleship().usarMisilEO(c);
 						break;
 					case DatosJuego.NUM_MISIL_BOOM:
+						TableroJuego.getTableroJuego().deshabilitarBOOM(btn);
 						Battleship.getBattleship().usarMisilBOOM(c);
 						break;	
 					}
