@@ -32,25 +32,32 @@ public class Ordenador extends Jugador {
 	public void jugar() {
 		if (Math.random() <= 0.65) { // 65% probabilidad de usar bomba
 			dispararBomba();
+			Battleship.getBattleship().setTurno(true);
 		} else { // 35% probabilidad de hacer otra cosa
-			if (Math.random() <= 0.40) { // 40% Misil
+			double mr = Math.random();
+			if (mr <= 0.40) { // 40% Misil
 				dispararMisil();
-			} else if (Math.random() > 0.40 && Math.random() <= 0.55) { // 15% MisilNS
+				Battleship.getBattleship().setTurno(true);
+			} else if (mr > 0.40 && mr <= 0.55) { // 15% MisilNS
 				dispararMisilNS();
-			} else if (Math.random() > 0.55 && Math.random() <= 0.70) { // 15% MisilEO
+				Battleship.getBattleship().setTurno(true);
+			} else if (mr > 0.55 && mr <= 0.70) { // 15% MisilEO
 				dispararMisilEO();
-			} else if (Math.random() > 0.70 && Math.random() <= 0.80) { // 10% Escudo
+				Battleship.getBattleship().setTurno(true);
+			} else if (mr > 0.70 && mr <= 0.80) { // 10% Escudo
 				ponerseEscudo();
-			} else if (Math.random() > 0.80 && Math.random() <= 0.90) { // 10% Mover el radar
+				Battleship.getBattleship().setTurno(true);
+			} else if (mr > 0.80 && mr <= 0.90) { // 10% Mover el radar
 				Random rdn = new Random();
 				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
 				Battleship.getBattleship().getUsuario().moverRadar(co);
 				jugar();
-			} else if (Math.random() > 0.90 && Math.random() <= 0.95) { // 5% MisilBOOM
+			} else if (mr > 0.90 && mr <= 0.95) { // 5% MisilBOOM
 				dispararMisilBOOM();
-			} else if (Math.random() > 0.95 && Math.random() <= 1) { // 5% Radar
+				Battleship.getBattleship().setTurno(true);
+			} else if (mr > 0.95 && mr <= 1) { // 5% Radar
 				usarRadar();
 				jugar();
 			}
@@ -429,10 +436,12 @@ public class Ordenador extends Jugador {
 		switch (Battleship.getBattleship().getUsuario().tocarBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
+			listDisparar.delCoordenada(pCoordenada);
 			break;
 		case 1:
 			listNoDisparar.addCoordenada(pCoordenada);
 			listTocadas.addCoordenada(pCoordenada);
+			listDisparar.delCoordenada(pCoordenada);
 			break;
 		case 2:
 		case 4:
@@ -442,6 +451,7 @@ public class Ordenador extends Jugador {
 			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
 			getBarcosEneDest().addBarco(barco);
 			listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
+			listDisparar.delCoordenada(pCoordenada);
 			break;
 		}
 	}
@@ -450,11 +460,13 @@ public class Ordenador extends Jugador {
 		switch (Battleship.getBattleship().getUsuario().destruirBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
+			listDisparar.delCoordenada(pCoordenada);
 			break;
 		case 1:
 			Barco barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
 			getBarcosEneDest().addBarco(barco);
 			listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
+			listDisparar.delCoordenada(pCoordenada);
 			break;
 		case 2:
 			listDisparar.addCoordenada(pCoordenada);
@@ -469,7 +481,7 @@ public class Ordenador extends Jugador {
 		Coordenada c;
 		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
 			c = new Coordenada(pCoordenada.getX(), y);
-			if (listaBa.buscarBarco(c) == null) {
+			if (Battleship.getBattleship().getUsuario().hayBarco(c) && listaBa.buscarBarco(c) == null) {
 				listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}
@@ -487,7 +499,7 @@ public class Ordenador extends Jugador {
 		Coordenada c;
 		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
 			c = new Coordenada(x, pCoordenada.getY());
-			if (listaBa.buscarBarco(c) == null) {
+			if (Battleship.getBattleship().getUsuario().hayBarco(c) && listaBa.buscarBarco(c) == null) {
 				listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}
@@ -507,7 +519,7 @@ public class Ordenador extends Jugador {
 		Coordenada c;
 		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
 			c = new Coordenada(x, pCoordenada.getY());
-			if (listaBa.buscarBarco(c) == null && !pCoordenada.isEqual(c)) {
+			if (Battleship.getBattleship().getUsuario().hayBarco(c) && listaBa.buscarBarco(c) == null && !pCoordenada.isEqual(c)) {
 				listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
 				listaCo.add(c);
 			}

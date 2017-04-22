@@ -30,8 +30,10 @@ public class ListaCoordenadas {
 	}
 	
 	public Coordenada getRandomCo() {
-		Random rdn = new Random();
-		return listaCoordenadas.get(rdn.nextInt(listaCoordenadas.size() - 1));
+		if(listaCoordenadas.size()>1){
+			Random rdn = new Random();
+			return listaCoordenadas.get(rdn.nextInt(listaCoordenadas.size() - 1));
+		}else return listaCoordenadas.get(0);
 	}
 
 	public boolean estaEnLista(Coordenada pCoordenada) {

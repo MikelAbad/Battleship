@@ -59,6 +59,11 @@ public class Battleship extends Observable{
 		return this.turno;
 	}
 	
+	public void setTurno(boolean pTurno) {
+		turno = pTurno;
+		if(!turno) ordenador.jugar();
+	}
+	
 	public Usuario getUsuario() {
 		return this.usuario;
 	}

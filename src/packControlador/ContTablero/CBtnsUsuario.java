@@ -16,19 +16,24 @@ public class CBtnsUsuario implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
 		if (btn.isEnabled()) {
-			String coor[] = btn.getName().split(",");
-			Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
-			if (TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_ESCUDO) {
-				if (!Battleship.getBattleship().usarEscudo(c)) {
-					JOptionPane.showMessageDialog(null, "¡No se puede poner Escudo!", "Alerta",
+			if(Battleship.getBattleship().getTurno()){
+				String coor[] = btn.getName().split(",");
+				Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
+				if (TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_ESCUDO) {
+					if (!Battleship.getBattleship().usarEscudo(c)) {
+						JOptionPane.showMessageDialog(null, "¡No se puede poner Escudo!", "Alerta",
+								JOptionPane.WARNING_MESSAGE);
+					}else {
+						Battleship.getBattleship().setTurno(false);
+						TableroJuego.getTableroJuego().actualizarCantidades();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "¡Seleccione armamento correcto!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				}
-			} else {
-				JOptionPane.showMessageDialog(null, "¡Seleccione armamento correcto!", "Alerta",
-						JOptionPane.WARNING_MESSAGE);
-			}
+			}else JOptionPane.showMessageDialog(null, "¡Espere su turno, por favor!", "Alerta",
+					JOptionPane.WARNING_MESSAGE);
 		}
-		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
 
 	@Override

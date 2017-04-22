@@ -21,6 +21,8 @@ public abstract class Barco {
 		// 0 = No tocada
 		// 1 = Tocada
 		// 2 = EscudoQuitado
+		// 3 = destruido
+		// 4 = aun con escudo
 		int tocada = 0;
 		if (!tocadas.estaEnLista(pCoordenada)) {
 			if (escudo >= 1) {
