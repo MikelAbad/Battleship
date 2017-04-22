@@ -118,7 +118,13 @@ public class Battleship extends Observable{
 	}
 
 	public boolean usarRadar() {
-		return ordenador.recibirEscaRadar();
+		if (usuario.getRadar().puedeUsarRadar()){
+			ordenador.recibirEscaRadar();
+			usuario.getRadar().restarUsoRadar();
+			System.out.println("uso de reaadar");
+			return true;
+		}
+		else return false;
 	}
 
 	private void notificarEscudo(Coordenada pCoordenada) {

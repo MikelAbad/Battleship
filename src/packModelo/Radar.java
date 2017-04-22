@@ -23,7 +23,6 @@ public class Radar {
 	}
 
 	public ArrayList<Coordenada> escanear() {
-		usos--;
 		return posicion.getAdyacentes();
 	}
 
@@ -37,5 +36,9 @@ public class Radar {
 			puede = true;
 		}
 		return puede;
+	}
+
+	public void restarUsoRadar() {
+		usos--;	
 	}
 }

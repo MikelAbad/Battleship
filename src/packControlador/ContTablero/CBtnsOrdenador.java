@@ -18,7 +18,6 @@ public class CBtnsOrdenador implements MouseListener {
 		String coor[] = btn.getName().split(",");
 		Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
 		if(TableroJuego.getTableroJuego().getArma()==DatosJuego.NUM_MOVER_RADAR){
-			TableroJuego.getTableroJuego().setRadar(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
 			Battleship.getBattleship().moverRadar(c);
 		}
 		else if (btn.isEnabled()) {

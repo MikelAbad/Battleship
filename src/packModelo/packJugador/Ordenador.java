@@ -92,20 +92,18 @@ public class Ordenador extends Jugador {
 		getListaBarcos().imprimirTablero();
 	}
 
-	public boolean recibirEscaRadar() {
-		if (super.getRadar().puedeUsarRadar()) {
-			String[] infoRadar = new String[5];
-			infoRadar[0] = "scan";
-			ArrayList<Coordenada> escaneadas = super.getRadar().escanear();
-			for (Coordenada co : escaneadas) {
-				if (hayBarco(co)) {
-					infoRadar[1] = infoRadar[1] + co.getX() + "," + co.getY() + ";"; // Barcos
-				}
+	public void recibirEscaRadar() {
+		String infoRadar;
+		boolean detectado = false;;
+		infoRadar = "scan";
+		ArrayList<Coordenada> escaneadas = super.getRadar().escanear();
+		for (Coordenada co : escaneadas) {
+			if (hayBarco(co)) {
+				infoRadar = infoRadar + ";" + co.getX() + "," + co.getY(); // Barcos
+				detectado = true;
 			}
-			notificarRadar(infoRadar);
-			return true;
-		} else
-			return false;
+		}
+		if (detectado) notificarRadar(infoRadar);
 	}
 
 	private void usarRadar() {

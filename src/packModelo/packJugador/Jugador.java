@@ -169,15 +169,13 @@ public abstract class Jugador extends Observable{
 	public boolean hayBarco(Coordenada pC) {
 		return listaBarcos.buscarBarco(pC) != null;
 	}
-	protected Radar getRadar(){return radar;}
+	public Radar getRadar(){return radar;}
 	
 	public void moverRadar(Coordenada pCoordenada) {
 		radar.mover(pCoordenada);
 		// Solo notifica si es el jugador
 		if (Battleship.getBattleship().getTurno()) {
-			String[] infoRadar = new String[2];
-			infoRadar[0] = "move";
-			infoRadar[1] = pCoordenada.getX() + "," + pCoordenada.getY();
+			String infoRadar ="move;"+ pCoordenada.getX() + "," + pCoordenada.getY();
 			setChanged();
 			notifyObservers(infoRadar);
 		}
@@ -218,7 +216,7 @@ public abstract class Jugador extends Observable{
 		return puede;
 	}
 
-	public void notificarRadar(String[] pInfoRadar){
+	public void notificarRadar(String pInfoRadar){
 		setChanged();
 		notifyObservers(pInfoRadar);
 	}

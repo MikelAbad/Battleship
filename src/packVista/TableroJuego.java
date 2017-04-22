@@ -116,7 +116,7 @@ public class TableroJuego extends JFrame implements Observer {
 		return radar;
 	}
 
-	public void setRadar(int i, int j) {
+	private void setRadar(int i, int j) {
 		tableroOrd[radar[0]][radar[1]].setIcon(null);
 		radar[0] = i;
 		radar[1] = j;
@@ -776,6 +776,7 @@ public class TableroJuego extends JFrame implements Observer {
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
 				tableroOrd[i][j].setBackground(Color.YELLOW); // Hemos tocado la casilla
+				tableroOrd[i][j].setBorder(null);
 				break;
 			case "destruido":
 				for (int k = 1; k < splitted.length; k++) {
@@ -783,6 +784,7 @@ public class TableroJuego extends JFrame implements Observer {
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					tableroOrd[i][j].setBackground(Color.RED); // Hemos destruido el barco
 					tableroOrd[i][j].setEnabled(false);
+					tableroOrd[i][j].setBorder(null);
 				}
 				break;
 			case "escudo":
@@ -790,6 +792,7 @@ public class TableroJuego extends JFrame implements Observer {
 				j = Integer.parseInt(coordenada[1]);
 				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta, pero no la hemos tocado
 				tableroOrd[i][j].setEnabled(true);
+				tableroOrd[i][j].setBorder(null);
 				break;
 			case "detectado":
 				i = Integer.parseInt(coordenada[0]);
@@ -802,6 +805,18 @@ public class TableroJuego extends JFrame implements Observer {
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
 				setRadar(i, j);
+				break;
+			case "scan":
+				System.out.println("uso de radar");
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					System.out.println(tableroOrd[i][j].getBackground().toString());
+					if (!tableroOrd[i][j].getBackground().equals(Color.RED)&&
+							!tableroOrd[i][j].getBackground().equals(Color.YELLOW)) 
+						tableroOrd[i][j].setBackground(Color.green); 
+					// Hemos detectado un barco nuevo
+				}
 			}
 		}
 	}
