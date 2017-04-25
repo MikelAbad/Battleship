@@ -44,7 +44,7 @@ public class ListaBarcos {
 		return cuantos;
 	}
 
-	public Barco buscarBarco(Coordenada pCoordenada) {
+	public Barco buscarBarco(Coordenada pCoordenada) throws BarcoNoEncException {
 		Iterator<Barco> itr = getIterator();
 		boolean encontrado = false;
 		Barco barco = null;
@@ -56,6 +56,7 @@ public class ListaBarcos {
 				encontrado = true;
 			}
 		}
+		if (!encontrado) throw new BarcoNoEncException();
 		return barco;
 	}
 
@@ -67,10 +68,12 @@ public class ListaBarcos {
 		System.out.println("");
 		for (int i = 0; i < DatosJuego.FILAS_TABLERO; i++) {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
-				if (buscarBarco(new Coordenada(j, i)) != null) {
-					System.out.print("X ");
-				} else {
+				try {
+					buscarBarco(new Coordenada(j, i));
 					System.out.print("O ");
+					
+				}catch (BarcoNoEncException e){
+					System.out.print("X ");
 				}
 			}
 			System.out.println("");

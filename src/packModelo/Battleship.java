@@ -3,6 +3,7 @@ package packModelo;
 import java.util.Observable;
 
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.BarcoNoEncException;
 import packModelo.packBarcos.BarcosFactory;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packJugador.Jugador;
@@ -15,7 +16,6 @@ public class Battleship extends Observable{
 	private Usuario usuario;
 	private Ordenador ordenador;
 	private boolean turno; // true = Usuario, false = Ordenador
-	private boolean juegoAcabado = false;
 
 	private Battleship() {}
 
@@ -75,14 +75,10 @@ public class Battleship extends Observable{
 		usuario.imprimirTablero();
 	}
 
-	public void juegoAcabado() {
-		juegoAcabado = true;
-	}
+	//public boolean juegoAcabado() {
+		//TODO:acabar juego
+	//}
 
-	public boolean hasGanado() {
-		// TODO TercerSprint
-		throw new UnsupportedOperationException();
-	}
 	public boolean usarEscudo(Coordenada pCoordenada) {
 		if(usuario.ponerEscudo(pCoordenada)) {
 			notificarEscudo(pCoordenada);
@@ -129,14 +125,16 @@ public class Battleship extends Observable{
 
 	private void notificarEscudo(Coordenada pCoordenada) {
 		// Solo pinta los escudos que pone el usuario
-		// Si llegamos aquí es porque ya sabemos que hay un barco, nunca null
-		Barco barco = usuario.getListaBarcos().buscarBarco(pCoordenada);
-		String cambios = "escudo";
-		for (Coordenada co : barco.getPosicion().getCoordenadas()) {
-			cambios += ";" + co.getX() + "," + co.getY();
-		}
-		setChanged();
-		notifyObservers(cambios);
+		Barco barco;
+		try {
+			barco = usuario.getListaBarcos().buscarBarco(pCoordenada);
+			String cambios = "escudo";
+			for (Coordenada co : barco.getPosicion().getCoordenadas()) {
+				cambios += ";" + co.getX() + "," + co.getY();
+			}
+			setChanged();
+			notifyObservers(cambios);
+		} catch (BarcoNoEncException e) {}
 	}
 
 	public boolean hayBarcoUsu(Coordenada pC){

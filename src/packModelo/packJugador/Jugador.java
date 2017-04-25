@@ -9,6 +9,7 @@ import packModelo.Cantidades;
 import packModelo.DatosJuego;
 import packModelo.Radar;
 import packModelo.packBarcos.Barco;
+import packModelo.packBarcos.BarcoNoEncException;
 import packModelo.packBarcos.ListaBarcos;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
@@ -64,15 +65,15 @@ public abstract class Jugador extends Observable{
 
 	public boolean ponerEscudo(Coordenada pCoordenada) {
 		boolean exito = false;
-		Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
-		if (unBarco != null) {
+		try{
+			Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
 			if (armamento.getEscudo() >= 1) {
 				if (unBarco.ponerEscudo()) {
 					exito = true;
 					armamento.rmvEscudo();
 				}
 			}
-		}
+		}catch (BarcoNoEncException e){}
 		return exito;
 	}
 	
@@ -167,7 +168,12 @@ public abstract class Jugador extends Observable{
 		return puede;
 	}
 	public boolean hayBarco(Coordenada pC) {
-		return listaBarcos.buscarBarco(pC) != null;
+		try{
+			listaBarcos.buscarBarco(pC);
+			return true;
+		}catch (BarcoNoEncException e){
+			return false;
+		}
 	}
 	public Radar getRadar(){return radar;}
 	

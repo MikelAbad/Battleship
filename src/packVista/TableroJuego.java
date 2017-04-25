@@ -27,7 +27,6 @@ import packModelo.Almacen;
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packCoordenada.Coordenada;
-import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Ordenador;
 import packModelo.packJugador.Usuario;
 
@@ -762,6 +761,7 @@ public class TableroJuego extends JFrame implements Observer {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					tableroUs[i][j].setBackground(Color.RED);
+					tableroUs[i][j].setEnabled(false);
 				}
 				break;
 			case "agua":
@@ -804,7 +804,6 @@ public class TableroJuego extends JFrame implements Observer {
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
 				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta y que aún tiene escudo
-				tableroOrd[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
 				tableroOrd[i][j].setEnabled(true);
 				break;
 			case "move":
