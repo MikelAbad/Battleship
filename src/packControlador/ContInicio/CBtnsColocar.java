@@ -27,6 +27,7 @@ public class CBtnsColocar implements MouseListener {
 					Inicio.getInicio().deshabilitarBotones(btn);
 					Inicio.getInicio().pintarBarcoPuesto(btn);
 					Inicio.getInicio().decrementarCont();
+					Inicio.getInicio().getBtnColocarBarcos().setEnabled(false);
 					if (Battleship.getBattleship().todosBarcosUsPuestos()){
 						Inicio.getInicio().dispose();
 						TableroJuego frame = TableroJuego.getTableroJuego();

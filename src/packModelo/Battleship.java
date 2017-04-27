@@ -153,4 +153,8 @@ public class Battleship extends Observable{
 		return usuario.comprarArma(pArma);
 		
 	}
+	
+	public void ponerBarcosUsuario() {
+		usuario.colocarBarcosAleatorios();
+	}
 }
