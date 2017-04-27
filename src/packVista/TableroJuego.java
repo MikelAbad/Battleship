@@ -748,12 +748,12 @@ public class TableroJuego extends JFrame implements Observer {
 		} else if (observable instanceof Usuario) {
 			String[] splitted = ((String) parametro).split(";");
 			String what = splitted[0]; // Lo que ha ocurrido
+			String[] co = ((String) splitted[1]).split(",");
 			int i, j;
 			switch (what) {
 			case "tocada":
-				String[] coordenada = ((String) splitted[1]).split(",");
-				i = Integer.parseInt(coordenada[0]);
-				j = Integer.parseInt(coordenada[1]);
+				i = Integer.parseInt(co[0]);
+				j = Integer.parseInt(co[1]);
 				tableroUs[i][j].setBackground(Color.YELLOW);
 				break;
 			case "destruido":
@@ -765,10 +765,16 @@ public class TableroJuego extends JFrame implements Observer {
 				}
 				break;
 			case "agua":
-				String[] co = ((String) splitted[1]).split(",");
 				i = Integer.parseInt(co[0]);
 				j = Integer.parseInt(co[1]);
 				tableroUs[i][j].setBackground(Color.BLUE);
+				break;
+			case "escudo":
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroUs[i][j].setBorder(null);
+				}
 				break;
 			}
 			// Ordenador notifica si le tocan o destruyen algún barco
@@ -806,6 +812,12 @@ public class TableroJuego extends JFrame implements Observer {
 				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta y que aún tiene escudo
 				tableroOrd[i][j].setEnabled(true);
 				break;
+			case "agua":
+				i = Integer.parseInt(coordenada[0]);
+				j = Integer.parseInt(coordenada[1]);
+				tableroOrd[i][j].setBackground(Color.BLUE); // Agua
+				tableroOrd[i][j].setEnabled(false);
+				break;
 			case "move":
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
@@ -819,11 +831,38 @@ public class TableroJuego extends JFrame implements Observer {
 					System.out.println(tableroOrd[i][j].getBackground().toString());
 					if (!tableroOrd[i][j].getBackground().equals(Color.RED)&&
 							!tableroOrd[i][j].getBackground().equals(Color.YELLOW)) 
-						tableroOrd[i][j].setBackground(Color.green); 
+						tableroOrd[i][j].setBackground(Color.GREEN); 
 					// Hemos detectado un barco nuevo
 				}
 			}
 		}
+	}
+
+	public void marcarRadar() {
+		marcarAgua(radar[0],radar[1]);
+		marcarAgua(radar[0]-1,radar[1]);
+		marcarAgua(radar[0],radar[1]-1);
+		marcarAgua(radar[0]-1,radar[1]-1);
+		marcarAgua(radar[0]+1,radar[1]);
+		marcarAgua(radar[0],radar[1]+1);
+		marcarAgua(radar[0]+1,radar[1]+1);	
+		marcarAgua(radar[0]-1,radar[1]+1);
+		marcarAgua(radar[0]+1,radar[1]-1);
+	}
+
+	private void marcarAgua(int i, int j) {
+		if(dentro(i,j) && !tableroOrd[i][j].getBackground().equals(Color.RED)&&
+				!tableroOrd[i][j].getBackground().equals(Color.YELLOW)&&
+				!tableroOrd[i][j].getBackground().equals(Color.GREEN)){
+			tableroOrd[i][j].setBackground(Color.BLUE);
+			tableroOrd[i][j].setEnabled(false);
+		}
+		
+	}
+
+	private boolean dentro(int i, int j) {
+		if (i<DatosJuego.FILAS_TABLERO && i>=0 && j<DatosJuego.COLUMNAS_TABLERO && j>=0) return true;
+		else return false;
 	}
 
 	public void actualizarCantidades() {

@@ -117,7 +117,6 @@ public class Battleship extends Observable{
 		if (usuario.getRadar().puedeUsarRadar()){
 			ordenador.recibirEscaRadar();
 			usuario.getRadar().restarUsoRadar();
-			System.out.println("uso de reaadar");
 			return true;
 		}
 		else return false;

@@ -17,6 +17,7 @@ public class CBtnUsarRadar implements MouseListener{
 		JButton btn = (JButton) e.getSource();
 		if(btn.isEnabled()){
 			if(Battleship.getBattleship().usarRadar()){
+				TableroJuego.getTableroJuego().marcarRadar();
 				System.out.println("actualizar cantidades");
 				TableroJuego.getTableroJuego().actualizarCantidades();
 			}

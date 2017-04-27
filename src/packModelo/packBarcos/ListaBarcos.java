@@ -70,10 +70,10 @@ public class ListaBarcos {
 			for (int j = 0; j < DatosJuego.COLUMNAS_TABLERO; j++) {
 				try {
 					buscarBarco(new Coordenada(j, i));
-					System.out.print("O ");
+					System.out.print("X ");
 					
 				}catch (BarcoNoEncException e){
-					System.out.print("X ");
+					System.out.print("O ");
 				}
 			}
 			System.out.println("");

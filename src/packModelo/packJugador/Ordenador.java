@@ -401,7 +401,11 @@ public class Ordenador extends Jugador {
 				notifyObservers(cambios111);
 				break;
 			}
-		}catch (BarcoNoEncException e){}
+		}catch (BarcoNoEncException e){
+			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
+			setChanged();
+			notifyObservers(cambios);
+		}
 	}
 
 	public void destruirBarco(Coordenada pCoordenada) {
@@ -419,7 +423,11 @@ public class Ordenador extends Jugador {
 				setChanged();
 				notifyObservers(cambios);
 			}
-		}catch (BarcoNoEncException e){}
+		}catch (BarcoNoEncException e){
+			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
+			setChanged();
+			notifyObservers(cambios);
+		}
 	}
 
 	private void usarBomba(Coordenada pCoordenada) {
@@ -456,13 +464,13 @@ public class Ordenador extends Jugador {
 				barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
 				getBarcosEneDest().addBarco(barco);
 				listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
-				listDisparar.delCoordenada(pCoordenada);
+				listDisparar.delCoordenadas(barco.calcularAdyacentes());
 			} catch (BarcoNoEncException e) {}	
 			break;
 		}
 	}
 
-	private void usarMisil(Coordenada pCoordenada) {
+	public void usarMisil(Coordenada pCoordenada) {
 		System.out.println("misil usado "+pCoordenada.getX()+","+pCoordenada.getY());
 		switch (Battleship.getBattleship().getUsuario().destruirBarco(pCoordenada)) {
 		case 0:
@@ -475,7 +483,7 @@ public class Ordenador extends Jugador {
 				barco = Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(pCoordenada);
 				getBarcosEneDest().addBarco(barco);
 				listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
-				listDisparar.delCoordenada(pCoordenada);
+				listDisparar.delCoordenadas(barco.calcularAdyacentes());
 			} catch (BarcoNoEncException e) {}
 			break;
 		case 2:
@@ -484,75 +492,4 @@ public class Ordenador extends Jugador {
 		}
 		super.getArmamento().rmvMisil();
 	}
-
-	private void usarMisilNS(Coordenada pCoordenada) {
-		ListaBarcos listaBa = new ListaBarcos();
-		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
-		Coordenada c;
-		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
-			c = new Coordenada(pCoordenada.getX(), y);
-			try{
-				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				try{
-					listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
-					listaCo.add(c);
-				}catch (BarcoNoEncException e2){}
-			}
-		}
-		for (Coordenada co : listaCo) {
-			super.getArmamento().addMisil();
-			usarMisil(co);
-		}
-		super.getArmamento().rmvMisilNS();
-	}
-
-	private void usarMisilEO(Coordenada pCoordenada) {
-		ListaBarcos listaBa = new ListaBarcos();
-		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
-		Coordenada c;
-		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
-			c = new Coordenada(x, pCoordenada.getY());
-			try{
-				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				try{
-					listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
-					listaCo.add(c);
-				}catch (BarcoNoEncException e2){}
-			}
-		}
-		for (Coordenada co : listaCo) {
-			super.getArmamento().addMisil();
-			usarMisil(co);
-		}
-		super.getArmamento().rmvMisilEO();
-	}
-
-	private void usarMisilBOOM(Coordenada pCoordenada) {
-		super.getArmamento().addMisilNS();
-		usarMisilNS(pCoordenada);
-		ListaBarcos listaBa = new ListaBarcos();
-		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
-		Coordenada c;
-		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
-			c = new Coordenada(x, pCoordenada.getY());
-			try{
-				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				try{
-					if(!pCoordenada.isEqual(c)){
-						listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
-						listaCo.add(c);
-					}
-				}catch (BarcoNoEncException e2){}
-			}
-		}
-		for (Coordenada co : listaCo) {
-			super.getArmamento().addMisil();
-			usarMisil(co);
-		}
-		super.getArmamento().rmvMisilBOOM();
-	}
-
 }

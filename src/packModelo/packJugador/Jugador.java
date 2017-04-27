@@ -226,4 +226,68 @@ public abstract class Jugador extends Observable{
 		setChanged();
 		notifyObservers(pInfoRadar);
 	}
+
+	public void usarMisilNS(Coordenada pCoordenada) {
+		ListaBarcos listaBa = new ListaBarcos();
+		Coordenada c;
+		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
+			c = new Coordenada(pCoordenada.getX(), y);
+			try{
+				listaBa.buscarBarco(c);
+			}catch (BarcoNoEncException e){
+				if(Battleship.getBattleship().getTurno()){
+					Battleship.getBattleship().getOrdenador().destruirBarco(c);
+	
+				}else{
+					armamento.addMisil();
+					Battleship.getBattleship().getOrdenador().usarMisil(c);
+				}
+			}
+		}
+		getArmamento().rmvMisilNS();
+	}
+
+	public void usarMisilEO(Coordenada pCoordenada) {
+		ListaBarcos listaBa = new ListaBarcos();
+		Coordenada c;
+		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
+			c = new Coordenada(x, pCoordenada.getY());
+			try{
+				listaBa.buscarBarco(c);
+			}catch (BarcoNoEncException e){
+				if(Battleship.getBattleship().getTurno()){
+					Battleship.getBattleship().getOrdenador().destruirBarco(c);
+	
+				}else{
+					armamento.addMisil();
+					Battleship.getBattleship().getOrdenador().usarMisil(c);
+				}
+			}
+		}
+		getArmamento().rmvMisilEO();
+	}
+
+	public void usarMisilBOOM(Coordenada pCoordenada) {
+		getArmamento().addMisilNS();
+		usarMisilNS(pCoordenada);
+		ListaBarcos listaBa = new ListaBarcos();
+		Coordenada c;
+		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
+			c = new Coordenada(x, pCoordenada.getY());
+			try{
+				listaBa.buscarBarco(c);
+			}catch (BarcoNoEncException e){
+				if(!pCoordenada.isEqual(c)){
+					if(Battleship.getBattleship().getTurno()){
+						Battleship.getBattleship().getOrdenador().destruirBarco(c);
+		
+					}else{
+						armamento.addMisil();
+						Battleship.getBattleship().getOrdenador().usarMisil(c);
+					}
+				}
+			}
+		}
+		getArmamento().rmvMisilBOOM();
+	}
 }

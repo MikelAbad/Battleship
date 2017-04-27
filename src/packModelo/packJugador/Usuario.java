@@ -58,14 +58,21 @@ public class Usuario extends Jugador {
 	public int tocarBarco(Coordenada pCoordenada) {
 		int resultado = 0;
 		try {
-			resultado = super.getListaBarcos().buscarBarco(pCoordenada).tocar(pCoordenada);
+			Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
+			resultado = barco.tocar(pCoordenada);
 			if (resultado == 1) {
 				String cambios = "tocada;" + pCoordenada.getX() + "," + pCoordenada.getY();
 				setChanged();
 				notifyObservers(cambios);
 			} else if (resultado == 3) {
-				Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
 				String cambios = "destruido";
+				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
+					cambios += ";" + co.getX() + "," + co.getY();
+				}
+				setChanged();
+				notifyObservers(cambios);
+			}else if (resultado == 2) {
+				String cambios = "escudo";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
 					cambios += ";" + co.getX() + "," + co.getY();
 				}
@@ -83,18 +90,29 @@ public class Usuario extends Jugador {
 	public int destruirBarco(Coordenada pCoordenada) {
 		int destruido;
 		try{
-			if (super.getListaBarcos().buscarBarco(pCoordenada).destruir()) {
+			Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
+			if (barco.destruir()) {
 				destruido = 1;// destruido
-				Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
 				String cambios = "destruido";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
 					cambios = cambios + ";" + co.getX() + "," + co.getY();
 				}
 				setChanged();
 				notifyObservers(cambios);
-			} else
+			} else{
 				destruido = 2;// tenia escudo
-		}catch (BarcoNoEncException e){destruido = 0;}// no hay barco
+				String cambios = "escudo";
+				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
+					cambios += ";" + co.getX() + "," + co.getY();
+				}
+				setChanged();
+				notifyObservers(cambios);
+			}	
+		}catch (BarcoNoEncException e){
+			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
+			setChanged();
+			notifyObservers(cambios);
+			destruido = 0;}// no hay barco
 		return destruido;
 	}
 
@@ -107,70 +125,6 @@ public class Usuario extends Jugador {
 		super.getArmamento().rmvMisil();
 	}
 
-	public void usarMisilNS(Coordenada pCoordenada) {
-		ListaBarcos listaBa = new ListaBarcos();
-		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
-		Coordenada c;
-		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
-			c = new Coordenada(pCoordenada.getX(), y);
-			try{
-				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				try{
-					listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
-					listaCo.add(c);
-				}catch (BarcoNoEncException e2){}
-			}
-		}
-		for (Coordenada co : listaCo)
-			Battleship.getBattleship().getOrdenador().destruirBarco(co);
-		super.getArmamento().rmvMisilNS();
-	}
-
-	public void usarMisilEO(Coordenada pCoordenada) {
-		ListaBarcos listaBa = new ListaBarcos();
-		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
-		Coordenada c;
-		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
-			c = new Coordenada(x, pCoordenada.getY());
-			try{
-				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				try{
-					listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
-					listaCo.add(c);
-				}catch (BarcoNoEncException e2){}
-			}
-		}
-		for (Coordenada co : listaCo)
-			Battleship.getBattleship().getOrdenador().destruirBarco(co);
-		super.getArmamento().rmvMisilEO();
-	}
-
-	public void usarMisilBOOM(Coordenada pCoordenada) {
-		super.getArmamento().addMisilNS();
-		usarMisilNS(pCoordenada);
-		ListaBarcos listaBa = new ListaBarcos();
-		ArrayList<Coordenada> listaCo = new ArrayList<Coordenada>();
-		Coordenada c;
-		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
-			c = new Coordenada(x, pCoordenada.getY());
-			try{
-				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				try{
-					if(!pCoordenada.isEqual(c)){
-						listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
-						listaCo.add(c);
-					}
-				}catch (BarcoNoEncException e2){}
-			}
-		}
-		for (Coordenada co : listaCo)
-			Battleship.getBattleship().getOrdenador().destruirBarco(co);
-		super.getArmamento().rmvMisilBOOM();
-	}
-	
 	public void colocarBarcosAleatorios() {
 		Random rdn = new Random();
 		int barcosPuestos;

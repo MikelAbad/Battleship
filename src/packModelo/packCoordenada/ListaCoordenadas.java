@@ -90,6 +90,12 @@ public class ListaCoordenadas {
 				listaCoordenadas.add(co);
 		}
 	}
+	public void delCoordenadas(ArrayList<Coordenada> pLista) {
+		for (Coordenada co : pLista) {
+			if (esta(listaCoordenadas, co))
+				listaCoordenadas.remove(co);
+		}
+	}
 
 	public ArrayList<Coordenada> getCoordenadas() {
 		return listaCoordenadas;
