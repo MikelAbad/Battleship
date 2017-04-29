@@ -16,6 +16,7 @@ public class Battleship extends Observable{
 	private Ordenador ordenador;
 	private boolean turno; // true = Usuario, false = Ordenador
 	private boolean juegoFinalizado;
+	private boolean avisar = true;
 
 	private Battleship() {}
 
@@ -166,5 +167,13 @@ public class Battleship extends Observable{
 
 	public boolean juegoFinalizado() {
 		return juegoFinalizado;
+	}
+	
+	public boolean getAvisar() {
+		return avisar;
+	}
+	
+	public void noAvisarMas() {
+		avisar = false;
 	}
 }

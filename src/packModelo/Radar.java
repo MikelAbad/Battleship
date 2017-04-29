@@ -22,7 +22,7 @@ public class Radar {
 	}
 
 	public ArrayList<Coordenada> escanear() {
-		return posicion.getAdyacentes();
+		return posicion.getAdyacentesValidas();
 	}
 
 	public Coordenada getPosicion() {

@@ -766,12 +766,12 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroUs[i][j].setBackground(Color.RED);
 					tableroUs[i][j].setEnabled(false);
 					System.out.println(Battleship.getBattleship().hasPerdido());
-					
 				}
-				if(Battleship.getBattleship().hasPerdido()) {
+				if(Battleship.getBattleship().hasPerdido() && Battleship.getBattleship().getAvisar()) {
 					System.out.println("hasperdido");
 					JOptionPane.showMessageDialog(null, "¡Has perdido!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
+					Battleship.getBattleship().noAvisarMas();
 					finalizarJuego();
 				}
 				break;
@@ -810,10 +810,11 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroOrd[i][j].setBorder(null);
 					
 				}
-				if(Battleship.getBattleship().hasGanado()) {
+				if(Battleship.getBattleship().hasGanado() && Battleship.getBattleship().getAvisar()) {
 					System.out.println("hasganado");
 					JOptionPane.showMessageDialog(null, "¡Has ganado!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
+					Battleship.getBattleship().noAvisarMas();
 					finalizarJuego();
 				}
 				break;
