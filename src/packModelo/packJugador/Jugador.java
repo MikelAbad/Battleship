@@ -246,7 +246,7 @@ public abstract class Jugador extends Observable{
 			}catch (BarcoNoEncException e){
 				if(Battleship.getBattleship().getTurno()){
 					armamento.addMisil();
-					Battleship.getBattleship().getUsuario().usarMisil(c);;
+					Battleship.getBattleship().getUsuario().usarMisil(c);
 	
 				}else{
 					armamento.addMisil();

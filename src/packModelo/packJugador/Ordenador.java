@@ -414,7 +414,6 @@ public class Ordenador extends Jugador {
 				getBarcosEneDest().addBarco(barco);
 				listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
 				listDisparar.delCoordenadas(barco.calcularAdyacentes());
-				getBarcosEneDest().addBarco(barco);
 			} catch (BarcoNoEncException e) {}	
 			break;
 		}
@@ -434,7 +433,6 @@ public class Ordenador extends Jugador {
 				getBarcosEneDest().addBarco(barco);
 				listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
 				listDisparar.delCoordenadas(barco.calcularAdyacentes());
-				getBarcosEneDest().addBarco(barco);
 			} catch (BarcoNoEncException e) {}
 			break;
 		case 2:
