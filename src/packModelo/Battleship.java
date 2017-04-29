@@ -6,7 +6,6 @@ import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.BarcoNoEncException;
 import packModelo.packBarcos.BarcosFactory;
 import packModelo.packCoordenada.Coordenada;
-import packModelo.packJugador.Jugador;
 import packModelo.packJugador.Ordenador;
 import packModelo.packJugador.Usuario;
 
@@ -16,6 +15,7 @@ public class Battleship extends Observable{
 	private Usuario usuario;
 	private Ordenador ordenador;
 	private boolean turno; // true = Usuario, false = Ordenador
+	private boolean juegoFinalizado;
 
 	private Battleship() {}
 
@@ -29,9 +29,10 @@ public class Battleship extends Observable{
 	public void inicializar() {
 		usuario = new Usuario();
 		ordenador = new Ordenador();
-		colocarBarcosOrd();
+		ordenador.colocarBarcosAleatorios();
 		ordenador.imprimirTablero();
 		turno = true;
+		juegoFinalizado = false;
 	}
 
 	public void colocarBarcoUs(String pTipo, Coordenada pC, boolean pVertical) {
@@ -66,18 +67,24 @@ public class Battleship extends Observable{
 	public Ordenador getOrdenador() {
 		return this.ordenador;
 	}
-	
-	private void colocarBarcosOrd() {
-		ordenador.colocarBarcosOrd();
-	}
 
 	public void imprimirTableroUsuario() {
 		usuario.imprimirTablero();
 	}
 
-	//public boolean juegoAcabado() {
-		//TODO:acabar juego
-	//}
+	public boolean hasPerdido() {
+		if(ordenador.haGanado()){
+			juegoFinalizado = true;
+			return true;
+		}else return false;
+	}
+	
+	public boolean hasGanado() {
+		if(usuario.haGanado()){
+			juegoFinalizado = true;
+			return true;
+		}else return false;
+	}
 
 	public boolean usarEscudo(Coordenada pCoordenada) {
 		if(usuario.ponerEscudo(pCoordenada)) {
@@ -155,5 +162,9 @@ public class Battleship extends Observable{
 	
 	public void ponerBarcosUsuario() {
 		usuario.colocarBarcosAleatorios();
+	}
+
+	public boolean juegoFinalizado() {
+		return juegoFinalizado;
 	}
 }

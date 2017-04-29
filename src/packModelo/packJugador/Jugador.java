@@ -2,6 +2,7 @@ package packModelo.packJugador;
 
 
 import java.util.Observable;
+import java.util.Random;
 
 import packModelo.Almacen;
 import packModelo.Battleship;
@@ -10,7 +11,11 @@ import packModelo.DatosJuego;
 import packModelo.Radar;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.BarcoNoEncException;
+import packModelo.packBarcos.Destructor;
+import packModelo.packBarcos.Fragata;
 import packModelo.packBarcos.ListaBarcos;
+import packModelo.packBarcos.Portaaviones;
+import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
 
@@ -34,6 +39,10 @@ public abstract class Jugador extends Observable{
 		listaNoPonerB = new ListaCoordenadas();
 		dinero = DatosJuego.DINERO_INICIAL;
 		radar = new Radar();
+	}
+	
+	public boolean haGanado(){
+		return barcosEneDest.completa();
 	}
 
 	public int[] getCantidades() {
@@ -236,7 +245,8 @@ public abstract class Jugador extends Observable{
 				listaBa.buscarBarco(c);
 			}catch (BarcoNoEncException e){
 				if(Battleship.getBattleship().getTurno()){
-					Battleship.getBattleship().getOrdenador().destruirBarco(c);
+					armamento.addMisil();
+					Battleship.getBattleship().getUsuario().usarMisil(c);;
 	
 				}else{
 					armamento.addMisil();
@@ -256,8 +266,8 @@ public abstract class Jugador extends Observable{
 				listaBa.buscarBarco(c);
 			}catch (BarcoNoEncException e){
 				if(Battleship.getBattleship().getTurno()){
-					Battleship.getBattleship().getOrdenador().destruirBarco(c);
-	
+					armamento.addMisil();
+					Battleship.getBattleship().getUsuario().usarMisil(c);
 				}else{
 					armamento.addMisil();
 					Battleship.getBattleship().getOrdenador().usarMisil(c);
@@ -279,8 +289,8 @@ public abstract class Jugador extends Observable{
 			}catch (BarcoNoEncException e){
 				if(!pCoordenada.isEqual(c)){
 					if(Battleship.getBattleship().getTurno()){
-						Battleship.getBattleship().getOrdenador().destruirBarco(c);
-		
+						armamento.addMisil();
+						Battleship.getBattleship().getUsuario().usarMisil(c);
 					}else{
 						armamento.addMisil();
 						Battleship.getBattleship().getOrdenador().usarMisil(c);
@@ -289,5 +299,59 @@ public abstract class Jugador extends Observable{
 			}
 		}
 		getArmamento().rmvMisilBOOM();
+	}
+	
+	public void colocarBarcosAleatorios() {
+		Random rdn = new Random();
+		int barcosPuestos;
+		Barco unBarco;
+
+		// Portaaviones (1)
+		boolean puesto = false;
+		while (!puesto) {
+			unBarco = new Portaaviones(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
+				anadirBarcoProp(unBarco);
+				puesto = true;
+			}
+		}
+
+		// Submarinos (2)
+		barcosPuestos = 0;
+		while (barcosPuestos < DatosJuego.NUM_SUBMARINO) {
+			unBarco = new Submarino(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
+				anadirBarcoProp(unBarco);
+				barcosPuestos++;
+			}
+		}
+
+		// Destructores (3)
+		barcosPuestos = 0;
+		while (barcosPuestos < DatosJuego.NUM_DESTRUCTOR) {
+			unBarco = new Destructor(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
+				anadirBarcoProp(unBarco);
+				barcosPuestos++;
+			}
+		}
+
+		// Fragata (4)
+		barcosPuestos = 0;
+		while (barcosPuestos < DatosJuego.NUM_FRAGATA) {
+			unBarco = new Fragata(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
+					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)));
+			if (puedeColocar(unBarco)) {
+				anadirAdyacentesBarco(unBarco);
+				anadirBarcoProp(unBarco);
+				barcosPuestos++;
+			}
+		}
 	}
 }

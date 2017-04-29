@@ -2,6 +2,7 @@ package packVista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JFrame;
@@ -31,6 +32,7 @@ import packModelo.packJugador.Ordenador;
 import packModelo.packJugador.Usuario;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.BorderFactory;
 import java.util.Observable;
@@ -43,6 +45,7 @@ import javax.swing.ImageIcon;
 
 public class TableroJuego extends JFrame implements Observer {
 
+	private static final long serialVersionUID = 1L;
 	private static TableroJuego miTableroJuego;
 	private JPanel contentPane;
 	private JPanel panelUsuario;
@@ -762,6 +765,14 @@ public class TableroJuego extends JFrame implements Observer {
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					tableroUs[i][j].setBackground(Color.RED);
 					tableroUs[i][j].setEnabled(false);
+					System.out.println(Battleship.getBattleship().hasPerdido());
+					
+				}
+				if(Battleship.getBattleship().hasPerdido()) {
+					System.out.println("hasperdido");
+					JOptionPane.showMessageDialog(null, "¡Has perdido!", "Alerta",
+							JOptionPane.WARNING_MESSAGE);
+					finalizarJuego();
 				}
 				break;
 			case "agua":
@@ -797,6 +808,13 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroOrd[i][j].setBackground(Color.RED); // Hemos destruido el barco
 					tableroOrd[i][j].setEnabled(false);
 					tableroOrd[i][j].setBorder(null);
+					
+				}
+				if(Battleship.getBattleship().hasGanado()) {
+					System.out.println("hasganado");
+					JOptionPane.showMessageDialog(null, "¡Has ganado!", "Alerta",
+							JOptionPane.WARNING_MESSAGE);
+					finalizarJuego();
 				}
 				break;
 			case "escudo":
@@ -836,6 +854,19 @@ public class TableroJuego extends JFrame implements Observer {
 				}
 			}
 		}
+	}
+
+	private void finalizarJuego() {
+		setComponentsEnabled(this, false);
+	}
+	
+	private void setComponentsEnabled(java.awt.Container c, boolean en) {
+	    Component[] components = c.getComponents();
+	    for (Component comp: components) {
+	        if (comp instanceof java.awt.Container)
+	            setComponentsEnabled((java.awt.Container) comp, en);
+	        comp.setEnabled(en);
+	    }
 	}
 
 	public void marcarRadar() {

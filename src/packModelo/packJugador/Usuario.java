@@ -1,17 +1,11 @@
 package packModelo.packJugador;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packModelo.packBarcos.Barco;
 import packModelo.packBarcos.BarcoNoEncException;
-import packModelo.packBarcos.Destructor;
-import packModelo.packBarcos.Fragata;
-import packModelo.packBarcos.ListaBarcos;
-import packModelo.packBarcos.Portaaviones;
-import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 
 public class Usuario extends Jugador {
@@ -71,7 +65,7 @@ public class Usuario extends Jugador {
 				}
 				setChanged();
 				notifyObservers(cambios);
-			}else if (resultado == 2) {
+			} else if (resultado == 2) {
 				String cambios = "escudo";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
 					cambios += ";" + co.getX() + "," + co.getY();
@@ -89,7 +83,7 @@ public class Usuario extends Jugador {
 
 	public int destruirBarco(Coordenada pCoordenada) {
 		int destruido;
-		try{
+		try {
 			Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
 			if (barco.destruir()) {
 				destruido = 1;// destruido
@@ -99,7 +93,7 @@ public class Usuario extends Jugador {
 				}
 				setChanged();
 				notifyObservers(cambios);
-			} else{
+			} else {
 				destruido = 2;// tenia escudo
 				String cambios = "escudo";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
@@ -107,75 +101,36 @@ public class Usuario extends Jugador {
 				}
 				setChanged();
 				notifyObservers(cambios);
-			}	
-		}catch (BarcoNoEncException e){
+			}
+		} catch (BarcoNoEncException e) {
 			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
 			setChanged();
 			notifyObservers(cambios);
-			destruido = 0;}// no hay barco
+			destruido = 0;
+		} // no hay barco
 		return destruido;
 	}
 
 	public void usarBomba(Coordenada pCoordenada) {
-		Battleship.getBattleship().getOrdenador().tocarBarco(pCoordenada);
+		int res = Battleship.getBattleship().getOrdenador().tocarBarco(pCoordenada);
+		if (res == 1) {
+			getListaTocadasEnem().addCoordenada(pCoordenada);
+		} else if (res == 2) {
+			try {
+				getBarcosEneDest()
+						.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(pCoordenada));
+			} catch (BarcoNoEncException e) {}
+		}
 	}
 
 	public void usarMisil(Coordenada pCoordenada) {
-		Battleship.getBattleship().getOrdenador().destruirBarco(pCoordenada);
+		if(Battleship.getBattleship().getOrdenador().destruirBarco(pCoordenada)){
+			try {
+				getBarcosEneDest()
+						.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(pCoordenada));
+			} catch (BarcoNoEncException e) {}
+		}
 		super.getArmamento().rmvMisil();
 	}
 
-	public void colocarBarcosAleatorios() {
-		Random rdn = new Random();
-		int barcosPuestos;
-		Barco unBarco;
-
-		// Portaaviones (1)
-		boolean puesto = false;
-		while (!puesto) {
-			unBarco = new Portaaviones(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
-					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-			if (puedeColocar(unBarco)) {
-				anadirAdyacentesBarco(unBarco);
-				anadirBarcoProp(unBarco);
-				puesto = true;
-			}
-		}
-
-		// Submarinos (2)
-		barcosPuestos = 0;
-		while (barcosPuestos < DatosJuego.NUM_SUBMARINO) {
-			unBarco = new Submarino(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
-					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-			if (puedeColocar(unBarco)) {
-				anadirAdyacentesBarco(unBarco);
-				anadirBarcoProp(unBarco);
-				barcosPuestos++;
-			}
-		}
-
-		// Destructores (3)
-		barcosPuestos = 0;
-		while (barcosPuestos < DatosJuego.NUM_DESTRUCTOR) {
-			unBarco = new Destructor(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
-					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)), rdn.nextBoolean());
-			if (puedeColocar(unBarco)) {
-				anadirAdyacentesBarco(unBarco);
-				anadirBarcoProp(unBarco);
-				barcosPuestos++;
-			}
-		}
-
-		// Fragata (4)
-		barcosPuestos = 0;
-		while (barcosPuestos < DatosJuego.NUM_FRAGATA) {
-			unBarco = new Fragata(new Coordenada(rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1),
-					rdn.nextInt(DatosJuego.FILAS_TABLERO - 1)));
-			if (puedeColocar(unBarco)) {
-				anadirAdyacentesBarco(unBarco);
-				anadirBarcoProp(unBarco);
-				barcosPuestos++;
-			}
-		}
-	}
 }

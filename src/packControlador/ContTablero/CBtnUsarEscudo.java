@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 
 import packModelo.DatosJuego;
-import packVista.Inicio;
 import packVista.TableroJuego;
 
 public class CBtnUsarEscudo implements MouseListener {

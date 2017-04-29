@@ -79,4 +79,9 @@ public class ListaBarcos {
 			System.out.println("");
 		}
 	}
+
+	public boolean completa() {
+		System.out.println(numBarcos());
+		return numBarcos()>DatosJuego.NUM_BARCOS-2;
+	}
 }

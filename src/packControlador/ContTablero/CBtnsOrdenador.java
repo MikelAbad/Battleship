@@ -47,7 +47,7 @@ public class CBtnsOrdenador implements MouseListener {
 							break;
 						}
 						TableroJuego.getTableroJuego().actualizarCantidades();
-						Battleship.getBattleship().setTurno(false);
+						if (!Battleship.getBattleship().juegoFinalizado()) Battleship.getBattleship().setTurno(false);
 					}else JOptionPane.showMessageDialog(null, "¡No dispone de unidades de armamento suficiente!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				} else {

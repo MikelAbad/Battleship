@@ -80,7 +80,7 @@ public class BarcoTest {
 		Barco b4 = new Submarino(new Coordenada(5, 9), false);
 		assertFalse(b4.fueraDeLimites());
 		Barco b5 = new Submarino(new Coordenada(5, 5), false);
-		assertFalse(b.fueraDeLimites());
+		assertFalse(b5.fueraDeLimites());
 		Barco b6 = new Submarino(new Coordenada(-1, 5), false);
 		assertTrue(b6.fueraDeLimites());
 	}
