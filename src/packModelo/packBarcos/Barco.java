@@ -68,13 +68,13 @@ public abstract class Barco {
 		return destruido;
 	}
 
-	public boolean repararBarco() {
-		boolean reparado = false;
+	public ArrayList<Coordenada> repararBarco() {
+		ArrayList<Coordenada> tocadasAntes = tocadas.getCoordenadas();
 		if (tocadas.numCoordenadas() >= 1 && !estaDestruido()) {
 			tocadas = new ListaCoordenadas();
-			reparado = true;
+			return tocadasAntes;
 		}
-		return reparado;
+		return null;
 	}
 
 	public boolean estaEnPos(Coordenada pCoordenada) {

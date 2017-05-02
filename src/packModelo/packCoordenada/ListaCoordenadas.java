@@ -122,9 +122,7 @@ public class ListaCoordenadas {
 
 	public void delCoordenadas(ArrayList<Coordenada> pLista) {
 		for (Coordenada co : pLista) {
-			if (esta(listaCoordenadas, co)) {
-				listaCoordenadas.remove(co);
-			}
+			this.delCoordenada(co);
 		}
 	}
 

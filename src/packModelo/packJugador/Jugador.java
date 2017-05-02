@@ -1,5 +1,6 @@
 package packModelo.packJugador;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Random;
 
@@ -252,13 +253,15 @@ public abstract class Jugador extends Observable {
 					Battleship.getBattleship().getUsuario().usarMisil(c);
 					try {
 						listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
-					}catch (BarcoNoEncException e1) {}
+					} catch (BarcoNoEncException e1) {}
 				} else {
 					armamento.addMisil();
 					Battleship.getBattleship().getOrdenador().usarMisil(c);
 					try {
 						listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
-					}catch (BarcoNoEncException e1) {}
+					} catch (BarcoNoEncException e1) {
+						Battleship.getBattleship().getOrdenador().addCoordenadaNoDisparar(c);
+					}
 				}
 			}
 		}
@@ -326,9 +329,13 @@ public abstract class Jugador extends Observable {
 		try {
 			if (dinero >= DatosJuego.PRECIO_REPARAR) {
 				Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
-				if (unBarco.repararBarco()) {
+				ArrayList<Coordenada> resultado = unBarco.repararBarco();
+				if (resultado != null) {
 					exito = true;
 					dinero = dinero - DatosJuego.PRECIO_REPARAR;
+					if (Battleship.getBattleship().getTurno()) {
+						Battleship.getBattleship().getOrdenador().addCoordenadasDisparar(resultado);
+					}
 				}
 			}
 		} catch (BarcoNoEncException e) {}

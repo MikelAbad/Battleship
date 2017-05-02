@@ -818,7 +818,6 @@ public class TableroJuego extends JFrame implements Observer {
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					tableroUs[i][j].setBackground(Color.RED);
 					tableroUs[i][j].setEnabled(false);
-					System.out.println("Has perdido ya?  " + Battleship.getBattleship().hasPerdido() + "\n");
 				}
 				if (Battleship.getBattleship().hasPerdido() && Battleship.getBattleship().getAvisar()) {
 					System.out.println("HAS PERDIDO\n");
@@ -860,7 +859,6 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroOrd[i][j].setBackground(Color.RED); // Destruido
 					tableroOrd[i][j].setEnabled(false);
 					tableroOrd[i][j].setBorder(null);
-
 				}
 				if (Battleship.getBattleship().hasGanado() && Battleship.getBattleship().getAvisar()) {
 					System.out.println("HAS GANADO\n");
@@ -870,12 +868,13 @@ public class TableroJuego extends JFrame implements Observer {
 				}
 				break;
 			case "escudo":
-				i = Integer.parseInt(coordenada[0]);
-				j = Integer.parseInt(coordenada[1]);
-				// Sabemos que está, pero no la hemos tocado
-				tableroOrd[i][j].setBackground(Color.GREEN);
-				tableroOrd[i][j].setEnabled(true);
-				tableroOrd[i][j].setBorder(null);
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroOrd[i][j].setBackground(Color.GREEN);
+					tableroOrd[i][j].setEnabled(true);
+					//tableroOrd[i][j].enable();
+				}
 				break;
 			case "detectado":
 				i = Integer.parseInt(coordenada[0]);
@@ -883,6 +882,7 @@ public class TableroJuego extends JFrame implements Observer {
 				// Sabemos que está y que aún tiene escudo
 				tableroOrd[i][j].setBackground(Color.GREEN);
 				tableroOrd[i][j].setEnabled(true);
+				//tableroOrd[i][j].enable();
 				break;
 			case "agua":
 				i = Integer.parseInt(coordenada[0]);
@@ -896,7 +896,6 @@ public class TableroJuego extends JFrame implements Observer {
 				setRadar(i, j);
 				break;
 			case "scan":
-				System.out.println("Radar utilizado\n");
 				for (int k = 1; k < splitted.length; k++) {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);

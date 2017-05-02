@@ -58,9 +58,9 @@ public class Ordenador extends Jugador {
 				System.out.println("Intenta usar radar");
 				if (getRadar().puedeUsarRadar()) {
 					usarRadar();
-					System.out.println("Radar utilizado");
+					System.out.println("Radar utilizado\n");
 				} else {
-					System.out.println("Radar no utilizado");
+					System.out.println("Radar no utilizado\n");
 				}
 				jugar();
 			}
@@ -356,6 +356,14 @@ public class Ordenador extends Jugador {
 		}
 	}
 
+	public void addCoordenadasDisparar(ArrayList<Coordenada> pLista) {
+		listDisparar.addCoordenadas(pLista);
+	}
+	
+	public void addCoordenadaNoDisparar(Coordenada pC) {
+		listNoDisparar.addCoordenada(pC);
+	}
+	
 	public void imprimirTablero() {
 		System.out.println("\nBarcos del ordenador:\n");
 		getListaBarcos().imprimirTablero();
@@ -379,8 +387,8 @@ public class Ordenador extends Jugador {
 
 	private void usarRadar() {
 		ArrayList<Coordenada> listas[] = Battleship.getBattleship().getUsuario().recibirEscaRadar();
-		listNoDisparar.addCoordenadas(listas[0]);
-		listDisparar.addCoordenadas(listas[1]);
+		listDisparar.addCoordenadas(listas[0]);
+		listNoDisparar.addCoordenadas(listas[1]);
 		getRadar().restarUsoRadar();
 	}
 
@@ -436,7 +444,11 @@ public class Ordenador extends Jugador {
 				notifyObservers(cambios);
 				dest = true;
 			} else {
-				String cambios = "escudo;" + pCoordenada.getX() + "," + pCoordenada.getY();
+				Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
+				String cambios = "escudo";
+				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
+					cambios += ";" + co.getX() + "," + co.getY();
+				}
 				setChanged();
 				notifyObservers(cambios);
 			}
