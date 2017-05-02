@@ -118,6 +118,7 @@ public class TableroJuego extends JFrame implements Observer {
 	private int[] radar;
 	Icon iRadar = new ImageIcon(getClass().getResource("/packImages/Dragon_Radar.png"));
 	private JLabel lblEscudoEne;
+	private JLabel labelCostoReparar;
 
 	public int[] getRadar() {
 		return radar;
@@ -704,6 +705,7 @@ public class TableroJuego extends JFrame implements Observer {
 			panel_16 = new JPanel();
 			panel_16.setLayout(new BoxLayout(panel_16, BoxLayout.X_AXIS));
 			panel_16.add(getBtnRepararBarco());
+			panel_16.add(getLabelCostoReparar());
 		}
 		return panel_16;
 	}
@@ -999,5 +1001,11 @@ public class TableroJuego extends JFrame implements Observer {
 	public void deshabilitarBOOM(JButton btn) {
 		deshabilitarEO(btn);
 		deshabilitarNS(btn);
+	}
+	private JLabel getLabelCostoReparar() {
+		if (labelCostoReparar == null) {
+			labelCostoReparar = new JLabel(" ($35)");
+		}
+		return labelCostoReparar;
 	}
 }
