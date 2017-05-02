@@ -816,10 +816,10 @@ public class TableroJuego extends JFrame implements Observer {
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					tableroUs[i][j].setBackground(Color.RED);
 					tableroUs[i][j].setEnabled(false);
-					System.out.println(Battleship.getBattleship().hasPerdido());
+					System.out.println("Has perdido ya?  " + Battleship.getBattleship().hasPerdido() + "\n");
 				}
 				if (Battleship.getBattleship().hasPerdido() && Battleship.getBattleship().getAvisar()) {
-					System.out.println("hasperdido");
+					System.out.println("HAS PERDIDO\n");
 					JOptionPane.showMessageDialog(null, "¡Has perdido!", "Alerta", JOptionPane.WARNING_MESSAGE);
 					Battleship.getBattleship().noAvisarMas();
 					finalizarJuego();
@@ -861,7 +861,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 				}
 				if (Battleship.getBattleship().hasGanado() && Battleship.getBattleship().getAvisar()) {
-					System.out.println("hasganado");
+					System.out.println("HAS GANADO\n");
 					JOptionPane.showMessageDialog(null, "¡Has ganado!", "Alerta", JOptionPane.WARNING_MESSAGE);
 					Battleship.getBattleship().noAvisarMas();
 					finalizarJuego();
@@ -894,16 +894,25 @@ public class TableroJuego extends JFrame implements Observer {
 				setRadar(i, j);
 				break;
 			case "scan":
-				System.out.println("uso de radar");
+				System.out.println("Radar utilizado\n");
 				for (int k = 1; k < splitted.length; k++) {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);
-					System.out.println(tableroOrd[i][j].getBackground().toString());
 					if (!tableroOrd[i][j].getBackground().equals(Color.RED)
 							&& !tableroOrd[i][j].getBackground().equals(Color.YELLOW)) {
 						tableroOrd[i][j].setBackground(Color.GREEN);
 					}
 					// Hemos detectado un barco nuevo
+				}
+			case "reparar":
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroOrd[i][j].setEnabled(true);
+					if (tableroOrd[i][j].getBackground().equals(Color.YELLOW)
+							|| tableroOrd[i][j].getBackground().equals(Color.yellow)) {
+						tableroOrd[i][j].setBackground(Color.GREEN);
+					}
 				}
 			}
 		}

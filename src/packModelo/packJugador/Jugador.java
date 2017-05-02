@@ -74,10 +74,12 @@ public abstract class Jugador extends Observable {
 		boolean exito = false;
 		try {
 			Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
-			if (armamento.getEscudo() >= 1) {
-				if (unBarco.ponerEscudo()) {
-					exito = true;
-					armamento.rmvEscudo();
+			if (!unBarco.estaDestruido()) {
+				if (armamento.getEscudo() >= 1) {
+					if (unBarco.ponerEscudo()) {
+						exito = true;
+						armamento.rmvEscudo();
+					}
 				}
 			}
 		} catch (BarcoNoEncException e) {}

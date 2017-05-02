@@ -14,16 +14,15 @@ public class Ordenador extends Jugador {
 
 	private ListaCoordenadas listNoDisparar;
 	private ListaCoordenadas listDisparar;
-	private ListaCoordenadas listTocadas;
 
 	public Ordenador() {
 		super();
 		listNoDisparar = new ListaCoordenadas();
 		listDisparar = new ListaCoordenadas();
-		listTocadas = new ListaCoordenadas();
 	}
 
-	public void jugar() {
+	public void jugar() throws BarcoNoEncException {
+		System.out.println("--- Nueva acción ---");
 		if (Math.random() <= 0.65) { // 65% probabilidad de usar bomba
 			dispararBomba();
 			Battleship.getBattleship().setTurno(true);
@@ -41,21 +40,28 @@ public class Ordenador extends Jugador {
 			} else if (mr > 0.70 && mr <= 0.80) { // 10% Escudo
 				ponerseEscudo();
 				Battleship.getBattleship().setTurno(true);
-			} else if (mr > 0.80 && mr <= 0.90) { // 10% Mover el radar
-				System.out.println("mueve radar");
+			} else if (mr > 0.80 && mr <= 0.85) { // 5% Mover el radar
+				System.out.println("Radar movido\n");
 				Random rdn = new Random();
 				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
 				Battleship.getBattleship().getUsuario().moverRadar(co);
 				jugar();
+			} else if (mr > 0.85 && mr <= 0.90) { // 5% Reparar barco
+				repararseBarco();
+				Battleship.getBattleship().setTurno(true);
 			} else if (mr > 0.90 && mr <= 0.95) { // 5% MisilBOOM
 				dispararMisilBOOM();
 				Battleship.getBattleship().setTurno(true);
 			} else if (mr > 0.95 && mr <= 1) { // 5% Radar
-				System.out.println("usar radar");
-				if (getRadar().puedeUsarRadar())
+				System.out.println("Intenta usar radar");
+				if (getRadar().puedeUsarRadar()) {
 					usarRadar();
+					System.out.println("Radar utilizado");
+				} else {
+					System.out.println("Radar no utilizado");
+				}
 				jugar();
 			}
 		}
@@ -89,6 +95,7 @@ public class Ordenador extends Jugador {
 	}
 
 	private void dispararMisil() {
+		System.out.println("Intenta usar Misil\n");
 		Random rdn = new Random();
 		if (getArmamento().getMisil() >= 1) { // Si tiene misil dispara
 			if (listDisparar.vacia()) {
@@ -107,7 +114,8 @@ public class Ordenador extends Jugador {
 				usarMisil(co);
 			}
 		} else { // Si no tiene misil, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL)) { // Si puede comprar, lo usa
+			if (comprarArma(DatosJuego.NUM_MISIL)) {
+				System.out.println("Misil comprado\n");
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -124,12 +132,14 @@ public class Ordenador extends Jugador {
 					usarMisil(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
+				System.out.println("Misil no usado\n");
 				dispararBomba();
 			}
 		}
 	}
 
 	private void dispararMisilNS() {
+		System.out.println("Intenta usar MisilNS\n");
 		Random rdn = new Random();
 		if (getArmamento().getMisilNS() >= 1) { // Si tiene misilNS dispara
 			if (listDisparar.vacia()) {
@@ -140,16 +150,18 @@ public class Ordenador extends Jugador {
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
 						usarMisilNS(co);
+						System.out.println("MisilNS usado\n");
 						disparado = true;
 					}
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
+				System.out.println("MisilNS usado\n");
 				usarMisilNS(co);
 			}
 		} else { // Si no tiene misilNS, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL_NS)) { // Si puede comprar, lo
-														// usa
+			if (comprarArma(DatosJuego.NUM_MISIL_NS)) {
+				System.out.println("MisilNS comprado\n");
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -158,20 +170,24 @@ public class Ordenador extends Jugador {
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
 							usarMisilNS(co);
+							System.out.println("MisilNS usado\n");
 							disparado = true;
 						}
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
+					System.out.println("MisilNS usado\n");
 					usarMisilNS(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
+				System.out.println("MisilNS no usado\n");
 				dispararBomba();
 			}
 		}
 	}
 
 	private void dispararMisilEO() {
+		System.out.println("Intenta usar MisilEO\n");
 		Random rdn = new Random();
 		if (getArmamento().getMisilEO() >= 1) { // Si tiene misilEO dispara
 			if (listDisparar.vacia()) {
@@ -182,16 +198,18 @@ public class Ordenador extends Jugador {
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
 						usarMisilEO(co);
+						System.out.println("MisilEO usado\n");
 						disparado = true;
 					}
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
+				System.out.println("MisilEO usado\n");
 				usarMisilEO(co);
 			}
 		} else { // Si no tiene misilEO, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL_EO)) { // Si puede comprar, lo
-														// usa
+			if (comprarArma(DatosJuego.NUM_MISIL_EO)) {
+				System.out.println("MisilEO comprado\n");
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -200,38 +218,44 @@ public class Ordenador extends Jugador {
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
 							usarMisilEO(co);
+							System.out.println("MisilEO usado\n");
 							disparado = true;
 						}
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
+					System.out.println("MisilEO usado\n");
 					usarMisilEO(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
+				System.out.println("MisilEO no usado\n");
 				dispararBomba();
 			}
 		}
 	}
 
 	private void ponerseEscudo() {
-		System.out.println("intenta escudo");
+		System.out.println("Intenta poner Escudo\n");
 		Random rdn = new Random();
 		if (getArmamento().getEscudo() >= 1) { // Si tiene escudo se lo pone
 			boolean puesto = false;
 			int cont = 0;
-			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO * DatosJuego.COLUMNAS_TABLERO / 2) {
+			while (!puesto && cont < 10) {
 				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
 				if (ponerEscudo(co)) {
+					System.out.println("Escudo puesto en (" + co.getX() + "," + co.getY() + ")\n");
 					puesto = true;
 				}
+				cont++;
 			}
-			if (puesto = false) {
+			if (!puesto) {
+				System.out.println("Escudo no puesto\n");
 				dispararBomba();
 			}
-		} else if (comprarArma(DatosJuego.NUM_ESCUDO)) { // Si puede comprar, lo
-															// usa
+		} else if (comprarArma(DatosJuego.NUM_ESCUDO)) {
+			System.out.println("Escudo comprado\n");
 			boolean puesto = false;
 			int cont = 0;
 			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO * DatosJuego.COLUMNAS_TABLERO / 2) {
@@ -239,6 +263,7 @@ public class Ordenador extends Jugador {
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
 				if (ponerEscudo(co)) {
+					System.out.println("Escudo puesto en (" + co.getX() + "," + co.getY() + ")\n");
 					puesto = true;
 				}
 			}
@@ -246,11 +271,13 @@ public class Ordenador extends Jugador {
 				dispararBomba();
 			}
 		} else {
+			System.out.println("Escudo no puesto");
 			dispararBomba();
 		}
 	}
 
 	private void dispararMisilBOOM() {
+		System.out.println("Intenta usar MisilBOOM\n");
 		Random rdn = new Random();
 		if (getArmamento().getMisilBOOM() >= 1) { // Si tiene misil dispara
 			if (listDisparar.vacia()) {
@@ -261,16 +288,18 @@ public class Ordenador extends Jugador {
 					Coordenada co = new Coordenada(x, y);
 					if (!listNoDisparar.estaEnLista(co)) {
 						usarMisilBOOM(co);
+						System.out.println("MisilBOOM usado\n");
 						disparado = true;
 					}
 				}
 			} else {
 				Coordenada co = listDisparar.getRandomCo();
+				System.out.println("MisilBOOM usado\n");
 				usarMisilBOOM(co);
 			}
 		} else { // Si no tiene misil, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL_BOOM)) { // Si puede comprar,
-															// lo usa
+			if (comprarArma(DatosJuego.NUM_MISIL_BOOM)) {
+				System.out.println("MisilBOOM comprado\n");
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -279,21 +308,56 @@ public class Ordenador extends Jugador {
 						Coordenada co = new Coordenada(x, y);
 						if (!listNoDisparar.estaEnLista(co)) {
 							usarMisilBOOM(co);
+							System.out.println("MisilBOOM usado\n");
 							disparado = true;
 						}
 					}
 				} else {
 					Coordenada co = listDisparar.getRandomCo();
+					System.out.println("MisilBOOM usado\n");
 					usarMisilBOOM(co);
 				}
 			} else { // Si no puede comprar, dispara bomba
+				System.out.println("MisilBOOM no usado\n");
 				dispararBomba();
 			}
 		}
 	}
+	
+	private void repararseBarco() throws BarcoNoEncException {
+		System.out.println("Intenta Reparar\n");
+		Random rdn = new Random();
+		if (getDinero() >= DatosJuego.PRECIO_REPARAR) { // Si le llega repara
+			boolean reparado = false;
+			int cont = 0;
+			while (!reparado && cont < 10) {
+				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
+				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
+				Coordenada co = new Coordenada(x, y);
+				if (repararBarco(co)) {
+					System.out.println("Barco reparado en (" + co.getX() + "," + co.getY() + ")\n");
+					String cambios = "reparar";
+					for (Coordenada c : getListaBarcos().buscarBarco(co).getPosicion().getCoordenadas()) {
+						cambios += ";" + c.getX() + "," + c.getY();
+					}
+					setChanged();
+					notifyObservers(cambios);
+					reparado = true;
+				}
+				cont++;
+			}
+			if (!reparado) {
+				System.out.println("Ningún barco reparado\n");
+				dispararBomba();
+			}
+		} else {
+			System.out.println("Dinero insuficiente, ningún barco reparado\n");
+			dispararBomba();
+		}
+	}
 
 	public void imprimirTablero() {
-		System.out.println("Barcos del ordenador:");
+		System.out.println("\nBarcos del ordenador:\n");
 		getListaBarcos().imprimirTablero();
 	}
 
@@ -385,7 +449,7 @@ public class Ordenador extends Jugador {
 	}
 
 	private void usarBomba(Coordenada pCoordenada) {
-		System.out.println("bomba usada " + pCoordenada.getX() + "," + pCoordenada.getY());
+		System.out.println("Bomba usada en (" + pCoordenada.getX() + "," + pCoordenada.getY() + ")\n");
 		switch (Battleship.getBattleship().getUsuario().tocarBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
@@ -393,9 +457,7 @@ public class Ordenador extends Jugador {
 			break;
 		case 1:
 			listNoDisparar.addCoordenada(pCoordenada);
-			listTocadas.addCoordenada(pCoordenada);
 			listDisparar.delCoordenada(pCoordenada);
-			getListaTocadasEnem().addCoordenada(pCoordenada);
 			break;
 		case 2:
 			if (!listDisparar.estaEnLista(pCoordenada)) {
@@ -427,7 +489,7 @@ public class Ordenador extends Jugador {
 	}
 
 	public void usarMisil(Coordenada pCoordenada) {
-		System.out.println("misil usado " + pCoordenada.getX() + "," + pCoordenada.getY());
+		System.out.println("Misil usado en (" + pCoordenada.getX() + "," + pCoordenada.getY() + ")\n");
 		switch (Battleship.getBattleship().getUsuario().destruirBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
@@ -450,8 +512,10 @@ public class Ordenador extends Jugador {
 		super.getArmamento().rmvMisil();
 	}
 
-	public void usuarioReparado(Barco pBarco) {
-		ArrayList<Coordenada> coBarco = pBarco.getPosicion().getCoordenadas();
-		listNoDisparar.delCoordenadas(coBarco);
+	public void usuarioReparado(Coordenada pC, Barco pBarco) {
+		for (Coordenada c : pBarco.getPosicion().getCoordenadas()) {
+			listNoDisparar.delCoordenada(c);
+		}
+		listDisparar.addCoordenada(pC);
 	}
 }

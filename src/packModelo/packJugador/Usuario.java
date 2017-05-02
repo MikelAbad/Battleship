@@ -28,7 +28,7 @@ public class Usuario extends Jugador {
 	}
 
 	public void imprimirTablero() {
-		System.out.println("\nBarcos del Jugador:");
+		System.out.println("\nBarcos del Jugador:\n");
 		this.getListaBarcos().imprimirTablero();
 	}
 

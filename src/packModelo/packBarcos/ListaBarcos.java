@@ -79,6 +79,7 @@ public class ListaBarcos {
 			}
 			System.out.println("");
 		}
+		System.out.println("\n");
 	}
 
 	public boolean completa() {

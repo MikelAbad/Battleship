@@ -13,7 +13,7 @@ public class ListaCoordenadas {
 		listaCoordenadas = new ArrayList<Coordenada>();
 	}
 
-	public void addCoordenada(Coordenada pCoordenada) {
+	/*public void addCoordenada(Coordenada pCoordenada) {
 		if (!listaCoordenadas.contains(pCoordenada)) {
 			listaCoordenadas.add(pCoordenada);
 		}
@@ -22,6 +22,36 @@ public class ListaCoordenadas {
 	public void delCoordenada(Coordenada pCoordenada) {
 		if (listaCoordenadas.contains(pCoordenada)) {
 			listaCoordenadas.remove(pCoordenada);
+		}
+	}*/
+	
+	public void addCoordenada(Coordenada pC) {
+		Iterator<Coordenada> itr = listaCoordenadas.iterator();
+		boolean encontrada = false;
+		Coordenada co;
+		while (itr.hasNext() && !encontrada) {
+			co = itr.next();
+			if (co.getX() == pC.getX() && co.getY() == pC.getY()) {
+				encontrada = true;
+			}
+		}
+		if (!encontrada) {
+			listaCoordenadas.add(pC);
+		}
+	}
+
+	public void delCoordenada(Coordenada pC) {
+		Iterator<Coordenada> itr = listaCoordenadas.iterator();
+		Coordenada co;
+		boolean encontrada = false;
+		while (itr.hasNext() && !encontrada) {
+			co = itr.next();
+			if (co.getX() == pC.getX() && co.getY() == pC.getY()) {
+				encontrada = true;
+			}
+			if (encontrada) {
+				listaCoordenadas.remove(co);
+			}
 		}
 	}
 
@@ -81,7 +111,7 @@ public class ListaCoordenadas {
 		}
 		return esta;
 	}
-
+	
 	public void addCoordenadas(ArrayList<Coordenada> pLista) {
 		for (Coordenada co : pLista) {
 			if (!esta(listaCoordenadas, co)) {

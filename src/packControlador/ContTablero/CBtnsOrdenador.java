@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import packModelo.Battleship;
 import packModelo.DatosJuego;
+import packModelo.packBarcos.BarcoNoEncException;
 import packModelo.packCoordenada.Coordenada;
 import packVista.TableroJuego;
 
@@ -48,7 +49,9 @@ public class CBtnsOrdenador implements MouseListener {
 						}
 						TableroJuego.getTableroJuego().actualizarCantidades();
 						if (!Battleship.getBattleship().juegoFinalizado()) {
-							Battleship.getBattleship().setTurno(false);
+							try {
+								Battleship.getBattleship().setTurno(false);
+							} catch (BarcoNoEncException e1) {}
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "¡No dispone de unidades de armamento suficiente!",

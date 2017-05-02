@@ -55,7 +55,7 @@ public class Battleship extends Observable {
 		return turno;
 	}
 
-	public void setTurno(boolean pTurno) {
+	public void setTurno(boolean pTurno) throws BarcoNoEncException {
 		turno = pTurno;
 		if (!turno) {
 			ordenador.jugar();
@@ -188,7 +188,7 @@ public class Battleship extends Observable {
 		boolean reparado = false;
 		if (usuario.repararBarco(pCoordenada)) {
 			try {
-				ordenador.usuarioReparado(usuario.getListaBarcos().buscarBarco(pCoordenada));
+				ordenador.usuarioReparado(pCoordenada, usuario.getListaBarcos().buscarBarco(pCoordenada));
 			} catch (BarcoNoEncException e) {}
 			notificarReparar(pCoordenada);
 			reparado = true;

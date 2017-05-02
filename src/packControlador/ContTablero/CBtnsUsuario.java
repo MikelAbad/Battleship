@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import packModelo.Battleship;
 import packModelo.DatosJuego;
+import packModelo.packBarcos.BarcoNoEncException;
 import packModelo.packCoordenada.Coordenada;
 import packVista.TableroJuego;
 
@@ -24,7 +25,9 @@ public class CBtnsUsuario implements MouseListener {
 						JOptionPane.showMessageDialog(null, "¡No se puede poner Escudo!", "Alerta",
 								JOptionPane.WARNING_MESSAGE);
 					} else {
-						Battleship.getBattleship().setTurno(false);
+						try {
+							Battleship.getBattleship().setTurno(false);
+						} catch (BarcoNoEncException e1) {}
 						TableroJuego.getTableroJuego().actualizarCantidades();
 					}
 				} else if (TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_REPARAR) {
@@ -32,7 +35,9 @@ public class CBtnsUsuario implements MouseListener {
 						JOptionPane.showMessageDialog(null, "¡No se puede reparar!", "Alerta",
 								JOptionPane.WARNING_MESSAGE);
 					} else {
-						Battleship.getBattleship().setTurno(false);
+						try {
+							Battleship.getBattleship().setTurno(false);
+						} catch (BarcoNoEncException e1) {}
 						TableroJuego.getTableroJuego().actualizarCantidades();
 					}
 				} else {
