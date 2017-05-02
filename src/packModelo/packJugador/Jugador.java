@@ -250,9 +250,15 @@ public abstract class Jugador extends Observable {
 				if (Battleship.getBattleship().getTurno()) {
 					armamento.addMisil();
 					Battleship.getBattleship().getUsuario().usarMisil(c);
+					try {
+						listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
+					}catch (BarcoNoEncException e1) {}
 				} else {
 					armamento.addMisil();
 					Battleship.getBattleship().getOrdenador().usarMisil(c);
+					try {
+						listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
+					}catch (BarcoNoEncException e1) {}
 				}
 			}
 		}
@@ -270,9 +276,15 @@ public abstract class Jugador extends Observable {
 				if (Battleship.getBattleship().getTurno()) {
 					armamento.addMisil();
 					Battleship.getBattleship().getUsuario().usarMisil(c);
+					try {
+						listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
+					}catch (BarcoNoEncException e1) {}
 				} else {
 					armamento.addMisil();
 					Battleship.getBattleship().getOrdenador().usarMisil(c);
+					try {
+						listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
+					}catch (BarcoNoEncException e1) {}
 				}
 			}
 		}
@@ -293,9 +305,15 @@ public abstract class Jugador extends Observable {
 					if (Battleship.getBattleship().getTurno()) {
 						armamento.addMisil();
 						Battleship.getBattleship().getUsuario().usarMisil(c);
+						try {
+							listaBa.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(c));
+						}catch (BarcoNoEncException e1) {}
 					} else {
 						armamento.addMisil();
 						Battleship.getBattleship().getOrdenador().usarMisil(c);
+						try {
+							listaBa.addBarco(Battleship.getBattleship().getUsuario().getListaBarcos().buscarBarco(c));
+						}catch (BarcoNoEncException e1) {}
 					}
 				}
 			}
