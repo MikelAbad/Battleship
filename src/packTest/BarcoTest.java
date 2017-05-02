@@ -18,12 +18,10 @@ import packModelo.packCoordenada.Coordenada;
 public class BarcoTest {
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
+	public static void setUpBeforeClass() throws Exception {}
 
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	public static void tearDownAfterClass() throws Exception {}
 
 	@Test
 	public void testTocar() {
@@ -90,8 +88,7 @@ public class BarcoTest {
 		Barco b = new Destructor(new Coordenada(0, 0), true);
 		ArrayList<Coordenada> adyacentes = b.calcularAdyacentes();
 		ArrayList<Coordenada> misAdyacentes = new ArrayList<Coordenada>();
-		
-		
+
 		// Barco
 		misAdyacentes.add(new Coordenada(0, 0));
 		misAdyacentes.add(new Coordenada(0, 1));

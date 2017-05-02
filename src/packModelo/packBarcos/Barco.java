@@ -29,21 +29,19 @@ public abstract class Barco {
 				escudo--;
 				if (escudo == 0) {
 					tocada = 2;
-				} else
+				} else {
 					tocada = 4;
+				}
 			} else {
 				tocadas.addCoordenada(pCoordenada);
-				if (estaDestruido())
+				if (estaDestruido()) {
 					tocada = 3;
-				else
+				} else {
 					tocada = 1;
+				}
 			}
 		}
 		return tocada;
-	}
-
-	public void reparar(Coordenada pCoordenada) {
-		tocadas.vaciar();
 	}
 
 	public boolean estaDestruido() {
@@ -51,12 +49,12 @@ public abstract class Barco {
 	}
 
 	public boolean ponerEscudo() {
+		boolean puesto = false;
 		if (escudo == 0) {
 			escudo = DatosJuego.VALOR_ESCUDO;
-			return true;
-		} else {
-			return false;
+			puesto = true;
 		}
+		return puesto;
 	}
 
 	public boolean destruir() {
@@ -70,23 +68,33 @@ public abstract class Barco {
 		return destruido;
 	}
 
+	public boolean repararBarco() {
+		boolean reparado = false;
+		if (tocadas.numCoordenadas() >= 1 && !estaDestruido()) {
+			tocadas = new ListaCoordenadas();
+			reparado = true;
+		}
+		return reparado;
+	}
+
 	public boolean estaEnPos(Coordenada pCoordenada) {
 		return this.posicion.estaEnLista(pCoordenada);
 	}
 
 	public boolean fueraDeLimites() {
-		return posicion.fueraDeLimites();
+		return this.posicion.fueraDeLimites();
 	}
 
 	public ArrayList<Coordenada> calcularAdyacentes() {
-		return posicion.calcularAdyacentes();
+		return this.posicion.calcularAdyacentes();
 	}
 
 	public ListaCoordenadas getPosicion() {
-		return posicion;
+		return this.posicion;
 	}
+
 	public ListaCoordenadas getTocadas() {
-		return tocadas;
+		return this.tocadas;
 	}
 
 	public String getTipo() {

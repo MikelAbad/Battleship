@@ -9,21 +9,19 @@ import javax.swing.JOptionPane;
 import packModelo.Battleship;
 import packVista.TableroJuego;
 
-
-public class CBtnUsarRadar implements MouseListener{
+public class CBtnUsarRadar implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if(btn.isEnabled()){
-			if(Battleship.getBattleship().usarRadar()){
+		if (btn.isEnabled()) {
+			if (Battleship.getBattleship().usarRadar()) {
 				TableroJuego.getTableroJuego().marcarRadar();
-				System.out.println("actualizar cantidades");
 				TableroJuego.getTableroJuego().actualizarCantidades();
+			} else {
+				JOptionPane.showMessageDialog(null, "¡No dispone de mas usos de radar!", "Alerta",
+						JOptionPane.WARNING_MESSAGE);
 			}
-			else JOptionPane.showMessageDialog(null, "¡No dispone de mas usos de radar!", "Alerta",
-					JOptionPane.WARNING_MESSAGE);
 		}
-		
 	}
 
 	@Override

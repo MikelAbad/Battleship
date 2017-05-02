@@ -9,7 +9,7 @@ public class Radar {
 	private int usos;
 
 	public Radar() {
-		this.posicion = new Coordenada(0,0);
+		this.posicion = new Coordenada(0, 0);
 		usos = DatosJuego.INI_USOS_RADAR;
 	}
 
@@ -38,6 +38,6 @@ public class Radar {
 	}
 
 	public void restarUsoRadar() {
-		usos--;	
+		usos--;
 	}
 }

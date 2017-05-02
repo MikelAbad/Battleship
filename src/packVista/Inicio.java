@@ -54,7 +54,6 @@ public class Inicio extends JFrame {
 	private Icon iHorizontal = new ImageIcon(Inicio.class.getResource("/packImages/horizontal.png"));
 	private Icon iVertical = new ImageIcon(Inicio.class.getResource("/packImages/vertical.png"));
 	private JButton btnColocarBarcos;
-	
 
 	public void empezar() {
 		EventQueue.invokeLater(new Runnable() {
@@ -147,68 +146,53 @@ public class Inicio extends JFrame {
 			}
 			lblDestructor = new JLabel("3");
 			GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-			gl_panel_1.setHorizontalGroup(
-				gl_panel_1.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panel_1.createSequentialGroup()
-						.addGap(5)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addComponent(getLblSubmarino())
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(getBtnBtnsubmarino()))
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblFragata)
-									.addComponent(lblDestructor))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-									.addComponent(btnBtnfragata)
-									.addComponent(getBtnBtndestructor())))
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addComponent(getLblPortaviones())
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(getBtnBtnportaviones()))
-							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-								.addComponent(getBtnColocarBarcos())
-								.addGroup(gl_panel_1.createSequentialGroup()
-									.addComponent(getLblOrientacion())
-									.addGap(24)
-									.addComponent(getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap(37, Short.MAX_VALUE))
-			);
-			gl_panel_1.setVerticalGroup(
-				gl_panel_1.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_panel_1.createSequentialGroup()
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addGap(9)
-								.addComponent(lblFragata))
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addGap(5)
-								.addComponent(btnBtnfragata)))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblDestructor)
+			gl_panel_1
+					.setHorizontalGroup(
+							gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
+									.createSequentialGroup().addGap(5).addGroup(gl_panel_1
+											.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_panel_1.createSequentialGroup().addComponent(getLblSubmarino())
+													.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(
+															getBtnBtnsubmarino()))
+											.addGroup(gl_panel_1.createSequentialGroup()
+													.addGroup(gl_panel_1
+															.createParallelGroup(Alignment.LEADING)
+															.addComponent(lblFragata).addComponent(lblDestructor))
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+															.addComponent(btnBtnfragata).addComponent(
+																	getBtnBtndestructor())))
+											.addGroup(gl_panel_1.createSequentialGroup()
+													.addComponent(getLblPortaviones())
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(getBtnBtnportaviones()))
+											.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+													.addComponent(getBtnColocarBarcos()).addGroup(gl_panel_1
+															.createSequentialGroup().addComponent(getLblOrientacion())
+															.addGap(24).addComponent(getbtnBtnOrientacion(),
+																	GroupLayout.PREFERRED_SIZE, 66,
+																	GroupLayout.PREFERRED_SIZE))))
+									.addContainerGap(37, Short.MAX_VALUE)));
+			gl_panel_1.setVerticalGroup(gl_panel_1.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_1
+					.createSequentialGroup()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_1.createSequentialGroup().addGap(9).addComponent(lblFragata))
+							.addGroup(gl_panel_1.createSequentialGroup().addGap(5).addComponent(btnBtnfragata)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(lblDestructor)
 							.addComponent(getBtnBtndestructor()))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblSubmarino())
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(getLblSubmarino())
 							.addComponent(getBtnBtnsubmarino()))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblPortaviones())
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE).addComponent(getLblPortaviones())
 							.addComponent(getBtnBtnportaviones()))
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addGap(49)
-								.addComponent(getLblOrientacion()))
-							.addGroup(gl_panel_1.createSequentialGroup()
-								.addGap(32)
-								.addComponent(getbtnBtnOrientacion(), GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)))
-						.addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-						.addComponent(getBtnColocarBarcos())
-						.addGap(28))
-			);
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_panel_1.createSequentialGroup().addGap(49).addComponent(getLblOrientacion()))
+							.addGroup(gl_panel_1.createSequentialGroup().addGap(32).addComponent(getbtnBtnOrientacion(),
+									GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+					.addComponent(getBtnColocarBarcos()).addGap(28)));
 			panel_1.setLayout(gl_panel_1);
 		}
 		return panel_1;
@@ -328,7 +312,6 @@ public class Inicio extends JFrame {
 				}
 			}
 		}
-
 	}
 
 	public void pintarBarcoPuesto(JButton pBtn) {
@@ -378,7 +361,7 @@ public class Inicio extends JFrame {
 	public void decrementarCont() {
 		int i;
 		switch (tipo) {
-		case "Fragata":	
+		case "Fragata":
 			i = Integer.parseInt(lblFragata.getText());
 			i--;
 			lblFragata.setText(i + "");
@@ -434,7 +417,7 @@ public class Inicio extends JFrame {
 			}
 		}
 	}
-	
+
 	public JButton getBtnColocarBarcos() {
 		if (btnColocarBarcos == null) {
 			btnColocarBarcos = new JButton("Colocar aleatoriamente");

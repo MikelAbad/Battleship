@@ -7,17 +7,17 @@ import javax.swing.JButton;
 import packModelo.DatosJuego;
 import packVista.TableroJuego;
 
-public class CBtnMoverRadar implements MouseListener{
+public class CBtnMoverRadar implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if(btn.isEnabled()){
+		if (btn.isEnabled()) {
 			TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_MOVER_RADAR);
 			TableroJuego.getTableroJuego().getLblArmamento().setText("Armamento seleccionado: Mover Radar");
 		}
 		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

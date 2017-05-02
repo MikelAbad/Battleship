@@ -9,16 +9,16 @@ import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packVista.TableroJuego;
 
-public class CBtnCompMisilNS implements MouseListener{
+public class CBtnCompMisilNS implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(!Battleship.getBattleship().comprarArma(DatosJuego.NUM_MISIL_NS)){
-			JOptionPane.showMessageDialog(null, "¡No es posible comprar misiles NS!",
-					"Alerta", JOptionPane.WARNING_MESSAGE);
+		if (!Battleship.getBattleship().comprarArma(DatosJuego.NUM_MISIL_NS)) {
+			JOptionPane.showMessageDialog(null, "¡No es posible comprar misiles NS!", "Alerta",
+					JOptionPane.WARNING_MESSAGE);
 		}
 		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

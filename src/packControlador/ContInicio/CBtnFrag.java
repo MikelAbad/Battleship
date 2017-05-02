@@ -12,9 +12,11 @@ public class CBtnFrag implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) Inicio.getInicio().setTipo("Fragata");
+		if (btn.isEnabled()) {
+			Inicio.getInicio().setTipo("Fragata");
+		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

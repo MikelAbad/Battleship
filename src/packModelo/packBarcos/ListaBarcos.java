@@ -56,7 +56,9 @@ public class ListaBarcos {
 				encontrado = true;
 			}
 		}
-		if (!encontrado) throw new BarcoNoEncException();
+		if (!encontrado) {
+			throw new BarcoNoEncException();
+		}
 		return barco;
 	}
 
@@ -71,8 +73,7 @@ public class ListaBarcos {
 				try {
 					buscarBarco(new Coordenada(j, i));
 					System.out.print("X ");
-					
-				}catch (BarcoNoEncException e){
+				} catch (BarcoNoEncException e) {
 					System.out.print("O ");
 				}
 			}
@@ -81,7 +82,6 @@ public class ListaBarcos {
 	}
 
 	public boolean completa() {
-		System.out.println(numBarcos());
-		return numBarcos()>DatosJuego.NUM_BARCOS-2;
+		return numBarcos() > DatosJuego.NUM_BARCOS - 2;
 	}
 }

@@ -1,27 +1,23 @@
-package packControlador.ContInicio;
+package packControlador.ContTablero;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import packModelo.Battleship;
-import packVista.Inicio;
+import packModelo.DatosJuego;
+import packModelo.packCoordenada.Coordenada;
 import packVista.TableroJuego;
 
-public class CBtnBarc implements MouseListener {
-
+public class CBtnRepararBarco implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
 		if (btn.isEnabled()) {
-			Battleship.getBattleship().ponerBarcosUsuario();
-			if (Battleship.getBattleship().todosBarcosUsPuestos()) {
-				Inicio.getInicio().dispose();
-				TableroJuego frame = TableroJuego.getTableroJuego();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
-			}
+			TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_REPARAR);
+			TableroJuego.getTableroJuego().getLblArmamento().setText("Armamento seleccionado: Reparar barco");
 		}
 	}
 

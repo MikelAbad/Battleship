@@ -12,12 +12,12 @@ public class CBtnUsarEscudo implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if(btn.isEnabled()){
+		if (btn.isEnabled()) {
 			TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_ESCUDO);
 			TableroJuego.getTableroJuego().getLblArmamento().setText("Armamento seleccionado: Escudo");
 		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

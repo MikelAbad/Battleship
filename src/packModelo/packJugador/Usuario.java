@@ -41,8 +41,9 @@ public class Usuario extends Jugador {
 		for (Coordenada co : escaneadas) {
 			if (hayBarco(co)) {
 				objetivos.add(co);
-			} else
+			} else {
 				noDisparables.add(co);
+			}
 		}
 		listas[0] = objetivos;
 		listas[1] = noDisparables;
@@ -86,7 +87,7 @@ public class Usuario extends Jugador {
 		try {
 			Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
 			if (barco.destruir()) {
-				destruido = 1;// destruido
+				destruido = 1;// Destruido
 				String cambios = "destruido";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
 					cambios = cambios + ";" + co.getX() + "," + co.getY();
@@ -94,7 +95,7 @@ public class Usuario extends Jugador {
 				setChanged();
 				notifyObservers(cambios);
 			} else {
-				destruido = 2;// tenia escudo
+				destruido = 2;// Tenia escudo
 				String cambios = "escudo";
 				for (Coordenada co : barco.getPosicion().getCoordenadas()) {
 					cambios += ";" + co.getX() + "," + co.getY();
@@ -107,7 +108,7 @@ public class Usuario extends Jugador {
 			setChanged();
 			notifyObservers(cambios);
 			destruido = 0;
-		} // no hay barco
+		} // No hay barco
 		return destruido;
 	}
 
@@ -117,20 +118,17 @@ public class Usuario extends Jugador {
 			getListaTocadasEnem().addCoordenada(pCoordenada);
 		} else if (res == 2) {
 			try {
-				getBarcosEneDest()
-						.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(pCoordenada));
+				getBarcosEneDest().addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(pCoordenada));
 			} catch (BarcoNoEncException e) {}
 		}
 	}
 
 	public void usarMisil(Coordenada pCoordenada) {
-		if(Battleship.getBattleship().getOrdenador().destruirBarco(pCoordenada)){
+		if (Battleship.getBattleship().getOrdenador().destruirBarco(pCoordenada)) {
 			try {
-				getBarcosEneDest()
-						.addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(pCoordenada));
+				getBarcosEneDest().addBarco(Battleship.getBattleship().getOrdenador().getListaBarcos().buscarBarco(pCoordenada));
 			} catch (BarcoNoEncException e) {}
 		}
 		super.getArmamento().rmvMisil();
 	}
-
 }

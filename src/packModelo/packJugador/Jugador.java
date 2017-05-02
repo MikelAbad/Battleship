@@ -1,6 +1,5 @@
 package packModelo.packJugador;
 
-
 import java.util.Observable;
 import java.util.Random;
 
@@ -19,8 +18,7 @@ import packModelo.packBarcos.Submarino;
 import packModelo.packCoordenada.Coordenada;
 import packModelo.packCoordenada.ListaCoordenadas;
 
-
-public abstract class Jugador extends Observable{
+public abstract class Jugador extends Observable {
 
 	private Radar radar;
 	private ListaBarcos listaBarcos;
@@ -40,8 +38,8 @@ public abstract class Jugador extends Observable{
 		dinero = DatosJuego.DINERO_INICIAL;
 		radar = new Radar();
 	}
-	
-	public boolean haGanado(){
+
+	public boolean haGanado() {
 		return barcosEneDest.completa();
 	}
 
@@ -55,11 +53,11 @@ public abstract class Jugador extends Observable{
 		cantidades[5] = armamento.getEscudo();
 		return cantidades;
 	}
-	
+
 	public int getDinero() {
 		return dinero;
 	}
-	
+
 	protected ListaBarcos getBarcosEneDest() {
 		return barcosEneDest;
 	}
@@ -67,14 +65,14 @@ public abstract class Jugador extends Observable{
 	protected ListaCoordenadas getListaTocadasEnem() {
 		return listaTocadasEnem;
 	}
-	
+
 	protected Cantidades getArmamento() {
 		return armamento;
 	}
 
 	public boolean ponerEscudo(Coordenada pCoordenada) {
 		boolean exito = false;
-		try{
+		try {
 			Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
 			if (armamento.getEscudo() >= 1) {
 				if (unBarco.ponerEscudo()) {
@@ -82,10 +80,10 @@ public abstract class Jugador extends Observable{
 					armamento.rmvEscudo();
 				}
 			}
-		}catch (BarcoNoEncException e){}
+		} catch (BarcoNoEncException e) {}
 		return exito;
 	}
-	
+
 	public boolean comprarArma(int pArma) {
 		boolean exito = false;
 		if (Almacen.getAlmacen().puedeVender(pArma)) {
@@ -122,7 +120,7 @@ public abstract class Jugador extends Observable{
 		}
 		return exito;
 	}
-	
+
 	private boolean meLlega(int pArma) {
 		boolean suficiente = false;
 		switch (pArma) {
@@ -166,7 +164,7 @@ public abstract class Jugador extends Observable{
 	public void anadirAdyacentesBarco(Barco pBarco) {
 		listaNoPonerB.addCoordenadas(pBarco.calcularAdyacentes());
 	}
-	
+
 	public boolean puedeColocar(Barco pBarco) {
 		boolean puede = false;
 		if (!pBarco.fueraDeLimites()) {
@@ -176,26 +174,29 @@ public abstract class Jugador extends Observable{
 		}
 		return puede;
 	}
+
 	public boolean hayBarco(Coordenada pC) {
-		try{
+		try {
 			listaBarcos.buscarBarco(pC);
 			return true;
-		}catch (BarcoNoEncException e){
+		} catch (BarcoNoEncException e) {
 			return false;
 		}
 	}
-	public Radar getRadar(){return radar;}
-	
+
+	public Radar getRadar() {
+		return radar;
+	}
+
 	public void moverRadar(Coordenada pCoordenada) {
 		radar.mover(pCoordenada);
-		// Solo notifica si es el jugador
 		if (Battleship.getBattleship().getTurno()) {
-			String infoRadar ="move;"+ pCoordenada.getX() + "," + pCoordenada.getY();
+			String infoRadar = "move;" + pCoordenada.getX() + "," + pCoordenada.getY();
 			setChanged();
 			notifyObservers(infoRadar);
 		}
 	}
-	
+
 	public boolean puedeUsar(int pArma) {
 		boolean puede = false;
 		switch (pArma) {
@@ -231,7 +232,7 @@ public abstract class Jugador extends Observable{
 		return puede;
 	}
 
-	public void notificarRadar(String pInfoRadar){
+	public void notificarRadar(String pInfoRadar) {
 		setChanged();
 		notifyObservers(pInfoRadar);
 	}
@@ -241,14 +242,13 @@ public abstract class Jugador extends Observable{
 		Coordenada c;
 		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
 			c = new Coordenada(pCoordenada.getX(), y);
-			try{
+			try {
 				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				if(Battleship.getBattleship().getTurno()){
+			} catch (BarcoNoEncException e) {
+				if (Battleship.getBattleship().getTurno()) {
 					armamento.addMisil();
 					Battleship.getBattleship().getUsuario().usarMisil(c);
-	
-				}else{
+				} else {
 					armamento.addMisil();
 					Battleship.getBattleship().getOrdenador().usarMisil(c);
 				}
@@ -262,13 +262,13 @@ public abstract class Jugador extends Observable{
 		Coordenada c;
 		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
 			c = new Coordenada(x, pCoordenada.getY());
-			try{
+			try {
 				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				if(Battleship.getBattleship().getTurno()){
+			} catch (BarcoNoEncException e) {
+				if (Battleship.getBattleship().getTurno()) {
 					armamento.addMisil();
 					Battleship.getBattleship().getUsuario().usarMisil(c);
-				}else{
+				} else {
 					armamento.addMisil();
 					Battleship.getBattleship().getOrdenador().usarMisil(c);
 				}
@@ -284,14 +284,14 @@ public abstract class Jugador extends Observable{
 		Coordenada c;
 		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
 			c = new Coordenada(x, pCoordenada.getY());
-			try{
+			try {
 				listaBa.buscarBarco(c);
-			}catch (BarcoNoEncException e){
-				if(!pCoordenada.isEqual(c)){
-					if(Battleship.getBattleship().getTurno()){
+			} catch (BarcoNoEncException e) {
+				if (!pCoordenada.isEqual(c)) {
+					if (Battleship.getBattleship().getTurno()) {
 						armamento.addMisil();
 						Battleship.getBattleship().getUsuario().usarMisil(c);
-					}else{
+					} else {
 						armamento.addMisil();
 						Battleship.getBattleship().getOrdenador().usarMisil(c);
 					}
@@ -300,7 +300,21 @@ public abstract class Jugador extends Observable{
 		}
 		getArmamento().rmvMisilBOOM();
 	}
-	
+
+	public boolean repararBarco(Coordenada pCoordenada) {
+		boolean exito = false;
+		try {
+			if (dinero >= DatosJuego.PRECIO_REPARAR) {
+				Barco unBarco = this.listaBarcos.buscarBarco(pCoordenada);
+				if (unBarco.repararBarco()) {
+					exito = true;
+					dinero = dinero - DatosJuego.PRECIO_REPARAR;
+				}
+			}
+		} catch (BarcoNoEncException e) {}
+		return exito;
+	}
+
 	public void colocarBarcosAleatorios() {
 		Random rdn = new Random();
 		int barcosPuestos;

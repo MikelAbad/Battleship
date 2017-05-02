@@ -17,14 +17,14 @@ public class CBtnsOrdenador implements MouseListener {
 		JButton btn = (JButton) e.getSource();
 		String coor[] = btn.getName().split(",");
 		Coordenada c = new Coordenada(Integer.parseInt(coor[0]), Integer.parseInt(coor[1]));
-		if(TableroJuego.getTableroJuego().getArma()==DatosJuego.NUM_MOVER_RADAR){
+		if (TableroJuego.getTableroJuego().getArma() == DatosJuego.NUM_MOVER_RADAR) {
 			Battleship.getBattleship().moverRadar(c);
-		}
-		else if (btn.isEnabled()) {
-			if(Battleship.getBattleship().getTurno()){
-				if (TableroJuego.getTableroJuego().getArma() != DatosJuego.NUM_ESCUDO) {
+		} else if (btn.isEnabled()) {
+			if (Battleship.getBattleship().getTurno()) {
+				if (TableroJuego.getTableroJuego().getArma() != DatosJuego.NUM_ESCUDO
+						&& TableroJuego.getTableroJuego().getArma() != DatosJuego.NUM_REPARAR) {
 					if (Battleship.getBattleship().puedeUsar(TableroJuego.getTableroJuego().getArma())) {
-						switch (TableroJuego.getTableroJuego().getArma()){
+						switch (TableroJuego.getTableroJuego().getArma()) {
 						case DatosJuego.NUM_BOMBA:
 							btn.setEnabled(false);
 							Battleship.getBattleship().usarBomba(c);
@@ -47,31 +47,33 @@ public class CBtnsOrdenador implements MouseListener {
 							break;
 						}
 						TableroJuego.getTableroJuego().actualizarCantidades();
-						if (!Battleship.getBattleship().juegoFinalizado()) Battleship.getBattleship().setTurno(false);
-					}else JOptionPane.showMessageDialog(null, "¡No dispone de unidades de armamento suficiente!", "Alerta",
-							JOptionPane.WARNING_MESSAGE);
+						if (!Battleship.getBattleship().juegoFinalizado()) {
+							Battleship.getBattleship().setTurno(false);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "¡No dispone de unidades de armamento suficiente!",
+								"Alerta", JOptionPane.WARNING_MESSAGE);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "¡Seleccione armamento correcto!", "Alerta",
 							JOptionPane.WARNING_MESSAGE);
 				}
-			}else JOptionPane.showMessageDialog(null, "¡Espere su turno, por favor!", "Alerta",
-					JOptionPane.WARNING_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "¡Espere su turno, por favor!", "Alerta",
+						JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-	}
+	public void mouseReleased(MouseEvent e) {}
 }

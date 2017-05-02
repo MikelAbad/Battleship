@@ -11,7 +11,7 @@ public class CBtnOrient implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		Inicio.getInicio().setVertical();
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

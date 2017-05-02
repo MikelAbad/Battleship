@@ -9,16 +9,16 @@ import packModelo.Battleship;
 import packModelo.DatosJuego;
 import packVista.TableroJuego;
 
-public class CBtnCompEscudo implements MouseListener{
+public class CBtnCompEscudo implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(!Battleship.getBattleship().comprarArma(DatosJuego.NUM_ESCUDO)){
-			JOptionPane.showMessageDialog(null, "¡No es posible comprar escudos!",
-					"Alerta", JOptionPane.WARNING_MESSAGE);
+		if (!Battleship.getBattleship().comprarArma(DatosJuego.NUM_ESCUDO)) {
+			JOptionPane.showMessageDialog(null, "¡No es posible comprar escudos!", "Alerta",
+					JOptionPane.WARNING_MESSAGE);
 		}
 		TableroJuego.getTableroJuego().actualizarCantidades();
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

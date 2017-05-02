@@ -12,9 +12,11 @@ public class CBtnPort implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) Inicio.getInicio().setTipo("Portaaviones");
+		if (btn.isEnabled()) {
+			Inicio.getInicio().setTipo("Portaaviones");
+		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

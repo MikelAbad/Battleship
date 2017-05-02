@@ -9,5 +9,4 @@ public class Main {
 		Battleship.getBattleship().inicializar();
 		Inicio.getInicio().empezar();
 	}
-
 }

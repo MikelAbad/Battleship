@@ -12,9 +12,11 @@ public class CBtnSub implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) Inicio.getInicio().setTipo("Submarino");
+		if (btn.isEnabled()) {
+			Inicio.getInicio().setTipo("Submarino");
+		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

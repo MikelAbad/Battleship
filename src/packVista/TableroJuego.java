@@ -21,6 +21,7 @@ import packControlador.ContTablero.CBtnUsarMisil;
 import packControlador.ContTablero.CBtnUsarMisilBoom;
 import packControlador.ContTablero.CBtnUsarMisilEO;
 import packControlador.ContTablero.CBtnUsarMisilNS;
+import packControlador.ContTablero.CBtnRepararBarco;
 import packControlador.ContTablero.CBtnUsarRadar;
 import packControlador.ContTablero.CBtnsOrdenador;
 import packControlador.ContTablero.CBtnsUsuario;
@@ -107,6 +108,10 @@ public class TableroJuego extends JFrame implements Observer {
 	private JLabel lblRadarEne;
 	private JPanel panel_13;
 	private JPanel panel_14;
+	private JPanel panel_15;
+	private JPanel panel_16;
+	private JLabel lblDispReparar;
+	private JButton btnRepararBarco;
 	private JLabel lblCantEscudo;
 	private JButton btnUsarEscudo;
 	private JButton btnMoverRadar;
@@ -612,6 +617,8 @@ public class TableroJuego extends JFrame implements Observer {
 			panelArmamento1.add(getPanel_12());
 			panelArmamento1.add(getPanel_13());
 			panelArmamento1.add(getPanel_14());
+			panelArmamento1.add(getPanel_15());
+			panelArmamento1.add(getPanel_16());
 		}
 		return panelArmamento1;
 	}
@@ -683,6 +690,24 @@ public class TableroJuego extends JFrame implements Observer {
 		return panel_14;
 	}
 
+	private JPanel getPanel_15() {
+		if (panel_15 == null) {
+			panel_15 = new JPanel();
+			panel_15.setLayout(new BorderLayout(0, 0));
+			panel_15.add(getLblDispReparar(), BorderLayout.EAST);
+		}
+		return panel_15;
+	}
+
+	private JPanel getPanel_16() {
+		if (panel_16 == null) {
+			panel_16 = new JPanel();
+			panel_16.setLayout(new BoxLayout(panel_16, BoxLayout.X_AXIS));
+			panel_16.add(getBtnRepararBarco());
+		}
+		return panel_16;
+	}
+
 	private JLabel getLblCantEscudo() {
 		if (lblCantEscudo == null) {
 			lblCantEscudo = new JLabel("Cantidad: " + DatosJuego.INI_ESCUDO + " ");
@@ -713,6 +738,25 @@ public class TableroJuego extends JFrame implements Observer {
 		return lblEscudoEne;
 	}
 
+	private JLabel getLblDispReparar() {
+		if (lblDispReparar == null) {
+			lblDispReparar = new JLabel("Disponibles: " + usosRepararDisponibles() + " ");
+		}
+		return lblDispReparar;
+	}
+
+	private int usosRepararDisponibles() {
+		return Battleship.getBattleship().getUsuario().getDinero() / DatosJuego.PRECIO_REPARAR;
+	}
+
+	private JButton getBtnRepararBarco() {
+		if (btnRepararBarco == null) {
+			btnRepararBarco = new JButton("Reparar barco");
+			btnRepararBarco.addMouseListener(new CBtnRepararBarco());
+		}
+		return btnRepararBarco;
+	}
+
 	@Override
 	public void update(Observable observable, Object parametro) {
 		// Battleship notifica cuando nos ponemos escudos
@@ -725,6 +769,13 @@ public class TableroJuego extends JFrame implements Observer {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					tableroUs[i][j].setBorder(BorderFactory.createLineBorder(Color.MAGENTA, 3));
+				}
+			} else if (what.equals("reparar")) {
+				int i, j;
+				for (int k = 1; k < splitted.length; k++) {
+					i = Integer.parseInt(splitted[k].split(",")[0]);
+					j = Integer.parseInt(splitted[k].split(",")[1]);
+					tableroUs[i][j].setBackground(Color.GREEN);
 				}
 			}
 			// Almacen notifica el stock cuando se realiza alguna compra
@@ -767,10 +818,9 @@ public class TableroJuego extends JFrame implements Observer {
 					tableroUs[i][j].setEnabled(false);
 					System.out.println(Battleship.getBattleship().hasPerdido());
 				}
-				if(Battleship.getBattleship().hasPerdido() && Battleship.getBattleship().getAvisar()) {
+				if (Battleship.getBattleship().hasPerdido() && Battleship.getBattleship().getAvisar()) {
 					System.out.println("hasperdido");
-					JOptionPane.showMessageDialog(null, "¡Has perdido!", "Alerta",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "¡Has perdido!", "Alerta", JOptionPane.WARNING_MESSAGE);
 					Battleship.getBattleship().noAvisarMas();
 					finalizarJuego();
 				}
@@ -792,28 +842,27 @@ public class TableroJuego extends JFrame implements Observer {
 		} else if (observable instanceof Ordenador) {
 			String[] splitted = ((String) parametro).split(";");
 			String what = splitted[0]; // Lo que ha ocurrido
-			String[] coordenada = ((String) splitted[1]).split(","); // Coordenada enviada
+			String[] coordenada = ((String) splitted[1]).split(",");
 			int i, j;
 			switch (what) {
 			case "tocada":
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
-				tableroOrd[i][j].setBackground(Color.YELLOW); // Hemos tocado la casilla
+				tableroOrd[i][j].setBackground(Color.YELLOW); // Tocada
 				tableroOrd[i][j].setBorder(null);
 				break;
 			case "destruido":
 				for (int k = 1; k < splitted.length; k++) {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);
-					tableroOrd[i][j].setBackground(Color.RED); // Hemos destruido el barco
+					tableroOrd[i][j].setBackground(Color.RED); // Destruido
 					tableroOrd[i][j].setEnabled(false);
 					tableroOrd[i][j].setBorder(null);
-					
+
 				}
-				if(Battleship.getBattleship().hasGanado() && Battleship.getBattleship().getAvisar()) {
+				if (Battleship.getBattleship().hasGanado() && Battleship.getBattleship().getAvisar()) {
 					System.out.println("hasganado");
-					JOptionPane.showMessageDialog(null, "¡Has ganado!", "Alerta",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "¡Has ganado!", "Alerta", JOptionPane.WARNING_MESSAGE);
 					Battleship.getBattleship().noAvisarMas();
 					finalizarJuego();
 				}
@@ -821,14 +870,16 @@ public class TableroJuego extends JFrame implements Observer {
 			case "escudo":
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
-				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta, pero no la hemos tocado
+				// Sabemos que está, pero no la hemos tocado
+				tableroOrd[i][j].setBackground(Color.GREEN);
 				tableroOrd[i][j].setEnabled(true);
 				tableroOrd[i][j].setBorder(null);
 				break;
 			case "detectado":
 				i = Integer.parseInt(coordenada[0]);
 				j = Integer.parseInt(coordenada[1]);
-				tableroOrd[i][j].setBackground(Color.GREEN); // Sabemos que esta y que aún tiene escudo
+				// Sabemos que está y que aún tiene escudo
+				tableroOrd[i][j].setBackground(Color.GREEN);
 				tableroOrd[i][j].setEnabled(true);
 				break;
 			case "agua":
@@ -848,9 +899,10 @@ public class TableroJuego extends JFrame implements Observer {
 					i = Integer.parseInt(splitted[k].split(",")[0]);
 					j = Integer.parseInt(splitted[k].split(",")[1]);
 					System.out.println(tableroOrd[i][j].getBackground().toString());
-					if (!tableroOrd[i][j].getBackground().equals(Color.RED)&&
-							!tableroOrd[i][j].getBackground().equals(Color.YELLOW)) 
-						tableroOrd[i][j].setBackground(Color.GREEN); 
+					if (!tableroOrd[i][j].getBackground().equals(Color.RED)
+							&& !tableroOrd[i][j].getBackground().equals(Color.YELLOW)) {
+						tableroOrd[i][j].setBackground(Color.GREEN);
+					}
 					// Hemos detectado un barco nuevo
 				}
 			}
@@ -860,56 +912,59 @@ public class TableroJuego extends JFrame implements Observer {
 	private void finalizarJuego() {
 		setComponentsEnabled(this, false);
 	}
-	
+
 	private void setComponentsEnabled(java.awt.Container c, boolean en) {
-	    Component[] components = c.getComponents();
-	    for (Component comp: components) {
-	        if (comp instanceof java.awt.Container)
-	            setComponentsEnabled((java.awt.Container) comp, en);
-	        comp.setEnabled(en);
-	    }
+		Component[] components = c.getComponents();
+		for (Component comp : components) {
+			if (comp instanceof java.awt.Container)
+				setComponentsEnabled((java.awt.Container) comp, en);
+			comp.setEnabled(en);
+		}
 	}
 
 	public void marcarRadar() {
-		marcarAgua(radar[0],radar[1]);
-		marcarAgua(radar[0]-1,radar[1]);
-		marcarAgua(radar[0],radar[1]-1);
-		marcarAgua(radar[0]-1,radar[1]-1);
-		marcarAgua(radar[0]+1,radar[1]);
-		marcarAgua(radar[0],radar[1]+1);
-		marcarAgua(radar[0]+1,radar[1]+1);	
-		marcarAgua(radar[0]-1,radar[1]+1);
-		marcarAgua(radar[0]+1,radar[1]-1);
+		marcarAgua(radar[0], radar[1]);
+		marcarAgua(radar[0] - 1, radar[1]);
+		marcarAgua(radar[0], radar[1] - 1);
+		marcarAgua(radar[0] - 1, radar[1] - 1);
+		marcarAgua(radar[0] + 1, radar[1]);
+		marcarAgua(radar[0], radar[1] + 1);
+		marcarAgua(radar[0] + 1, radar[1] + 1);
+		marcarAgua(radar[0] - 1, radar[1] + 1);
+		marcarAgua(radar[0] + 1, radar[1] - 1);
 	}
 
 	private void marcarAgua(int i, int j) {
-		if(dentro(i,j) && !tableroOrd[i][j].getBackground().equals(Color.RED)&&
-				!tableroOrd[i][j].getBackground().equals(Color.YELLOW)&&
-				!tableroOrd[i][j].getBackground().equals(Color.GREEN)){
+		if (dentro(i, j) && !tableroOrd[i][j].getBackground().equals(Color.RED)
+				&& !tableroOrd[i][j].getBackground().equals(Color.YELLOW)
+				&& !tableroOrd[i][j].getBackground().equals(Color.GREEN)) {
 			tableroOrd[i][j].setBackground(Color.BLUE);
 			tableroOrd[i][j].setEnabled(false);
 		}
-		
 	}
 
 	private boolean dentro(int i, int j) {
-		if (i<DatosJuego.FILAS_TABLERO && i>=0 && j<DatosJuego.COLUMNAS_TABLERO && j>=0) return true;
-		else return false;
+		boolean dentro = false;
+		if (i < DatosJuego.FILAS_TABLERO && i >= 0 && j < DatosJuego.COLUMNAS_TABLERO && j >= 0) {
+			dentro = true;
+		}
+		return dentro;
 	}
 
 	public void actualizarCantidades() {
 		// Usuario
-		int [] cantidadesUsuario = Battleship.getBattleship().getUsuario().getCantidades();
+		int[] cantidadesUsuario = Battleship.getBattleship().getUsuario().getCantidades();
 		lblCantMisil.setText("Cantidad: " + cantidadesUsuario[0] + " ");
 		lblCantMisilNS.setText("Cantidad: " + cantidadesUsuario[1] + " ");
 		lblCantMisilEO.setText("Cantidad: " + cantidadesUsuario[2] + " ");
 		lblCantMisilBOOM.setText("Cantidad: " + cantidadesUsuario[3] + " ");
 		lblRadar.setText("Usos: " + cantidadesUsuario[4] + " ");
 		lblCantEscudo.setText("Cantidad: " + cantidadesUsuario[5] + " ");
+		lblDispReparar.setText("Disponibles: " + usosRepararDisponibles() + " ");
 		lblTurno.setText("Tienes " + Battleship.getBattleship().getDineroUsuario() + "$");
-		
+
 		// Ordenador
-		int [] cantidadesOrdenador = Battleship.getBattleship().getOrdenador().getCantidades();
+		int[] cantidadesOrdenador = Battleship.getBattleship().getOrdenador().getCantidades();
 		lblMisilesEne.setText("Misiles: " + cantidadesOrdenador[0] + " ");
 		lblMisilesNSEne.setText(" MisilesNS: " + cantidadesOrdenador[1] + " ");
 		lblMisilesEOEne.setText(" MisilesEO: " + cantidadesOrdenador[2] + " ");
@@ -920,14 +975,14 @@ public class TableroJuego extends JFrame implements Observer {
 
 	public void deshabilitarNS(JButton btn) {
 		String coor[] = btn.getName().split(",");
-		for (int y = 0; y<DatosJuego.FILAS_TABLERO; y++){
+		for (int y = 0; y < DatosJuego.FILAS_TABLERO; y++) {
 			tableroOrd[Integer.parseInt(coor[0])][y].setEnabled(false);
 		}
 	}
 
 	public void deshabilitarEO(JButton btn) {
 		String coor[] = btn.getName().split(",");
-		for (int x = 0; x<DatosJuego.COLUMNAS_TABLERO; x++){
+		for (int x = 0; x < DatosJuego.COLUMNAS_TABLERO; x++) {
 			tableroOrd[x][Integer.parseInt(coor[1])].setEnabled(false);
 		}
 	}

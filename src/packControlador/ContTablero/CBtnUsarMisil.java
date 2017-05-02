@@ -8,16 +8,16 @@ import javax.swing.JButton;
 import packModelo.DatosJuego;
 import packVista.TableroJuego;
 
-public class CBtnUsarMisil implements MouseListener{
+public class CBtnUsarMisil implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if(btn.isEnabled()){
+		if (btn.isEnabled()) {
 			TableroJuego.getTableroJuego().setArma(DatosJuego.NUM_MISIL);
 			TableroJuego.getTableroJuego().getLblArmamento().setText("Armamento seleccionado: Misil");
 		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 

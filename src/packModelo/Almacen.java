@@ -2,7 +2,7 @@ package packModelo;
 
 import java.util.Observable;
 
-public class Almacen extends Observable{
+public class Almacen extends Observable {
 
 	private static Almacen miAlmacen;
 	private Cantidades stock = new Cantidades();
@@ -14,8 +14,9 @@ public class Almacen extends Observable{
 	}
 
 	public static Almacen getAlmacen() {
-		if (miAlmacen == null)
+		if (miAlmacen == null) {
 			miAlmacen = new Almacen();
+		}
 		return miAlmacen;
 	}
 
@@ -51,14 +52,13 @@ public class Almacen extends Observable{
 		return puede;
 	}
 
-	
 	public void venderEscudo() {
 		stock.rmvEscudo();
 		info[0] = DatosJuego.NUM_ESCUDO;
 		info[1] = stock.getEscudo();
 		notificar();
 	}
-	
+
 	public void venderMisil() {
 		stock.rmvMisil();
 		info[0] = DatosJuego.NUM_MISIL;
@@ -66,9 +66,9 @@ public class Almacen extends Observable{
 		notificar();
 	}
 
-
 	public void venderMisilNS() {
-		stock.rmvMisilNS();;
+		stock.rmvMisilNS();
+		;
 		info[0] = DatosJuego.NUM_MISIL_NS;
 		info[1] = stock.getMisilNS();
 		notificar();
@@ -80,14 +80,14 @@ public class Almacen extends Observable{
 		info[1] = stock.getMisilEO();
 		notificar();
 	}
-	
+
 	public void venderMisilBOOM() {
 		stock.rmvMisilBOOM();
 		info[0] = DatosJuego.NUM_MISIL_BOOM;
 		info[1] = stock.getMisilBOOM();
 		notificar();
 	}
-	
+
 	private void notificar() {
 		setChanged();
 		notifyObservers(info);

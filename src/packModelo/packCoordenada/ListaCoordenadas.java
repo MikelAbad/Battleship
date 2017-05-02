@@ -28,12 +28,14 @@ public class ListaCoordenadas {
 	public boolean vacia() {
 		return listaCoordenadas.isEmpty();
 	}
-	
+
 	public Coordenada getRandomCo() {
-		if(listaCoordenadas.size()>1){
+		if (listaCoordenadas.size() > 1) {
 			Random rdn = new Random();
 			return listaCoordenadas.get(rdn.nextInt(listaCoordenadas.size() - 1));
-		}else return listaCoordenadas.get(0);
+		} else {
+			return listaCoordenadas.get(0);
+		}
 	}
 
 	public boolean estaEnLista(Coordenada pCoordenada) {
@@ -42,10 +44,6 @@ public class ListaCoordenadas {
 
 	public int numCoordenadas() {
 		return listaCoordenadas.size();
-	}
-
-	public void vaciar() {
-		listaCoordenadas = new ArrayList<Coordenada>();
 	}
 
 	public ArrayList<Coordenada> calcularAdyacentes() {
@@ -86,14 +84,17 @@ public class ListaCoordenadas {
 
 	public void addCoordenadas(ArrayList<Coordenada> pLista) {
 		for (Coordenada co : pLista) {
-			if (!esta(listaCoordenadas, co))
+			if (!esta(listaCoordenadas, co)) {
 				listaCoordenadas.add(co);
+			}
 		}
 	}
+
 	public void delCoordenadas(ArrayList<Coordenada> pLista) {
 		for (Coordenada co : pLista) {
-			if (esta(listaCoordenadas, co))
+			if (esta(listaCoordenadas, co)) {
 				listaCoordenadas.remove(co);
+			}
 		}
 	}
 

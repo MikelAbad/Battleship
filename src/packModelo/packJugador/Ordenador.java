@@ -54,18 +54,18 @@ public class Ordenador extends Jugador {
 				Battleship.getBattleship().setTurno(true);
 			} else if (mr > 0.95 && mr <= 1) { // 5% Radar
 				System.out.println("usar radar");
-				if (getRadar().puedeUsarRadar()) usarRadar();
+				if (getRadar().puedeUsarRadar())
+					usarRadar();
 				jugar();
 			}
 		}
-
 	}
-	
+
 	private void dispararBomba() {
 		Random rdn = new Random();
 		/*
-		 * Si la lista a donde disparar esta vacia dispara aleatoriamente a
-		 * una coordenada que no este en la lista donde no disparar
+		 * Si la lista a donde disparar esta vacia dispara aleatoriamente a una
+		 * coordenada que no este en la lista donde no disparar
 		 */
 		if (listDisparar.vacia()) {
 			boolean disparado = false;
@@ -87,7 +87,7 @@ public class Ordenador extends Jugador {
 			usarBomba(co);
 		}
 	}
-	
+
 	private void dispararMisil() {
 		Random rdn = new Random();
 		if (getArmamento().getMisil() >= 1) { // Si tiene misil dispara
@@ -148,7 +148,8 @@ public class Ordenador extends Jugador {
 				usarMisilNS(co);
 			}
 		} else { // Si no tiene misilNS, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL_NS)) { // Si puede comprar, lo usa
+			if (comprarArma(DatosJuego.NUM_MISIL_NS)) { // Si puede comprar, lo
+														// usa
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -169,7 +170,7 @@ public class Ordenador extends Jugador {
 			}
 		}
 	}
-	
+
 	private void dispararMisilEO() {
 		Random rdn = new Random();
 		if (getArmamento().getMisilEO() >= 1) { // Si tiene misilEO dispara
@@ -189,7 +190,8 @@ public class Ordenador extends Jugador {
 				usarMisilEO(co);
 			}
 		} else { // Si no tiene misilEO, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL_EO)) { // Si puede comprar, lo usa
+			if (comprarArma(DatosJuego.NUM_MISIL_EO)) { // Si puede comprar, lo
+														// usa
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -210,14 +212,14 @@ public class Ordenador extends Jugador {
 			}
 		}
 	}
-	
+
 	private void ponerseEscudo() {
 		System.out.println("intenta escudo");
 		Random rdn = new Random();
 		if (getArmamento().getEscudo() >= 1) { // Si tiene escudo se lo pone
 			boolean puesto = false;
 			int cont = 0;
-			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO*DatosJuego.COLUMNAS_TABLERO/2) {
+			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO * DatosJuego.COLUMNAS_TABLERO / 2) {
 				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
@@ -228,10 +230,11 @@ public class Ordenador extends Jugador {
 			if (puesto = false) {
 				dispararBomba();
 			}
-		} else if (comprarArma(DatosJuego.NUM_ESCUDO)) { // Si puede comprar, lo usa
+		} else if (comprarArma(DatosJuego.NUM_ESCUDO)) { // Si puede comprar, lo
+															// usa
 			boolean puesto = false;
 			int cont = 0;
-			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO*DatosJuego.COLUMNAS_TABLERO/2) {
+			while (!puesto && cont < DatosJuego.COLUMNAS_TABLERO * DatosJuego.COLUMNAS_TABLERO / 2) {
 				int x = rdn.nextInt(DatosJuego.COLUMNAS_TABLERO - 1);
 				int y = rdn.nextInt(DatosJuego.FILAS_TABLERO - 1);
 				Coordenada co = new Coordenada(x, y);
@@ -246,7 +249,7 @@ public class Ordenador extends Jugador {
 			dispararBomba();
 		}
 	}
-	
+
 	private void dispararMisilBOOM() {
 		Random rdn = new Random();
 		if (getArmamento().getMisilBOOM() >= 1) { // Si tiene misil dispara
@@ -266,7 +269,8 @@ public class Ordenador extends Jugador {
 				usarMisilBOOM(co);
 			}
 		} else { // Si no tiene misil, intenta comprar
-			if (comprarArma(DatosJuego.NUM_MISIL_BOOM)) { // Si puede comprar, lo usa
+			if (comprarArma(DatosJuego.NUM_MISIL_BOOM)) { // Si puede comprar,
+															// lo usa
 				if (listDisparar.vacia()) {
 					boolean disparado = false;
 					while (!disparado) {
@@ -295,7 +299,8 @@ public class Ordenador extends Jugador {
 
 	public void recibirEscaRadar() {
 		String infoRadar;
-		boolean detectado = false;;
+		boolean detectado = false;
+		;
 		infoRadar = "scan";
 		ArrayList<Coordenada> escaneadas = super.getRadar().escanear();
 		for (Coordenada co : escaneadas) {
@@ -304,7 +309,8 @@ public class Ordenador extends Jugador {
 				detectado = true;
 			}
 		}
-		if (detectado) notificarRadar(infoRadar);
+		if (detectado)
+			notificarRadar(infoRadar);
 	}
 
 	private void usarRadar() {
@@ -316,7 +322,7 @@ public class Ordenador extends Jugador {
 
 	public int tocarBarco(Coordenada pCoordenada) {
 		int resultado = 0;
-		try{
+		try {
 			switch (super.getListaBarcos().buscarBarco(pCoordenada).tocar(pCoordenada)) {
 			case 1:
 				String cambios = "tocada;" + pCoordenada.getX() + "," + pCoordenada.getY();
@@ -345,7 +351,7 @@ public class Ordenador extends Jugador {
 				notifyObservers(cambios111);
 				break;
 			}
-		}catch (BarcoNoEncException e){
+		} catch (BarcoNoEncException e) {
 			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
 			setChanged();
 			notifyObservers(cambios);
@@ -355,7 +361,7 @@ public class Ordenador extends Jugador {
 
 	public boolean destruirBarco(Coordenada pCoordenada) {
 		boolean dest = false;
-		try{
+		try {
 			if (super.getListaBarcos().buscarBarco(pCoordenada).destruir()) {
 				Barco barco = super.getListaBarcos().buscarBarco(pCoordenada);
 				String cambios = "destruido";
@@ -370,7 +376,7 @@ public class Ordenador extends Jugador {
 				setChanged();
 				notifyObservers(cambios);
 			}
-		}catch (BarcoNoEncException e){
+		} catch (BarcoNoEncException e) {
 			String cambios = "agua;" + pCoordenada.getX() + "," + pCoordenada.getY();
 			setChanged();
 			notifyObservers(cambios);
@@ -379,7 +385,7 @@ public class Ordenador extends Jugador {
 	}
 
 	private void usarBomba(Coordenada pCoordenada) {
-		System.out.println("bomba usada "+pCoordenada.getX()+","+pCoordenada.getY());
+		System.out.println("bomba usada " + pCoordenada.getX() + "," + pCoordenada.getY());
 		switch (Battleship.getBattleship().getUsuario().tocarBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
@@ -414,13 +420,14 @@ public class Ordenador extends Jugador {
 				getBarcosEneDest().addBarco(barco);
 				listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
 				listDisparar.delCoordenadas(barco.calcularAdyacentes());
-			} catch (BarcoNoEncException e) {}	
+			} catch (BarcoNoEncException e) {
+			}
 			break;
 		}
 	}
 
 	public void usarMisil(Coordenada pCoordenada) {
-		System.out.println("misil usado "+pCoordenada.getX()+","+pCoordenada.getY());
+		System.out.println("misil usado " + pCoordenada.getX() + "," + pCoordenada.getY());
 		switch (Battleship.getBattleship().getUsuario().destruirBarco(pCoordenada)) {
 		case 0:
 			listNoDisparar.addCoordenada(pCoordenada);
@@ -433,12 +440,18 @@ public class Ordenador extends Jugador {
 				getBarcosEneDest().addBarco(barco);
 				listNoDisparar.addCoordenadas(barco.calcularAdyacentes());
 				listDisparar.delCoordenadas(barco.calcularAdyacentes());
-			} catch (BarcoNoEncException e) {}
+			} catch (BarcoNoEncException e) {
+			}
 			break;
 		case 2:
 			listDisparar.addCoordenada(pCoordenada);
 			break;
 		}
 		super.getArmamento().rmvMisil();
+	}
+
+	public void usuarioReparado(Barco pBarco) {
+		ArrayList<Coordenada> coBarco = pBarco.getPosicion().getCoordenadas();
+		listNoDisparar.delCoordenadas(coBarco);
 	}
 }

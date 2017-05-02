@@ -32,7 +32,7 @@ public class Cantidades {
 	public void addMisil() {
 		this.misil++;
 	}
-	
+
 	public void rmvMisil() {
 		this.misil--;
 	}
@@ -44,7 +44,7 @@ public class Cantidades {
 	public void addMisilNS() {
 		this.misilNS++;
 	}
-	
+
 	public void rmvMisilNS() {
 		this.misilNS--;
 	}
@@ -56,7 +56,7 @@ public class Cantidades {
 	public void addMisilEO() {
 		this.misilEO++;
 	}
-	
+
 	public void rmvMisilEO() {
 		this.misilEO--;
 	}
@@ -68,7 +68,7 @@ public class Cantidades {
 	public void addMisilBOOM() {
 		this.misilBOOM++;
 	}
-	
+
 	public void rmvMisilBOOM() {
 		this.misilBOOM--;
 	}
@@ -80,7 +80,7 @@ public class Cantidades {
 	public void addEscudo() {
 		this.escudo++;
 	}
-	
+
 	public void rmvEscudo() {
 		this.escudo--;
 	}

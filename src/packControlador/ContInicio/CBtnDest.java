@@ -12,9 +12,11 @@ public class CBtnDest implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton btn = (JButton) e.getSource();
-		if (btn.isEnabled()) Inicio.getInicio().setTipo("Destructor");
+		if (btn.isEnabled()) {
+			Inicio.getInicio().setTipo("Destructor");
+		}
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {}
 
