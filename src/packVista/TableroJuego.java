@@ -254,7 +254,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JButton getBtnCompEscudo() {
 		if (btnCompEscudo == null) {
-			btnCompEscudo = new JButton("Escudo: " + DatosJuego.PRECIO_ESCUDO + "$");
+			btnCompEscudo = new JButton("Escudo " + DatosJuego.PRECIO_ESCUDO + "$");
 			btnCompEscudo.addMouseListener(new CBtnCompEscudo());
 		}
 		return btnCompEscudo;
@@ -278,7 +278,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JButton getBtnCompMisil() {
 		if (btnCompMisil == null) {
-			btnCompMisil = new JButton("Misil: " + DatosJuego.PRECIO_MISIL + "$");
+			btnCompMisil = new JButton("Misil " + DatosJuego.PRECIO_MISIL + "$");
 			btnCompMisil.addMouseListener(new CBtnCompMisil());
 		}
 		return btnCompMisil;
@@ -307,7 +307,7 @@ public class TableroJuego extends JFrame implements Observer {
 
 	private JButton getBtnCompMisilEO() {
 		if (btnCompMisilEO == null) {
-			btnCompMisilEO = new JButton("numMisilEO " + DatosJuego.PRECIO_MISIL_EO + "$");
+			btnCompMisilEO = new JButton("MisilEO " + DatosJuego.PRECIO_MISIL_EO + "$");
 			btnCompMisilEO.addMouseListener(new CBtnCompMisilEO());
 		}
 		return btnCompMisilEO;
